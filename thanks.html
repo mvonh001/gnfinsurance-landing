@@ -6,53 +6,69 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Thank you — GNF Insurance Agency</title>
 <style>
+  :root {
+    --navy:        #14456b;
+    --navy-deep:   #0e3453;
+    --navy-mid:    #1c5a8a;
+    --ink:         #17242e;
+    --muted:       #45525d;
+    --orange:      #c85f0a;
+    --orange-hi:   #a94f06;
+    --orange-line: #e07a1a;
+    --line:        #dce6f0;
+    --panel:       #f4f8fc;
+  }
   *, *::before, *::after { box-sizing: border-box; }
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 19px;
     line-height: 1.6;
-    color: #17242e;
-    background: #f6f9fc;
+    color: var(--ink);
+    background: #ffffff;
   }
+  svg { display: block; }
   .wrap { width: 100%; max-width: 640px; margin: 0 auto; padding: 0 20px; }
-  h1 { color: #0d2f4f; font-size: 2rem; line-height: 1.25; margin: 0 0 .4em; }
-  h2 { color: #0d5aa7; font-size: 1.3rem; margin: 1.4em 0 .4em; }
+  h1 { color: #fff; font-size: 2rem; line-height: 1.24; margin: 0 0 .4em; }
+  h2 { color: var(--navy); font-size: 1.3rem; margin: 1.4em 0 .4em; }
   p { margin: 0 0 1em; }
-  a { color: #0d5aa7; }
+  a { color: var(--navy-mid); }
 
   .hero {
-    background: linear-gradient(160deg, #0d2f4f 0%, #127a3d 100%);
     color: #fff;
-    padding: 46px 0;
+    padding: 56px 0 64px;
     text-align: center;
+    background:
+      radial-gradient(120% 130% at 85% -10%, rgba(224,122,26,.30) 0%, rgba(224,122,26,0) 48%),
+      linear-gradient(158deg, var(--navy-deep) 0%, var(--navy) 60%, var(--navy-mid) 100%);
   }
-  .hero h1 { color: #fff; }
-  .hero p { color: #e6f3ec; font-size: 1.2rem; margin: 0; }
+  .hero p { color: #e8f1fb; font-size: 1.2rem; margin: 0; }
   .check {
-    width: 74px; height: 74px;
+    width: 78px; height: 78px;
     border-radius: 50%;
-    background: rgba(255,255,255,.15);
+    background: rgba(255,255,255,.14);
     border: 2px solid rgba(255,255,255,.5);
     display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 18px;
-    font-size: 40px; color: #fff;
+    margin: 0 auto 20px;
+    color: #fff;
   }
+  .check svg { width: 40px; height: 40px; }
 
   .card {
     background: #fff;
-    border: 1px solid #dce6f0;
+    border: 1px solid var(--line);
+    border-top: 5px solid var(--orange-line);
     border-radius: 16px;
-    padding: 26px 22px;
-    margin: -28px 0 26px;
-    box-shadow: 0 6px 24px rgba(13,47,79,.08);
+    padding: 28px 24px;
+    margin: -34px 0 26px;
+    box-shadow: 0 10px 30px rgba(13,47,79,.12);
     position: relative;
   }
-  ol { padding-left: 22px; }
-  ol li { margin-bottom: 10px; }
+  ol { padding-left: 22px; margin: 0 0 1em; }
+  ol li { margin-bottom: 12px; }
 
   .btn {
-    display: inline-block;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
     width: 100%;
     text-align: center;
     padding: 18px 22px;
@@ -61,22 +77,24 @@
     border-radius: 12px;
     text-decoration: none;
     min-height: 60px;
-    background: #127a3d;
+    background: var(--orange);
     color: #fff;
     margin-top: 10px;
+    box-shadow: 0 6px 16px rgba(200,95,10,.28);
   }
-  .btn:hover, .btn:focus { background: #0e6532; }
+  .btn:hover, .btn:focus { background: var(--orange-hi); }
+  .btn .ico { width: 22px; height: 22px; flex: 0 0 auto; }
 
-  section { padding: 34px 0; }
+  section { padding: 34px 0 40px; }
 
   footer {
-    background: #0d2f4f;
+    background: var(--navy-deep);
     color: #cbdaea;
-    padding: 30px 0 36px;
+    padding: 34px 0 40px;
     font-size: .95rem;
     text-align: center;
   }
-  footer a { color: #ffd98a; }
+  footer a { color: #ffd08a; }
   .disclaim { font-weight: 700; color: #fff; }
   .backlink { display: inline-block; margin-top: 8px; }
 </style>
@@ -85,7 +103,9 @@
 
 <div class="hero">
   <div class="wrap">
-    <div class="check" aria-hidden="true">&#10003;</div>
+    <div class="check" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
     <h1>Thank you — we've got it.</h1>
     <p>Your free plan review request is on its way to a licensed agent.</p>
   </div>
@@ -103,7 +123,10 @@
 
       <h2>Prefer to talk now?</h2>
       <p>You're welcome to call us directly — we're happy to help.</p>
-      <a class="btn" href="tel:GOOGLE_VOICE_NUMBER">Call now: GOOGLE_VOICE_NUMBER</a>
+      <a class="btn" href="tel:GOOGLE_VOICE_NUMBER">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call now: GOOGLE_VOICE_NUMBER
+      </a>
     </div>
 
     <p style="text-align:center;">
