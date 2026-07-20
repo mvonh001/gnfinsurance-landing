@@ -122,6 +122,11 @@ select:focus-visible, .nav-toggle-btn:focus-visible {
   white-space: nowrap; opacity: .88;
 }
 @media (max-width: 640px) { .carrier-strip { gap: 20px 36px; } .carrier-logo { height: 28px; } .carrier-logo-tall { height: 36px; } .carrier-name { font-size: 1.25rem; } }
+@media (min-width: 1080px) {
+  .carriers .wrap-wide { max-width: 1320px; }
+  .carrier-strip { flex-wrap: nowrap; justify-content: space-between; gap: 24px; }
+  .carrier-name { font-size: 1.4rem; }
+}
 
 /* ---------- Section rhythm: alternating bands ---------- */
 section, .band { padding: var(--sp-7) 0; }
