@@ -380,6 +380,16 @@
       }).catch(function () {});
     } catch (e) {}
 
+    // Destination 3: the BHB CRM lead-funnel intake (fire-and-forget; same
+    // origin, no CORS). Never blocks or breaks the primary submission below.
+    try {
+      fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).catch(function () {});
+    } catch (e) {}
+
     // Destination 1 (primary): the Google Sheet via Apps Script.
     // text/plain avoids a CORS preflight; Apps Script parses the JSON body.
     fetch(APPS_SCRIPT_URL, {
