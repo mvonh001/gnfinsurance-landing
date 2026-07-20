@@ -361,6 +361,25 @@
       return;
     }
 
+    // Destination 2: instant email notification via FormSubmit (fire-and-forget;
+    // never blocks or breaks the primary submission below).
+    try {
+      fetch("https://formsubmit.co/ajax/leads@bayharborbenefits.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          _subject: "NEW LEAD: " + payload.name + " - " + payload.phone,
+          _template: "table",
+          name: payload.name,
+          phone: payload.phone,
+          zip: payload.zip,
+          concern: payload.concern,
+          source: payload.source
+        })
+      }).catch(function () {});
+    } catch (e) {}
+
+    // Destination 1 (primary): the Google Sheet via Apps Script.
     // text/plain avoids a CORS preflight; Apps Script parses the JSON body.
     fetch(APPS_SCRIPT_URL, {
       method: "POST",
