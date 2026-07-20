@@ -333,7 +333,8 @@ a[href^="tel:"] { overflow-wrap: anywhere; }
   backdrop-filter: blur(2px);
 }
 .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange-line); flex: 0 0 auto; }
-.hero-cta { max-width: 460px; margin-left: auto; margin-right: auto; }
+.hero-cta { display: flex; flex-direction: column; gap: 14px; max-width: 460px; margin-left: auto; margin-right: auto; }
+.hero-cta .btn-call { margin-top: 0; }
 .hero-grid { display: grid; gap: var(--sp-5); align-items: center; position: relative; }
 .hero-photo { max-width: 540px; margin: 6px auto 0; }
 .hero-photo img {
@@ -634,7 +635,7 @@ input:focus, select:focus { outline: 3px solid #9cc4ee; border-color: var(--navy
 @media (min-width: 640px) {
   .hero { padding: var(--sp-8) 0 calc(var(--sp-8) + 8px); }
   .hero .btn { width: auto; min-width: 250px; }
-  .hero .btn-call { margin-top: 0; margin-left: 12px; }
+  .hero-cta { flex-direction: row; align-items: center; max-width: none; }
   .steps { grid-template-columns: repeat(3, 1fr); }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .service-cards { grid-template-columns: repeat(2, 1fr); }
