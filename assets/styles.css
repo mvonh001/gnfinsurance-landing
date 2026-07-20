@@ -315,14 +315,14 @@ a[href^="tel:"] { overflow-wrap: anywhere; }
   }
   .site-nav a {
     min-height: auto;
-    padding: 10px 12px;
-    font-size: .98rem;
+    padding: 12px 14px;
+    font-size: 1.18rem;
     border-bottom: 0;
     border-radius: var(--radius-sm);
     transition: background var(--ease), color var(--ease);
   }
   .site-nav a:not(.nav-cta):hover, .site-nav a:not(.nav-cta):focus-visible { background: var(--panel-alt); }
-  .site-nav a.nav-cta { margin: 0 0 0 10px; padding: 13px 22px; min-height: auto; }
+  .site-nav a.nav-cta { margin: 0 0 0 10px; padding: 16px 26px; min-height: auto; }
   .brand-mark { height: 64px; width: 64px; }
   .brand-name { font-size: 2rem; }
   .brand-sub { font-size: .92rem; }
