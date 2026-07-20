@@ -475,12 +475,13 @@ a[href^="tel:"] { overflow-wrap: anywhere; }
     linear-gradient(150deg, var(--navy) 0%, var(--navy-deep) 100%);
   color: #fff;
 }
-.phoneband .wrap { padding-top: var(--sp-5); padding-bottom: var(--sp-5); position: relative; z-index: 1; }
+.phoneband .wrap, .phoneband .wrap-wide { padding-top: var(--sp-5); padding-bottom: var(--sp-5); position: relative; z-index: 1; }
 .phoneband-inner { display: grid; gap: var(--sp-3); align-items: center; }
 .phoneband h2 { color: #fff; margin-bottom: .25em; }
 .phoneband p { color: #dbe8f5; margin: 0; }
 .phoneband .btn { width: 100%; }
-.phoneband-actions { display: grid; gap: 12px; }
+.phoneband-actions { display: grid; gap: 12px; align-items: center; }
+.phoneband-actions .btn { margin-top: 0; }
 
 /* ---------- Form ---------- */
 .formwrap {
