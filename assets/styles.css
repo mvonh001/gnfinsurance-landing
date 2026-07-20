@@ -106,14 +106,22 @@ select:focus-visible, .nav-toggle-btn:focus-visible {
   border-radius: 4px;
 }
 
-/* ---------- Carrier banner strip ---------- */
-.carriers { background: var(--white); border-bottom: 1px solid var(--line-soft); padding: var(--sp-4) 0 var(--sp-5); }
-.carriers-kicker {
-  text-align: center; font-size: .82rem; font-weight: 700; letter-spacing: .22em;
-  text-transform: uppercase; color: var(--muted-2); margin: 0 0 18px;
+/* ---------- Carrier banner (monochrome logo treatment) ---------- */
+.carriers { background: var(--panel); border-bottom: 1px solid var(--line-soft); padding: var(--sp-6) 0; }
+.carriers .section-head { margin-bottom: var(--sp-4); }
+.carriers-title { font-size: var(--fs-h2); }
+.carrier-strip { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 26px 56px; }
+.carrier-logo {
+  height: 34px; width: auto; display: block;
+  filter: brightness(0) invert(19%) sepia(21%) saturate(1400%) hue-rotate(178deg) brightness(94%);
+  opacity: .88;
 }
-.carrier-strip { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px 48px; }
-.carrier-name { font-weight: 800; font-size: 1.28rem; color: #5d6f80; letter-spacing: -.01em; white-space: nowrap; }
+.carrier-logo-tall { height: 44px; }
+.carrier-name {
+  font-weight: 800; font-size: 1.5rem; color: #23425f; letter-spacing: -.015em;
+  white-space: nowrap; opacity: .88;
+}
+@media (max-width: 640px) { .carrier-strip { gap: 20px 36px; } .carrier-logo { height: 28px; } .carrier-logo-tall { height: 36px; } .carrier-name { font-size: 1.25rem; } }
 
 /* ---------- Section rhythm: alternating bands ---------- */
 section, .band { padding: var(--sp-7) 0; }
