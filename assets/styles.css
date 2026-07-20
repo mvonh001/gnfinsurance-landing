@@ -205,8 +205,11 @@ a[href^="tel:"] { overflow-wrap: anywhere; }
   gap: var(--sp-2);
   padding: 12px 0;
 }
-.brand { display: inline-flex; align-items: center; text-decoration: none; }
-.brand-logo { display: block; height: 56px; width: auto; }
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand-mark { display: block; height: 52px; width: 52px; flex: 0 0 auto; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.02; }
+.brand-name { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; color: var(--navy); font-size: 1.6rem; letter-spacing: -.01em; }
+.brand-sub { color: var(--orange-hi); font-size: .8rem; font-weight: 700; letter-spacing: .34em; text-transform: uppercase; margin-top: 3px; }
 
 .nav-toggle-btn {
   display: inline-flex;
@@ -290,7 +293,9 @@ a[href^="tel:"] { overflow-wrap: anywhere; }
   }
   .site-nav a:not(.nav-cta):hover, .site-nav a:not(.nav-cta):focus-visible { background: var(--panel-alt); }
   .site-nav a.nav-cta { margin: 0 0 0 10px; padding: 13px 22px; min-height: auto; }
-  .brand-logo { height: 68px; }
+  .brand-mark { height: 64px; width: 64px; }
+  .brand-name { font-size: 2rem; }
+  .brand-sub { font-size: .92rem; }
   .site-nav a.nav-cta:hover, .site-nav a.nav-cta:focus-visible { transform: translateY(-1px); box-shadow: var(--shadow-btn-hi); }
 }
 
