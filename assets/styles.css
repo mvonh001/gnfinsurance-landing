@@ -106,27 +106,32 @@ select:focus-visible, .nav-toggle-btn:focus-visible {
   border-radius: 4px;
 }
 
-/* ---------- Carrier banner (monochrome logo treatment) ---------- */
-.carriers { background: var(--panel); border-bottom: 1px solid var(--line-soft); padding: var(--sp-6) 0; }
-.carriers .section-head { margin-bottom: var(--sp-4); }
-.carriers-title { font-size: var(--fs-h2); }
-.carrier-strip { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 26px 56px; }
+/* ---------- Carriers: independence section ---------- */
 .carrier-logo {
-  height: 34px; width: auto; display: block;
+  height: 30px; width: auto; display: block;
   filter: brightness(0) invert(19%) sepia(21%) saturate(1400%) hue-rotate(178deg) brightness(94%);
   opacity: .88;
 }
-.carrier-logo-tall { height: 44px; }
+.carrier-logo-tall { height: 38px; }
 .carrier-name {
-  font-weight: 800; font-size: 1.5rem; color: #23425f; letter-spacing: -.015em;
+  font-weight: 800; font-size: 1.22rem; color: #23425f; letter-spacing: -.015em;
   white-space: nowrap; opacity: .88;
 }
-@media (max-width: 640px) { .carrier-strip { gap: 20px 36px; } .carrier-logo { height: 28px; } .carrier-logo-tall { height: 36px; } .carrier-name { font-size: 1.25rem; } }
-@media (min-width: 1080px) {
-  .carriers .wrap-wide { max-width: 1320px; }
-  .carrier-strip { flex-wrap: nowrap; justify-content: space-between; gap: 24px; }
-  .carrier-name { font-size: 1.4rem; }
+.carrier-section { border-top: 1px solid var(--line-soft); }
+.carrier-cols { display: grid; gap: var(--sp-5); align-items: center; }
+.rule-left { margin: 0 0 20px; }
+.carrier-copy h2 { margin-bottom: .4em; }
+.carrier-copy p { color: var(--muted); font-size: var(--fs-lg); max-width: 34em; }
+.carrier-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.carrier-card {
+  background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--radius-md);
+  min-height: 92px; display: flex; align-items: center; justify-content: center; padding: 18px;
 }
+@media (min-width: 900px) { .carrier-cols { grid-template-columns: 1fr 1.1fr; } .carrier-cards { grid-template-columns: repeat(3, 1fr); } }
+
+/* ---------- Trust row: single line on desktop ---------- */
+.trust .wrap { max-width: 1160px; }
+@media (min-width: 1080px) { .trust-inner { flex-wrap: nowrap; } .chip { white-space: nowrap; } }
 
 /* ---------- Section rhythm: alternating bands ---------- */
 section, .band { padding: var(--sp-7) 0; }
