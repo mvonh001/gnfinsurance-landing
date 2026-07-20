@@ -335,7 +335,7 @@ a[href^="tel:"] { overflow-wrap: anywhere; }
 .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange-line); flex: 0 0 auto; }
 .hero-cta { max-width: 460px; margin-left: auto; margin-right: auto; }
 .hero-grid { display: grid; gap: var(--sp-5); align-items: center; position: relative; }
-.hero-photo { max-width: 420px; margin: 6px auto 0; }
+.hero-photo { max-width: 540px; margin: 6px auto 0; }
 .hero-photo img {
   display: block; width: 100%; height: auto;
   border-radius: var(--radius-lg);
@@ -644,7 +644,7 @@ input:focus, select:focus { outline: 3px solid #9cc4ee; border-color: var(--navy
   .footer-grid { grid-template-columns: 1.3fr 1fr 1fr; }
 }
 @media (min-width: 900px) {
-  .hero-grid { grid-template-columns: 1.08fr .92fr; gap: var(--sp-6); text-align: left; }
+  .hero-grid { grid-template-columns: .95fr 1.05fr; gap: var(--sp-7); text-align: left; }
   .hero-grid h1, .hero-grid p.sub { margin-left: 0; }
   .hero-grid .hero-cta { margin-left: 0; }
   .hero-grid .hero-photo { max-width: none; margin: 0; }
