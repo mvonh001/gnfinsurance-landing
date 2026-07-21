@@ -532,7 +532,7 @@ a[href^="tel:"] { overflow-wrap: anywhere; }
   box-shadow: var(--shadow-md);
 }
 label { display: block; font-weight: 700; margin: 18px 0 6px; color: var(--navy); }
-input[type="text"], input[type="tel"], select {
+input[type="text"], input[type="tel"], input[type="date"], select {
   width: 100%;
   font-size: 1.1rem;
   font-family: inherit;

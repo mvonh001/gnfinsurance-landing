@@ -203,6 +203,9 @@
         <input type="text" id="zip" name="zip" autocomplete="postal-code" inputmode="numeric" maxlength="10" placeholder="33154" required>
         <p class="err" id="err-zip">Please enter a valid 5-digit ZIP code.</p>
 
+        <label for="dob">Date of birth (optional — helps us time your enrollment windows)</label>
+        <input type="date" id="dob" name="dob" autocomplete="bday">
+
         <label for="concern">What's on your mind?</label>
         <select id="concern" name="concern" required>
           <option value="" selected disabled>Choose one…</option>
@@ -346,6 +349,7 @@
       name: form.name.value.trim(),
       phone: form.phone.value.trim(),
       zip: form.zip.value.trim(),
+      dob: form.dob.value || "",
       concern: form.concern.value,
       source: form.source.value || "organic"
     };
@@ -374,6 +378,7 @@
           name: payload.name,
           phone: payload.phone,
           zip: payload.zip,
+          dob: payload.dob,
           concern: payload.concern,
           source: payload.source
         })
