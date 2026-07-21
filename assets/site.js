@@ -53,6 +53,84 @@
     });
   }
 
+  // ---- Hero carousel: rotating headline+body+photo, CTAs/chips fixed ----
+  // URL pin: ?v=meds|t65|local|review shows one variant statically (no
+  // rotation) instead of the normal 8s rotation, so an ad or search result
+  // can land a visitor on the exact message that matches what they clicked.
+  //   ?v=meds   -> slide 0 (doctors & medications trust — default)
+  //   ?v=t65    -> slide 1 (turning 65)
+  //   ?v=local  -> slide 2 (independent local agent, not a call center)
+  //   ?v=review -> slide 3 (annual coverage review)
+  // No param, or an unrecognized value -> normal rotation from slide 0.
+  var heroRotator = document.querySelector("[data-hero-rotator]");
+  var heroPhotoRotator = document.querySelector("[data-hero-photo-rotator]");
+  var heroDotsWrap = document.querySelector("[data-hero-dots]");
+  if (heroRotator && heroPhotoRotator && heroDotsWrap) {
+    var heroSlides = Array.prototype.slice.call(heroRotator.querySelectorAll("[data-hero-slide]"));
+    var heroPhotos = Array.prototype.slice.call(heroPhotoRotator.querySelectorAll("[data-hero-photo]"));
+    var heroDots = Array.prototype.slice.call(heroDotsWrap.querySelectorAll("[data-hero-goto]"));
+    var HERO_PIN_MAP = { meds: 0, t65: 1, local: 2, review: 3 };
+    var HERO_INTERVAL_MS = 8000;
+    var heroTimer = null;
+    var heroIndex = 0;
+    var heroPinned = false;
+
+    var setHeroSlide = function (index) {
+      heroIndex = index;
+      heroSlides.forEach(function (el, i) {
+        var active = i === index;
+        el.classList.toggle("is-active", active);
+        el.setAttribute("aria-hidden", active ? "false" : "true");
+      });
+      heroPhotos.forEach(function (el, i) {
+        el.classList.toggle("is-active", i === index);
+      });
+      heroDots.forEach(function (el, i) {
+        var active = i === index;
+        el.classList.toggle("is-active", active);
+        if (active) { el.setAttribute("aria-current", "true"); } else { el.removeAttribute("aria-current"); }
+      });
+    };
+
+    var stopHeroRotation = function () {
+      if (heroTimer) { window.clearInterval(heroTimer); heroTimer = null; }
+    };
+    var startHeroRotation = function () {
+      if (heroPinned || reduceMotion || heroSlides.length < 2) { return; }
+      stopHeroRotation();
+      heroTimer = window.setInterval(function () {
+        setHeroSlide((heroIndex + 1) % heroSlides.length);
+      }, HERO_INTERVAL_MS);
+    };
+
+    var heroParams = new URLSearchParams(window.location.search);
+    var heroPin = heroParams.get("v");
+    if (heroPin && HERO_PIN_MAP.hasOwnProperty(heroPin)) {
+      heroPinned = true;
+      setHeroSlide(HERO_PIN_MAP[heroPin]);
+    } else {
+      setHeroSlide(0);
+      startHeroRotation();
+    }
+
+    heroDots.forEach(function (dot, i) {
+      dot.addEventListener("click", function () {
+        setHeroSlide(i);
+        startHeroRotation(); // no-op while pinned or reduced-motion
+      });
+    });
+
+    var heroSection = document.querySelector(".hero");
+    if (heroSection) {
+      heroSection.addEventListener("mouseenter", stopHeroRotation);
+      heroSection.addEventListener("mouseleave", startHeroRotation);
+      heroSection.addEventListener("focusin", stopHeroRotation);
+      heroSection.addEventListener("focusout", function (ev) {
+        if (!heroSection.contains(ev.relatedTarget)) { startHeroRotation(); }
+      });
+    }
+  }
+
   // ---- Reveal-on-scroll ----
   var revealEls = document.querySelectorAll(".reveal");
   if (revealEls.length) {

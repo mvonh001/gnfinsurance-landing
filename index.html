@@ -46,7 +46,7 @@
 <a class="skip" href="#main">Skip to main content</a>
 
 <div class="topbar">
-  <a href="tel:+13058591704">Call now for a free plan review: (305) 859-1704</a>
+  <a href="tel:+13058591704">Free plan review: <span class="nowrap">(305) 859-1704</span></a>
 </div>
 
 <header class="site-header">
@@ -73,24 +73,59 @@
 <main id="main">
 
 <!-- ============ HERO ============ -->
+<!-- Hero carousel: 4 complete variants (headline + body + photo) cross-fade
+     together as a set. CTAs, trust chips and the badge above never rotate —
+     conversion-critical elements stay constant. See assets/site.js for the
+     rotation/pin logic and a full source/license note for each photo. -->
 <section class="hero">
   <img class="hero-watermark" src="assets/bhb_logo_mark_v2_sunright.svg" alt="" aria-hidden="true">
   <div class="wrap-wide hero-grid">
     <div class="hero-copy">
       <span class="badge"><span class="dot"></span>Licensed independent insurance agency · Bay Harbor Islands, FL</span>
-      <h1>Medicare guidance built around the doctors and medications you already trust.</h1>
-      <p class="sub">Bay Harbor Benefits is an independent Medicare insurance agency serving all of Miami-Dade County. Every plan review starts with your doctors and your medications, checked as of today — before you decide on anything.</p>
+      <div class="hero-rotator" data-hero-rotator>
+        <div class="hero-slide is-active" data-hero-slide="0">
+          <h1>Medicare guidance built around the doctors and medications you already trust.</h1>
+          <p class="sub">Bay Harbor Benefits is an independent Medicare insurance agency serving all of Miami-Dade County. Every plan review starts with your doctors and your medications, checked as of today — before you decide on anything.</p>
+        </div>
+        <div class="hero-slide" data-hero-slide="1" aria-hidden="true">
+          <h1>Turning 65? Start with a plan built around your life.</h1>
+          <p class="sub">The months around your 65th birthday come with real decisions. A local licensed insurance agent walks you through your enrollment window, your options, and what happens when — step by step, in plain English.</p>
+        </div>
+        <div class="hero-slide" data-hero-slide="2" aria-hidden="true">
+          <h1>A local agent. Not a call center.</h1>
+          <p class="sub">Bay Harbor Benefits is an independent agency representing 6 carriers across Miami-Dade. One person learns your situation, checks your doctors and medications, and picks up when you call back.</p>
+        </div>
+        <div class="hero-slide" data-hero-slide="3" aria-hidden="true">
+          <h1>When did you last look at your coverage?</h1>
+          <p class="sub">Plans change every year — networks, medications, extras. A short annual review with a licensed insurance agent keeps your coverage matched to your life. No obligation to change anything.</p>
+        </div>
+      </div>
       <div class="hero-cta">
         <a class="btn btn-primary" href="review.html">Get my free plan review</a>
-        <a class="btn btn-call btn-inline" href="tel:+13058591704">
+        <a class="btn btn-call btn-inline btn-nowrap" href="tel:+13058591704">
           <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          Call now: (305) 859-1704
+          Call (305) 859-1704
         </a>
+      </div>
+      <div class="hero-dots" data-hero-dots role="group" aria-label="Hero highlights">
+        <button type="button" class="hero-dot is-active" data-hero-goto="0" aria-current="true" aria-label="Highlight 1 of 4: doctors and medications"></button>
+        <button type="button" class="hero-dot" data-hero-goto="1" aria-label="Highlight 2 of 4: turning 65"></button>
+        <button type="button" class="hero-dot" data-hero-goto="2" aria-label="Highlight 3 of 4: independent local agent"></button>
+        <button type="button" class="hero-dot" data-hero-goto="3" aria-label="Highlight 4 of 4: annual coverage review"></button>
       </div>
     </div>
     <div class="hero-photo">
-      <!-- Photo: Pexels #8441854 (Kampus Production), Pexels license — free for commercial use, no attribution required -->
-      <img src="hero.jpg" width="880" height="660" alt="A couple smiling together while reviewing their Medicare plan options at home">
+      <!-- Photos, all Pexels/Unsplash license — free for commercial use, no attribution required:
+           1: Unsplash photo-1763573676689-bf2d7b474208 (Chris Thornton)
+           2: Pexels #3754682 (Andrea Piacquadio / @olly)
+           3: Pexels #32818696 (Phyllis Lilienthal)
+           4: Pexels #6975185 (Leish) -->
+      <div class="hero-photo-rotator" data-hero-photo-rotator>
+        <img class="hero-photo-slide is-active" data-hero-photo="0" src="hero.jpg" width="1600" height="1200" fetchpriority="high" alt="A senior couple laughing together at home">
+        <img class="hero-photo-slide" data-hero-photo="1" src="assets/hero2.jpg" width="1600" height="1200" loading="lazy" alt="A senior man smiling while on a phone call outdoors with his laptop open in front of him">
+        <img class="hero-photo-slide" data-hero-photo="2" src="assets/hero3.jpg" width="1600" height="1200" loading="lazy" alt="A senior couple walking hand in hand along a Florida beach">
+        <img class="hero-photo-slide" data-hero-photo="3" src="assets/hero4.jpg" width="1600" height="1200" loading="lazy" alt="A senior couple looking closely together at something in their kitchen">
+      </div>
     </div>
   </div>
 </section>
@@ -231,6 +266,9 @@
     <span class="carrier-soon-label">On the horizon — life insurance:</span>
     <span class="carrier-soon-names">Mutual of Omaha &middot; Aetna Accendo &middot; Guarantee Trust Life (GTL)</span>
   </div>
+  <div class="wrap-wide tpmo-band">
+    <p>We do not offer every plan available in your area. Currently we represent 6 organizations which offer 5&ndash;100 products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Assistance Program (SHIP) to get information on all of your options.</p>
+  </div>
 </section>
 
 <!-- ============ ABOUT PREVIEW ============ -->
@@ -305,7 +343,7 @@
 
   <div class="footer-compliance">
     <div class="wrap-wide">
-      <p class="tpmo-footer">We do not offer every plan available in your area. Currently we represent 3&ndash;10 organizations which offer 5&ndash;100 products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Assistance Program (SHIP) to get information on all of your options.</p>
+      <p class="tpmo-footer">We do not offer every plan available in your area. Currently we represent 6 organizations which offer 5&ndash;100 products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Assistance Program (SHIP) to get information on all of your options.</p>
       <p class="disclaim">Not affiliated with or endorsed by the government or the federal Medicare program.</p>
       <p class="disclaim">This is a solicitation for insurance.</p>
       <p class="disclaim">Enrollment in a plan may be limited to certain times of the year unless you qualify for a special enrollment period or you are in your Medicare Initial Election Period.</p>
