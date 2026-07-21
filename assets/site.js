@@ -61,7 +61,9 @@
   //   ?v=t65    -> slide 1 (turning 65)
   //   ?v=local  -> slide 2 (independent local agent, not a call center)
   //   ?v=review -> slide 3 (annual coverage review)
-  // No param, or an unrecognized value -> normal rotation from slide 0.
+  // No param, or an unrecognized value -> RANDOM starting slide, then normal
+  // rotation (operator 2026-07-21: each visit opens on a random variant
+  // unless an ad's pin parameter directs the message).
   var heroRotator = document.querySelector("[data-hero-rotator]");
   var heroPhotoRotator = document.querySelector("[data-hero-photo-rotator]");
   var heroDotsWrap = document.querySelector("[data-hero-dots]");
@@ -109,7 +111,7 @@
       heroPinned = true;
       setHeroSlide(HERO_PIN_MAP[heroPin]);
     } else {
-      setHeroSlide(0);
+      setHeroSlide(Math.floor(Math.random() * heroSlides.length));
       startHeroRotation();
     }
 
