@@ -77,7 +77,13 @@
     var heroIndex = 0;
     var heroPinned = false;
 
+    var hydrateHeroPhoto = function (index) {
+      var img = heroPhotos[index];
+      if (img && img.dataset && img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; }
+    };
     var setHeroSlide = function (index) {
+      hydrateHeroPhoto(index);
+      hydrateHeroPhoto((index + 1) % heroPhotos.length); // pre-warm the next slide only
       heroIndex = index;
       heroSlides.forEach(function (el, i) {
         var active = i === index;

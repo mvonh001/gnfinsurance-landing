@@ -876,3 +876,12 @@ input:focus, select:focus { outline: 3px solid #9cc4ee; border-color: var(--navy
 @media (min-width: 1080px) {
   .hero-grid .hero-photo-rotator { transform: scale(1.1); transform-origin: center; }
 }
+
+/* Persistent call pill — CRO fix #1: the number never leaves the screen (2026-07-21) */
+.call-pill { position: fixed; right: 16px; bottom: 16px; z-index: 999; display: inline-flex; align-items: center; gap: 8px;
+  background: var(--orange, #e8721c); color: #fff; font-weight: 700; font-size: 1.02rem; text-decoration: none;
+  padding: 13px 20px; border-radius: 999px; box-shadow: 0 4px 18px rgba(0,0,0,.28); white-space: nowrap;
+  padding-bottom: max(13px, env(safe-area-inset-bottom, 13px)); }
+.call-pill:hover { filter: brightness(1.06); }
+.call-pill svg { width: 18px; height: 18px; flex: none; }
+@media (max-width: 480px) { .call-pill { font-size: .98rem; padding: 12px 16px; } }
