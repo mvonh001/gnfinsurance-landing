@@ -12,13 +12,13 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [ ] AEP-prep: "The Annual Enrollment Period is coming — what Oct 15 to Dec 7 actually lets you do" (window: Sept 1–Oct 14)
 - [ ] AEP-live: "AEP is open: a calm checklist for reviewing your plan before Dec 7" (window: Oct 15–Nov 25)
 - [ ] OEP: "Enrolled in a Medicare Advantage plan and having second thoughts? The Jan 1–Mar 31 window explained" (window: Dec 26–Mar 1)
-- [ ] Hurricane-SEP: "Hurricanes and your Medicare: the disaster Special Enrollment Period Florida seniors should know" (window: Jun 1–Sep 30)
+- [q] Hurricane-SEP: "Hurricanes and your Medicare: the disaster Special Enrollment Period Florida seniors should know" (window: Jun 1–Sep 30) — QUEUED 2026-07-21 · hurricanes-and-your-medicare-disaster-sep
 - [ ] Snowbird-fall: "Snowbirds and Medicare: what splitting the year between states means for your coverage" (window: Sept–Nov)
 - [ ] New-year: "New year, new plan: making sure your doctors and medications carried over" (window: Jan 1–31)
 
 ## EVERGREEN — general
-- [ ] Medicare & the 20-employee rule: how employer size decides whether you enroll at 65
-- [ ] The Part B late-enrollment penalty, explained as percentages (and how to never owe it)
+- [q] Medicare & the 20-employee rule: how employer size decides whether you enroll at 65 — QUEUED 2026-07-21 · medicare-and-the-20-employee-rule
+- [q] The Part B late-enrollment penalty, explained as percentages (and how to never owe it) — QUEUED 2026-07-21 · the-part-b-late-enrollment-penalty-explained
 - [ ] The Part D late-enrollment penalty and the "creditable coverage" letter you shouldn't throw away
 - [ ] COBRA and Medicare: the trap almost nobody warns you about
 - [ ] HSAs and Medicare: why the six-month lookback matters if you're still contributing
@@ -41,7 +41,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [ ] Hospital observation status vs admitted: the billing difference that surprises people
 
 ## EVERGREEN — local / Miami flavor
-- [ ] Turning 65 in Miami-Dade: the local resources nobody tells you about (SHIP/SHINE, Medicare.gov, and a local agent)
+- [q] Turning 65 in Miami-Dade: the local resources nobody tells you about (SHIP/SHINE, Medicare.gov, and a local agent) — QUEUED 2026-07-21 · turning-65-in-miami-dade-local-resources
 - [ ] Helping your Spanish-speaking parents navigate Medicare: a bilingual family guide (English post)
 - [ ] Why Miami seniors should review provider networks yearly (hospital systems shift — no names)
 - [ ] Retiring to Florida: moving your Medicare when you become a Florida resident
