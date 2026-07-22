@@ -410,7 +410,7 @@ a[href^="tel:"] { overflow-wrap: anywhere; }
 .hero-dot:hover::after, .hero-dot:focus-visible::after { background: rgba(255,255,255,.7); }
 .hero-dot.is-active::after { background: var(--orange-line); border-color: var(--orange-line); transform: scale(1.35); }
 
-.hero-photo { max-width: 594px; margin: 6px auto 0; min-width: 0; }
+.hero-photo { max-width: 540px; margin: 6px auto 0; min-width: 0; }
 .hero-photo-rotator {
   display: grid;
   min-width: 0;
@@ -742,7 +742,7 @@ input:focus, select:focus { outline: 3px solid #9cc4ee; border-color: var(--navy
   .footer-grid { grid-template-columns: 1.3fr 1fr 1fr; }
 }
 @media (min-width: 900px) {
-  .hero-grid { grid-template-columns: .84fr 1.16fr; gap: var(--sp-7); text-align: left; }
+  .hero-grid { grid-template-columns: .95fr 1.05fr; gap: var(--sp-7); text-align: left; }
   .hero-grid h1, .hero-grid p.sub { margin-left: 0; }
   .hero-grid .hero-cta { margin-left: 0; }
   .hero-grid .hero-dots { justify-content: center; margin-left: 0; }
@@ -870,3 +870,9 @@ input:focus, select:focus { outline: 3px solid #9cc4ee; border-color: var(--navy
 
 /* TPMO footer disclaimer — prominent single-instance box (2026-07-21) */
 .tpmo-footer { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.22); border-radius: 8px; padding: 14px 18px; font-size: .95rem !important; line-height: 1.6; max-width: 72ch; }
+
+/* Hero photo +10% visual size WITHOUT touching the grid/text columns:
+   scale the rotator in place; the large column gap absorbs the growth. */
+@media (min-width: 1080px) {
+  .hero-grid .hero-photo-rotator { transform: scale(1.1); transform-origin: center; }
+}
