@@ -890,7 +890,7 @@ input:focus, select:focus { outline: 3px solid #9cc4ee; border-color: var(--navy
 
 /* Mobile hero: photo relocated (via site.js) between text and CTAs — short banner. */
 @media (max-width: 1079px) {
-  .hero-copy .hero-photo { max-width: 540px; width: 100%; margin: 16px auto 6px; }
-  .hero-copy .hero-photo .hero-photo-rotator { max-height: 220px; overflow: hidden; border-radius: 12px; }
-  .hero-copy .hero-photo .hero-photo-slide { height: 220px; width: 100%; object-fit: cover; }
+  .hero-copy .hero-photo { max-width: 560px; width: 100%; margin: 10px auto 4px; }
+  .hero-copy .hero-photo .hero-photo-rotator { max-height: 280px; overflow: hidden; border-radius: 12px; }
+  .hero-copy .hero-photo .hero-photo-slide { height: 280px; width: 100%; object-fit: cover; }
 }
