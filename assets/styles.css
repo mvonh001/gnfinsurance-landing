@@ -886,16 +886,11 @@ input:focus, select:focus { outline: 3px solid #9cc4ee; border-color: var(--navy
 .call-pill svg { width: 18px; height: 18px; flex: none; }
 @media (max-width: 480px) { .call-pill { font-size: .98rem; padding: 12px 16px; } }
 
-/* MOBILE hero order experiment #3 (2026-07-22): headline -> short photo banner -> CTAs.
-   Photo height-capped so the buttons stay in the first screen. Desktop untouched. */
+}
+
+/* Mobile hero: photo relocated (via site.js) between text and CTAs — short banner. */
 @media (max-width: 1079px) {
-  .hero-grid { display: flex; flex-direction: column; }
-  .hero-copy { display: contents; }
-  .hero-copy > .badge { order: 1; }
-  .hero-copy > .hero-rotator { order: 2; }
-  .hero-grid > .hero-photo { order: 3; max-width: 540px; width: 100%; margin: 14px auto 4px; }
-  .hero-photo-rotator { max-height: 220px; overflow: hidden; border-radius: 12px; }
-  .hero-photo-slide { object-fit: cover; height: 220px; width: 100%; }
-  .hero-copy > .hero-cta { order: 4; }
-  .hero-copy > .hero-dots { order: 5; }
+  .hero-copy .hero-photo { max-width: 540px; width: 100%; margin: 16px auto 6px; }
+  .hero-copy .hero-photo .hero-photo-rotator { max-height: 220px; overflow: hidden; border-radius: 12px; }
+  .hero-copy .hero-photo .hero-photo-slide { height: 220px; width: 100%; object-fit: cover; }
 }

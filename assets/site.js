@@ -128,6 +128,22 @@
       });
     });
 
+    // Mobile order: photo banner sits between the text and the CTAs.
+    // A real DOM move (not display:contents) so the copy column keeps its box.
+    var heroCopy = document.querySelector(".hero-copy");
+    var heroCta = heroCopy ? heroCopy.querySelector(".hero-cta") : null;
+    var heroPhotoCol = document.querySelector(".hero-photo");
+    var heroGridEl = document.querySelector(".hero-grid");
+    if (heroCopy && heroCta && heroPhotoCol && heroGridEl) {
+      var mq = window.matchMedia("(max-width: 1079px)");
+      var placeHeroPhoto = function () {
+        if (mq.matches) { heroCopy.insertBefore(heroPhotoCol, heroCta); }
+        else { heroGridEl.appendChild(heroPhotoCol); }
+      };
+      placeHeroPhoto();
+      if (mq.addEventListener) { mq.addEventListener("change", placeHeroPhoto); }
+    }
+
     var heroSection = document.querySelector(".hero");
     if (heroSection) {
       heroSection.addEventListener("mouseenter", stopHeroRotation);
