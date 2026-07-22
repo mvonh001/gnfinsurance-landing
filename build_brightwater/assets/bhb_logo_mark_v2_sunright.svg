@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Bay Harbor Benefits mark">
+  <!-- v2: sun offset right, full ray ring -->
+  <circle cx="80" cy="80" r="72" fill="#14456b"/>
+  <circle cx="80" cy="80" r="72" fill="none" stroke="#e07a1a" stroke-width="4"/>
+  <circle cx="94" cy="60" r="17" fill="#e8721c"/>
+  <g stroke="#e8721c" stroke-width="4.5" stroke-linecap="round">
+    <line x1="116"   y1="60"   x2="126"   y2="60"/>
+    <line x1="109.6" y1="44.4" x2="116.6" y2="37.4"/>
+    <line x1="94"    y1="38"   x2="94"    y2="28"/>
+    <line x1="78.4"  y1="44.4" x2="71.4"  y2="37.4"/>
+    <line x1="72"    y1="60"   x2="62"    y2="60"/>
+    <line x1="78.4"  y1="75.6" x2="71.4"  y2="82.6"/>
+    <line x1="94"    y1="82"   x2="94"    y2="92"/>
+    <line x1="109.6" y1="75.6" x2="116.6" y2="82.6"/>
+  </g>
+  <g fill="none" stroke="#f5f7f9" stroke-width="6" stroke-linecap="round">
+    <path d="M 30 106 Q 46 97 62 106 T 94 106 T 126 106"/>
+    <path d="M 40 121 Q 53 113 66 121 T 92 121 T 116 121"/>
+  </g>
+</svg>
