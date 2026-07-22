@@ -1,8 +1,8 @@
 # BHB Weekly Blog Autopost — headless runbook
 Executed weekly by Windows Task Scheduler via `claude -p`. Follow EXACTLY. If any step fails, post the failure to Discord (step 9) and STOP — never publish a post that failed a check.
 
-## 1. Pick the topic
-Read `blog/blog_topics.md`. Apply Selection rules in order (seasonal-in-window first, else top unused evergreen alternating general/local). Skip anything already in PUBLISHED LOG.
+## 1. QUEUE-FIRST (v2, 2026-07-21): publish prewritten, generate only as fallback
+Check `blog/_queue/` for prewritten posts (each a complete post .html + matching `.meta` line inside it). If ANY exist: take the OLDEST queued post, SKIP step 2 entirely (it is already written), and proceed from step 3 (lint it anyway — trust nothing), then continue through deploy/bookkeeping; on success DELETE it from _queue/. Only if the queue is EMPTY: fall back to generating fresh — read `blog/blog_topics.md`, apply Selection rules in order (seasonal-in-window first, else top unused evergreen alternating general/local), skip anything already in PUBLISHED LOG.
 
 ## 2. Write the post
 500–800 words, genuinely useful, plain English for seniors. Study 2 existing posts in `blog/` first and match their HTML template exactly: same head/meta/OG/canonical pattern, same header/nav (nav-6), author line "Michael von-Heesen — Licensed Insurance Agent, Bay Harbor Benefits", date = today, soft CTA box to /review.html (no urgency), full compliance footer copied verbatim from an existing post, BlogPosting JSON-LD; FAQPage JSON-LD only if the post has a real visible Q&A section. Slug: kebab-case of the topic.
