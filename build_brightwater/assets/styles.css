@@ -902,3 +902,10 @@ input:focus, select:focus { outline: 3px solid #9cc4ee; border-color: var(--navy
 
 /* ===== Brightwater brand layer (bw1) ===== */
 h1,h2,h3,.brand-text,.btn,.badge { font-family:'Poppins',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+
+/* ===== bw2: phone CTAs in high-contrast orange (operator 7/24 — 'cannot stay blue') ===== */
+.btn-call { background: #e8721c; border-color: #e8721c; color: #fff; }
+.btn-call:hover, .btn-call:focus-visible { background: #c85f0a; border-color: #c85f0a; color: #fff; transform: translateY(-1px); }
+.call-pill { background: #e8721c; }
+.call-pill:hover { background: #c85f0a; filter: none; }
+.topbar a { color: #ffd9b3; }
