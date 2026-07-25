@@ -13,7 +13,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-  .lp-header { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; max-width:1080px; margin:0 auto; }
+  .lp-header { display:flex; justify-content:space-between; align-items:center; gap:24px; padding:18px 20px; max-width:1080px; margin:0 auto; }
+  .lp-header .brand { min-width:0; flex-shrink:1; }
+  .lp-header .btn-call { flex:0 0 auto; width:auto; white-space:nowrap; }
+  .lp-hero .hero-copy, .lp-hero .hero-copy h1, .lp-hero .hero-copy .sub { text-align:left; }
+  .lp-points li { text-align:left; }
+  @media (max-width:700px) {
+    .lp-header { padding:12px 14px; gap:10px; }
+    .lp-header .btn-call { font-size:.88rem; padding:9px 12px; }
+    .lp-header .brand-mark { width:40px; height:40px; }
+    .lp-hero { padding-top:26px; }
+    .lp-header .brand-name { font-size:1.05rem; }
+    .lp-header .brand-sub { display:none; }
+  }
   .lp-hero { padding:40px 20px 50px; }
   .lp-grid { display:grid; grid-template-columns:1.1fr 1fr; gap:40px; max-width:1080px; margin:0 auto; align-items:start; }
   @media (max-width:900px){ .lp-grid { grid-template-columns:1fr; } }
@@ -124,7 +136,7 @@
       <h2>How it works — one call, three steps</h2>
       <p>All by phone. No exam, no paperwork to start, no stranger at your door.</p>
     </div>
-    <div class="steps reveal">
+    <div class="steps">
       <div class="step">
         <span class="step-num">1</span>
         <h3>You tell us what matters</h3>
