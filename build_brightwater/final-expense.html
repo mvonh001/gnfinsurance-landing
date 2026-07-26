@@ -104,7 +104,7 @@
         </div>
         <p class="err" id="err-consent">Please check the box so a licensed agent can contact you.</p>
         <p class="agent-note">The information you provide on this form will be provided to a licensed insurance agent who may call, text, or email you.</p>
-        <input type="hidden" id="source" name="source" value="fe_ads">
+        
         <button type="submit" class="btn btn-submit" id="submitBtn">See my rate</button>
         <p id="form-status"></p>
       </form>
@@ -197,10 +197,16 @@
     showErr("concern", !form.concern.value); if (!form.concern.value) ok = false;
     showErr("consent", !form.consent.checked); if (!form.consent.checked) ok = false;
     if (!ok) return;
+    var qp = new URLSearchParams(window.location.search);
+    var src = (qp.get("src") || "").trim();
+    var grp = (qp.get("grp") || "").trim();
     var payload = {
       name: name, phone: form.phone.value.trim(), zip: zip,
       dob: form.dob.value || "", concern: form.concern.value,
-      source: form.source.value || "fe_ads"
+      source: src || "organic",
+      subsource: src ? (src + (grp ? "-" + grp : "")) : "",
+      gclid: (qp.get("gclid") || "").trim(),
+      product_line: "fe"
     };
     submitBtn.disabled = true; submitBtn.textContent = "Sending…";
     try {

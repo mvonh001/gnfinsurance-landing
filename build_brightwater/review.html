@@ -354,7 +354,10 @@
       zip: form.zip.value.trim(),
       dob: form.dob.value || "",
       concern: form.concern.value,
-      source: form.source.value || "organic"
+      source: (new URLSearchParams(window.location.search).get("src") || form.source.value || "organic"),
+      subsource: (new URLSearchParams(window.location.search).get("grp") || ""),
+      gclid: (new URLSearchParams(window.location.search).get("gclid") || ""),
+      product_line: "medicare"
     };
 
     submitBtn.disabled = true;
