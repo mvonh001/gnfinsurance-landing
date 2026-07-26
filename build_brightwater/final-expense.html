@@ -231,6 +231,13 @@
       }).catch(function () {});
     } catch (e) {}
     try {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-18338196634/i5qNCOfE-tYcEJrZqqhE',
+        'value': 1.0,
+        'currency': 'USD'
+      });
+    } catch (e) {}
+    try {
       fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
