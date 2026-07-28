@@ -12,7 +12,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [ ] AEP-prep: "The Annual Enrollment Period is coming — what Oct 15 to Dec 7 actually lets you do" (window: Sept 1–Oct 14)
 - [ ] AEP-live: "AEP is open: a calm checklist for reviewing your plan before Dec 7" (window: Oct 15–Nov 25)
 - [ ] OEP: "Enrolled in a Medicare Advantage plan and having second thoughts? The Jan 1–Mar 31 window explained" (window: Dec 26–Mar 1)
-- [q] Hurricane-SEP: "Hurricanes and your Medicare: the disaster Special Enrollment Period Florida seniors should know" (window: Jun 1–Sep 30) — QUEUED 2026-07-21 · hurricanes-and-your-medicare-disaster-sep
+- [x] Hurricane-SEP: "Hurricanes and your Medicare: the disaster Special Enrollment Period Florida seniors should know" (window: Jun 1–Sep 30) — PUBLISHED 2026-07-27 · hurricanes-and-your-medicare-disaster-sep
 - [ ] Snowbird-fall: "Snowbirds and Medicare: what splitting the year between states means for your coverage" (window: Sept–Nov)
 - [ ] New-year: "New year, new plan: making sure your doctors and medications carried over" (window: Jan 1–31)
 
@@ -51,6 +51,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 (empty — populates after launch)
 
 ## PUBLISHED LOG (auto-appended by the job: date · slug · topic)
+- 2026-07-27 · hurricanes-and-your-medicare-disaster-sep · disaster SEP (queue-first, rebrand pipeline fix)
 - 2026-07-21 · turning-65-miami-dade-medicare-timeline · IEP month-by-month
 - 2026-07-21 · medicare-parts-a-b-c-d-explained · Parts A-D
 - 2026-07-21 · medicare-advantage-vs-original-medicare-and-medigap · MA vs Original framework
