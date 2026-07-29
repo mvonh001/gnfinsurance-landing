@@ -45,6 +45,17 @@
   .lp-points { list-style:none; padding:0; margin:22px 0 0; }
   .lp-points li { padding-left:30px; position:relative; margin-bottom:12px; font-size:1.02rem; }
   .lp-points li::before { content:"✓"; position:absolute; left:0; top:0; color:#2aa8c4; font-weight:700; font-size:1.1rem; }
+  html { scroll-behavior:smooth; }
+  .lp-jump, .lp-sticky { display:none; }
+  @media (max-width:900px) {
+    .lp-jump { display:flex; justify-content:center; width:100%; margin:18px 0 4px; font-size:1.12rem; padding:15px 18px; }
+    .lp-sticky { display:block; position:fixed; left:0; right:0; bottom:0; z-index:60;
+      padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+      background:rgba(255,255,255,.97); box-shadow:0 -6px 24px rgba(0,0,0,.18); }
+    .lp-sticky.is-hidden { display:none; }
+    .lp-sticky .btn { width:100%; justify-content:center; font-size:1.12rem; padding:15px 18px; }
+    body { padding-bottom:78px; }
+  }
 </style>
 </head>
 <body>
@@ -73,6 +84,7 @@
       <span class="badge"><span class="dot"></span>Licensed independent agency · Serving all of Florida by phone</span>
       <h1 style="margin-top:14px;">Make sure the people you love never get the bill.</h1>
       <p class="sub">Final expense life insurance covers what you leave behind — the funeral, the last bills, the loose ends — so your family grieves without a fundraiser. $5,000 to $25,000 in coverage, decided in one phone call.</p>
+      <a class="btn btn-primary btn-inline lp-jump" href="#lp-quote">See My Rate ↓</a>
       <ul class="lp-points">
         <li><b>No medical exam.</b> A few health questions on the phone — most people get an answer the same call.</li>
         <li><b>Your rate never goes up, your coverage never goes down.</b> Locked for life once issued.</li>
@@ -80,7 +92,7 @@
         <li><b>Honest sizes.</b> Coverage built around what a funeral actually costs — not a penny more than you want.</li>
       </ul>
     </div>
-    <div class="lp-form-card">
+    <div class="lp-form-card" id="lp-quote">
       <h2>See your rate — free, no obligation</h2>
       <p class="formsub">Takes one minute. A licensed agent (a person, not a call center) will call you with real numbers.</p>
       <form id="leadForm" novalidate>
@@ -252,6 +264,19 @@
       form.reset();
     }, 600);
   });
+})();
+</script>
+<div class="lp-sticky" id="lpSticky">
+  <a class="btn btn-primary btn-inline" href="#lp-quote">Get My Free Quote</a>
+</div>
+<script>
+(function () {
+  var bar = document.getElementById("lpSticky");
+  var card = document.getElementById("lp-quote");
+  if (!bar || !card || !("IntersectionObserver" in window)) return;
+  new IntersectionObserver(function (entries) {
+    bar.classList.toggle("is-hidden", entries[0].isIntersecting);
+  }, { threshold: 0.15 }).observe(card);
 })();
 </script>
 </body>
