@@ -98,12 +98,23 @@
 <div class="q-shell">
   <div class="q-card" id="quiz">
 
-    <div class="q-progress" aria-hidden="true"><i id="qBar" style="width:20%"></i></div>
-    <div class="q-stepnum" id="qStepNum">Step 1 of 5</div>
+    <div class="q-progress" aria-hidden="true"><i id="qBar" style="width:17%"></i></div>
+    <div class="q-stepnum" id="qStepNum">Step 1 of 6</div>
 
-    <!-- STEP 1: AGE -->
+    <!-- STEP 1: WHO FOR (softest possible opener; personalizes everything after) -->
     <div class="q-screen active" data-step="1">
-      <h2 class="q-title">How old is the person who needs coverage?</h2>
+      <h2 class="q-title">Who needs the coverage?</h2>
+      <div class="q-opts">
+        <button type="button" class="q-opt" data-key="who" data-val="Myself">Myself</button>
+        <button type="button" class="q-opt" data-key="who" data-val="My spouse">My spouse</button>
+        <button type="button" class="q-opt" data-key="who" data-val="A parent">A parent</button>
+        <button type="button" class="q-opt" data-key="who" data-val="Someone else">Someone else</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: AGE -->
+    <div class="q-screen" data-step="2">
+      <h2 class="q-title" data-dyn="age">How old are you?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="age" data-val="Under 50">Under 50</button>
         <button type="button" class="q-opt" data-key="age" data-val="50-60">50 to 60</button>
@@ -111,11 +122,12 @@
         <button type="button" class="q-opt" data-key="age" data-val="71-80">71 to 80</button>
         <button type="button" class="q-opt" data-key="age" data-val="Over 80">Over 80</button>
       </div>
+      <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 2: GENDER -->
-    <div class="q-screen" data-step="2">
-      <h2 class="q-title">Are they male or female?</h2>
+    <!-- STEP 3: GENDER -->
+    <div class="q-screen" data-step="3">
+      <h2 class="q-title" data-dyn="gender">Are you male or female?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="gender" data-val="Female">Female</button>
         <button type="button" class="q-opt" data-key="gender" data-val="Male">Male</button>
@@ -123,9 +135,9 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 3: TOBACCO -->
-    <div class="q-screen" data-step="3">
-      <h2 class="q-title">Any tobacco use in the last 12 months?</h2>
+    <!-- STEP 4: TOBACCO -->
+    <div class="q-screen" data-step="4">
+      <h2 class="q-title" data-dyn="tobacco">Any tobacco use in the last 12 months?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="tobacco" data-val="No tobacco">No</button>
         <button type="button" class="q-opt" data-key="tobacco" data-val="Tobacco">Yes</button>
@@ -133,8 +145,8 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 4: COVERAGE -->
-    <div class="q-screen" data-step="4">
+    <!-- STEP 5: COVERAGE -->
+    <div class="q-screen" data-step="5">
       <h2 class="q-title">How much coverage are you looking for?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="coverage" data-val="$5,000-$10,000">$5,000 to $10,000</button>
@@ -145,8 +157,8 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 5: CONTACT -->
-    <div class="q-screen" data-step="5">
+    <!-- STEP 6: CONTACT -->
+    <div class="q-screen" data-step="6">
       <h2 class="q-title">Almost done. Where do we send your rate?</h2>
       <form id="qForm" novalidate>
         <div style="position:absolute; left:-6000px;" aria-hidden="true">
@@ -180,7 +192,7 @@
     </div>
 
     <!-- SUCCESS -->
-    <div class="q-screen" data-step="6">
+    <div class="q-screen" data-step="7">
       <div class="q-success">
         <div class="big">&#10003;</div>
         <h2 id="qThanksName">Got it!</h2>
@@ -228,9 +240,24 @@
 (function () {
   var answers = {};
   var step = 1;
-  var TOTAL = 5;
+  var TOTAL = 6;
   var bar = document.getElementById("qBar");
   var stepNum = document.getElementById("qStepNum");
+
+  // Personalized phrasing keyed off step 1 ("who"). Third-person "they"
+  // tested cold: both early quiz users quit at the old gender question.
+  var DYN = {
+    "Myself":       { age: "How old are you?",        gender: "Are you male or female?",        tobacco: "Any tobacco use in the last 12 months?" },
+    "My spouse":    { age: "How old is your spouse?", gender: "Is your spouse male or female?", tobacco: "Has your spouse used tobacco in the last 12 months?" },
+    "A parent":     { age: "How old is your parent?", gender: "Is your parent male or female?", tobacco: "Has your parent used tobacco in the last 12 months?" },
+    "Someone else": { age: "How old are they?",       gender: "Are they male or female?",       tobacco: "Have they used tobacco in the last 12 months?" }
+  };
+  function applyDyn() {
+    var d = DYN[answers.who] || DYN["Myself"];
+    document.querySelectorAll("[data-dyn]").forEach(function (el) {
+      el.textContent = d[el.getAttribute("data-dyn")];
+    });
+  }
 
   function show(n) {
     step = n;
@@ -253,7 +280,8 @@
       answers[btn.getAttribute("data-key")] = btn.getAttribute("data-val");
       btn.parentNode.querySelectorAll(".q-opt").forEach(function (b) { b.classList.remove("picked"); });
       btn.classList.add("picked");
-      try { gtag('event', 'quiz_step', { 'step': step, 'choice': btn.getAttribute("data-val") }); } catch (e) {}
+      if (btn.getAttribute("data-key") === "who") applyDyn();
+      try { gtag('event', 'quiz_step_' + step, { 'choice': btn.getAttribute("data-val") }); } catch (e) {}
       setTimeout(function () { show(step + 1); }, 160);
     });
   });
@@ -282,8 +310,8 @@
     var qp = new URLSearchParams(window.location.search);
     var src = (qp.get("src") || "").trim();
     var grp = (qp.get("grp") || "").trim();
-    var concern = "FE quiz: " + (answers.age || "?") + ", " + (answers.gender || "?") + ", " +
-                  (answers.tobacco || "?") + ", wants " + (answers.coverage || "?");
+    var concern = "FE quiz: for " + (answers.who || "?") + ", " + (answers.age || "?") + ", " +
+                  (answers.gender || "?") + ", " + (answers.tobacco || "?") + ", wants " + (answers.coverage || "?");
     var payload = {
       name: name, phone: form.phone.value.trim(), zip: zip,
       dob: "", concern: concern,
@@ -322,7 +350,7 @@
     setTimeout(function () {
       var first = name.split(" ")[0];
       document.getElementById("qThanksName").textContent = "Got it, " + first + "!";
-      show(6);
+      show(7);
     }, 500);
   });
 })();
