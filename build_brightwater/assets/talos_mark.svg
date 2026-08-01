@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <path d="M18 88 A40 14 0 0 1 82 88" fill="none" stroke="#2e3745" stroke-width="2.5"/>
+  <path d="M26 92 A32 10 0 0 1 74 92" fill="none" stroke="#2e3745" stroke-width="2"/>
+  <defs>
+    <linearGradient id="brz" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e3a55a"/><stop offset="1" stop-color="#8a5f2b"/>
+    </linearGradient>
+    <linearGradient id="vein" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd9a0"/><stop offset="1" stop-color="#c98a3d"/>
+    </linearGradient>
+  </defs>
+  <path d="M43 8 L57 8 L57 12 L62 12 L62 20 L38 20 L38 12 L43 12 Z" fill="url(#brz)"/>
+  <rect x="42" y="14" width="16" height="3" fill="#12151a"/>
+  <path d="M32 24 L68 24 L63 56 L37 56 Z" fill="url(#brz)"/>
+  <rect x="24" y="24" width="8" height="10" rx="2" fill="#8a5f2b"/>
+  <rect x="68" y="24" width="8" height="10" rx="2" fill="#8a5f2b"/>
+  <path d="M39 58 L47 58 L46 84 L40 84 Z" fill="url(#brz)"/>
+  <path d="M53 58 L61 58 L60 84 L54 84 Z" fill="url(#brz)"/>
+  <line x1="50" y1="8" x2="50" y2="56" stroke="url(#vein)" stroke-width="2.4"/>
+  <line x1="57" y1="58" x2="56.5" y2="80" stroke="url(#vein)" stroke-width="2"/>
+  <circle cx="56.5" cy="82.5" r="2.6" fill="#ffd9a0"/>
+</svg>
