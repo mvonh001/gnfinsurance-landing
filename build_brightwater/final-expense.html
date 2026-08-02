@@ -60,6 +60,8 @@
   .q-note { font-size:.78rem; color:#7a8b9c; color:#78909c; text-align:left; margin:0 0 12px; }
   .q-submit { width:100%; font-size:1.2rem; padding:16px; justify-content:center; }
   .q-secure { text-align:center; font-size:.8rem; color:#5b6c80; margin-top:10px; }
+  .q-callout { text-align:center; font-size:.98rem; color:#42556b; margin-top:14px; }
+  .q-callout a { font-family:Poppins,sans-serif; font-weight:700; color:#0e6f95; white-space:nowrap; }
 
   .q-success { text-align:center; padding:14px 4px; }
   .q-success .big { font-size:3rem; color:#2e7d4f; }
@@ -209,8 +211,9 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
           <p>You'll get one call from Michael von Heesen, a licensed Florida agent. Lic. G345487. No call center. No lead lists. Your information is never sold.</p>
         </div>
-        <button type="submit" class="btn btn-submit q-submit" id="qSubmit">Get My Rate Now!</button>
+        <button type="submit" class="btn btn-submit q-submit" id="qSubmit">Get My Exact Rate</button>
         <p class="q-secure">Free &amp; no obligation · Your info is never sold · Licensed FL agent</p>
+        <p class="q-callout">Or get your answer right now: call Michael at <a id="qCallLink" href="tel:+13058591704">(305) 859-1704</a></p>
       </form>
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
@@ -430,6 +433,39 @@
       document.getElementById("qThanksName").textContent = "Got it, " + first + "!";
       show(8);
     }, 500);
+  });
+
+  var callLink = document.getElementById("qCallLink");
+  if (callLink) callLink.addEventListener("click", function () {
+    try {
+      gtag('event', 'call_click', {
+        band: answers.age || "", gender: answers.gender || "", tobacco: answers.tobacco || "",
+        coverage: answers.coverage || "", low: answers._revealLow || 0, high: answers._revealHigh || 0
+      });
+    } catch (e) {}
+    try {
+      var qp = new URLSearchParams(window.location.search);
+      var src = (qp.get("src") || "").trim();
+      var grp = (qp.get("grp") || "").trim();
+      fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        keepalive: true,
+        body: JSON.stringify({
+          call_click: true,
+          name: form.name.value.trim(),
+          phone: form.phone.value.trim(),
+          zip: "", dob: "",
+          concern: "CALL-OUT from quiz: for " + (answers.who || "?") + ", " + (answers.age || "?") + ", " +
+                   (answers.gender || "?") + ", " + (answers.tobacco || "?") + ", wants " + (answers.coverage || "?") +
+                   ", shown $" + (answers._revealLow || "?") + "-$" + (answers._revealHigh || "?") + "/mo",
+          source: src || "organic",
+          subsource: (src ? (src + (grp ? "-" + grp : "")) : "fe") + "-v3r2r3-callout",
+          gclid: (qp.get("gclid") || "").trim(),
+          product_line: "fe"
+        })
+      }).catch(function () {});
+    } catch (e) {}
   });
 })();
 </script>
