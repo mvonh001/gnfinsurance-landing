@@ -72,6 +72,18 @@
   .q-faq { max-width:640px; margin:0 auto; padding:18px 18px 30px; font-size:.95rem; color:#42556b; }
   .q-faq b { color:#0e3a5c; }
   .q-faq p { margin:0 0 12px; }
+
+  .q-microtrust { text-align:center; font-size:.72rem; letter-spacing:.01em; color:#8a9bab; margin:0 0 14px; }
+  .q-trustblock { display:flex; gap:10px; align-items:flex-start; background:#eef6fa; border:1px solid #cfdae4; border-radius:10px; padding:12px 14px; margin:2px 0 14px; text-align:left; }
+  .q-trustblock svg { width:19px; height:19px; color:#0e6f95; flex:0 0 auto; margin-top:2px; }
+  .q-trustblock p { margin:0; font-size:.85rem; line-height:1.42; color:#42556b; }
+  .q-trustblock b { color:#0e3a5c; }
+
+  .q-stepsub { font-size:.95rem; color:#42556b; margin:-8px 0 16px; text-align:left; }
+  .q-reveal { text-align:center; padding:4px 0 16px; }
+  .q-reveal-range { font-family:Poppins,sans-serif; font-weight:700; font-size:2.05rem; color:#0e6f95; margin:4px 0 12px; }
+  .q-reveal-note { font-size:.92rem; color:#42556b; margin:0 auto 8px; max-width:460px; }
+  .q-reveal-under50 { font-size:.86rem; color:#5b6c80; margin:0 0 4px; }
 </style>
 </head>
 <body>
@@ -98,8 +110,9 @@
 <div class="q-shell">
   <div class="q-card" id="quiz">
 
-    <div class="q-progress" aria-hidden="true"><i id="qBar" style="width:17%"></i></div>
-    <div class="q-stepnum" id="qStepNum">Step 1 of 6</div>
+    <div class="q-progress" aria-hidden="true"><i id="qBar" style="width:14%"></i></div>
+    <div class="q-stepnum" id="qStepNum">Step 1 of 7</div>
+    <div class="q-microtrust">Licensed FL agent G345487 · No call center · Never sold</div>
 
     <!-- STEP 1: WHO FOR (softest possible opener; personalizes everything after) -->
     <div class="q-screen active" data-step="1">
@@ -157,15 +170,28 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 6: CONTACT -->
+    <!-- STEP 6: RATE REVEAL (R2) -->
     <div class="q-screen" data-step="6">
+      <h2 class="q-title" data-dyn="reveal">Here's what coverage like this typically costs</h2>
+      <div class="q-reveal">
+        <div class="q-reveal-range" id="qRevealRange">$24 to $42/mo</div>
+        <p class="q-reveal-note" id="qRevealNote">Typical range for $5,000 to $10,000 of coverage. Your exact rate depends on a few health questions and the carrier.</p>
+        <p class="q-reveal-under50" id="qRevealUnder50" style="display:none;">Rates under 50 are often even lower than this range.</p>
+      </div>
+      <button type="button" class="btn btn-submit q-submit" id="qRevealContinue">Get my exact rate</button>
+      <button type="button" class="q-back" data-back>&larr; Back</button>
+    </div>
+
+    <!-- STEP 7: CONTACT -->
+    <div class="q-screen" data-step="7">
       <h2 class="q-title">Almost done. Where do we send your rate?</h2>
+      <p class="q-stepsub">Last step: where should Michael send your exact rate?</p>
       <form id="qForm" novalidate>
         <div style="position:absolute; left:-6000px;" aria-hidden="true">
           <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
         </div>
         <div class="q-field">
-          <label for="qname">First and last name</label>
+          <label for="qname">Name</label>
           <input type="text" id="qname" name="name" autocomplete="name" required>
           <p class="q-err" id="qerr-name">Please enter your name.</p>
         </div>
@@ -174,17 +200,16 @@
           <input type="tel" id="qphone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(305) 555-0123" required>
           <p class="q-err" id="qerr-phone">Please enter a valid phone number (at least 10 digits).</p>
         </div>
-        <div class="q-field">
-          <label for="qzip">ZIP code</label>
-          <input type="text" id="qzip" name="zip" autocomplete="postal-code" inputmode="numeric" maxlength="10" placeholder="33154" required>
-          <p class="q-err" id="qerr-zip">Please enter a valid 5-digit ZIP code.</p>
-        </div>
         <label class="q-consent">
           <input type="checkbox" id="qconsent" name="consent" required>
           <span>I agree that a licensed insurance agent may contact me about my quote request.</span>
         </label>
         <p class="q-err" id="qerr-consent" style="margin-top:-6px;">Please check the box so a licensed agent can contact you.</p>
         <p class="q-note">The information you provide on this form will be provided to a licensed insurance agent who may call, text, or email you.</p>
+        <div class="q-trustblock">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          <p>You'll get one call from Michael von Heesen, a licensed Florida agent. Lic. G345487. No call center. No lead lists. Your information is never sold.</p>
+        </div>
         <button type="submit" class="btn btn-submit q-submit" id="qSubmit">See My Rate</button>
         <p class="q-secure">Free &amp; no obligation · Your info is never sold · Licensed FL agent</p>
       </form>
@@ -192,7 +217,7 @@
     </div>
 
     <!-- SUCCESS -->
-    <div class="q-screen" data-step="7">
+    <div class="q-screen" data-step="8">
       <div class="q-success">
         <div class="big">&#10003;</div>
         <h2 id="qThanksName">Got it!</h2>
@@ -240,23 +265,73 @@
 (function () {
   var answers = {};
   var step = 1;
-  var TOTAL = 6;
+  var TOTAL = 7;
   var bar = document.getElementById("qBar");
   var stepNum = document.getElementById("qStepNum");
 
   // Personalized phrasing keyed off step 1 ("who"). Third-person "they"
   // tested cold: both early quiz users quit at the old gender question.
   var DYN = {
-    "Myself":       { age: "How old are you?",        gender: "Are you male or female?",        tobacco: "Any tobacco use in the last 12 months?" },
-    "My spouse":    { age: "How old is your spouse?", gender: "Is your spouse male or female?", tobacco: "Has your spouse used tobacco in the last 12 months?" },
-    "A parent":     { age: "How old is your parent?", gender: "Is your parent male or female?", tobacco: "Has your parent used tobacco in the last 12 months?" },
-    "Someone else": { age: "How old are they?",       gender: "Are they male or female?",       tobacco: "Have they used tobacco in the last 12 months?" }
+    "Myself":       { age: "How old are you?",        gender: "Are you male or female?",        tobacco: "Any tobacco use in the last 12 months?", reveal: "Here's what coverage like this typically costs" },
+    "My spouse":    { age: "How old is your spouse?", gender: "Is your spouse male or female?", tobacco: "Has your spouse used tobacco in the last 12 months?", reveal: "Here's what coverage like this typically costs for your spouse" },
+    "A parent":     { age: "How old is your parent?", gender: "Is your parent male or female?", tobacco: "Has your parent used tobacco in the last 12 months?", reveal: "Here's what coverage like this typically costs for your parent" },
+    "Someone else": { age: "How old are they?",       gender: "Are they male or female?",       tobacco: "Have they used tobacco in the last 12 months?", reveal: "Here's what coverage like this typically costs for them" }
   };
   function applyDyn() {
     var d = DYN[answers.who] || DYN["Myself"];
     document.querySelectorAll("[data-dyn]").forEach(function (el) {
       el.textContent = d[el.getAttribute("data-dyn")];
     });
+  }
+
+  // Rate-reveal lookup (R2). Age-band map handles the "Under 50" quiz
+  // option, which has no table row of its own: it borrows the 50-60
+  // band and the UI adds a note that under-50 rates run lower still.
+  var AGE_BAND = {
+    "Under 50": "50-60",
+    "50-60":    "50-60",
+    "61-70":    "61-70",
+    "71-80":    "71-80",
+    "Over 80":  "Over 80"
+  };
+  var RATES = {
+    "50-60":   { Female: { notob: [24, 42],  tob: [38, 51]  }, Male: { notob: [31, 53],  tob: [47, 66]  } },
+    "61-70":   { Female: { notob: [41, 64],  tob: [63, 80]  }, Male: { notob: [54, 84],  tob: [85, 110] } },
+    "71-80":   { Female: { notob: [71, 125], tob: [108, 155]}, Male: { notob: [97, 164], tob: [150, 211]} },
+    "Over 80": { Female: { notob: [98, 155], tob: [142, 204]}, Male: { notob: [135, 203],tob: [196, 278]} }
+  };
+  // Coverage multiplier is the option's midpoint relative to the
+  // $10,000 table baseline. "Not sure" shows the baseline as-is.
+  var COV = {
+    "$5,000-$10,000":  { mult: 0.75, label: "$5,000 to $10,000" },
+    "$10,000-$15,000": { mult: 1.25, label: "$10,000 to $15,000" },
+    "$15,000-$25,000": { mult: 2,    label: "$15,000 to $25,000" },
+    "Not sure":        { mult: 1,    label: "$10,000" }
+  };
+
+  function renderReveal() {
+    var band = AGE_BAND[answers.age] || "50-60";
+    var genderKey = answers.gender === "Male" ? "Male" : "Female";
+    var tobKey = answers.tobacco === "Tobacco" ? "tob" : "notob";
+    var base = RATES[band][genderKey][tobKey];
+    var cov = COV[answers.coverage] || COV["Not sure"];
+    var low = Math.round(base[0] * cov.mult);
+    var high = Math.round(base[1] * cov.mult);
+    answers._revealLow = low;
+    answers._revealHigh = high;
+    document.getElementById("qRevealRange").textContent = "$" + low + " to $" + high + "/mo";
+    document.getElementById("qRevealNote").textContent = "Typical range for " + cov.label + " of coverage. Your exact rate depends on a few health questions and the carrier.";
+    document.getElementById("qRevealUnder50").style.display = (answers.age === "Under 50") ? "block" : "none";
+    try {
+      gtag('event', 'rate_reveal_shown', {
+        band: band,
+        gender: answers.gender,
+        tobacco: answers.tobacco,
+        coverage: answers.coverage,
+        low: low,
+        high: high
+      });
+    } catch (e) {}
   }
 
   function show(n) {
@@ -281,9 +356,14 @@
       btn.parentNode.querySelectorAll(".q-opt").forEach(function (b) { b.classList.remove("picked"); });
       btn.classList.add("picked");
       if (btn.getAttribute("data-key") === "who") applyDyn();
+      if (btn.getAttribute("data-key") === "coverage") renderReveal();
       try { gtag('event', 'quiz_step_' + step, { 'choice': btn.getAttribute("data-val") }); } catch (e) {}
       setTimeout(function () { show(step + 1); }, 160);
     });
+  });
+
+  document.getElementById("qRevealContinue").addEventListener("click", function () {
+    show(step + 1);
   });
 
   document.querySelectorAll("[data-back]").forEach(function (btn) {
@@ -300,10 +380,8 @@
     var ok = true;
     var name = form.name.value.trim();
     var phone = form.phone.value.replace(/\D/g, "");
-    var zip = form.zip.value.trim();
     showErr("name", !name); if (!name) ok = false;
     showErr("phone", phone.length < 10); if (phone.length < 10) ok = false;
-    showErr("zip", !/^\d{5}/.test(zip)); if (!/^\d{5}/.test(zip)) ok = false;
     showErr("consent", !form.consent.checked); if (!form.consent.checked) ok = false;
     if (!ok) return;
 
@@ -311,12 +389,13 @@
     var src = (qp.get("src") || "").trim();
     var grp = (qp.get("grp") || "").trim();
     var concern = "FE quiz: for " + (answers.who || "?") + ", " + (answers.age || "?") + ", " +
-                  (answers.gender || "?") + ", " + (answers.tobacco || "?") + ", wants " + (answers.coverage || "?");
+                  (answers.gender || "?") + ", " + (answers.tobacco || "?") + ", wants " + (answers.coverage || "?") +
+                  ", shown $" + answers._revealLow + "-$" + answers._revealHigh + "/mo";
     var payload = {
-      name: name, phone: form.phone.value.trim(), zip: zip,
+      name: name, phone: form.phone.value.trim(), zip: "",
       dob: "", concern: concern,
       source: src || "organic",
-      subsource: (src ? (src + (grp ? "-" + grp : "")) : "fe") + "-v2",
+      subsource: (src ? (src + (grp ? "-" + grp : "")) : "fe") + "-v3r2r3",
       gclid: (qp.get("gclid") || "").trim(),
       product_line: "fe"
     };
@@ -350,7 +429,7 @@
     setTimeout(function () {
       var first = name.split(" ")[0];
       document.getElementById("qThanksName").textContent = "Got it, " + first + "!";
-      show(7);
+      show(8);
     }, 500);
   });
 })();
