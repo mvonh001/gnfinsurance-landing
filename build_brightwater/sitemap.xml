@@ -50,9 +50,15 @@
   </url>
   <url>
     <loc>https://brightwaterinsurancegroup.com/blog/index.html</loc>
-    <lastmod>2026-07-27</lastmod>
+    <lastmod>2026-08-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brightwaterinsurancegroup.com/blog/medicare-and-the-20-employee-rule.html</loc>
+    <lastmod>2026-08-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://brightwaterinsurancegroup.com/blog/hurricanes-and-your-medicare-disaster-sep.html</loc>
