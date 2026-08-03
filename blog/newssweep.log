@@ -1,0 +1,18 @@
+Monthly news sweep complete — `news-roundup-2026-08.html` is queued, lint-clean, and reported to Discord.
+
+**What's in the post** (732 words, exact current Brightwater template incl. the TalosLeads footer badge, `<!--PUBDATE-->` tokens throughout):
+- **Federal fraud takedown with a Miami center of gravity** — late-June DOJ/HHS-OIG action, 450+ charged nationwide, South Florida DME/wound-care/lab schemes; framed as "guard your Medicare number," linked to both the HHS-OIG takedown page and the DOJ Southern District of Florida release.
+- **SMP "read me the code" scam alert** (July) — verification-code phishing, linked to smpresource.org.
+- **HHS-OIG consumer alert on cardiac-screening schemes** (July 24, Florida case) — framed as "screening decisions belong with your own doctor."
+- **CMS nursing-home inspection change** (July 16, effective Sept 8) — presented two-sided, with a pointer to Care Compare.
+- A no-urgency calendar note that AEP runs Oct 15–Dec 7, worded to avoid any "2027" string.
+
+All seven source links verified live (HTTP 200) before inclusion. The compliance gate came back clean: zero hits on carriers, dollar figures, urgency, superlatives, 2027, affiliation, and old-brand greps; all three required TPMO strings present.
+
+**Dropped during research, per the rails:** a CMS DME-supplier suspension story (only a trade-press source found, no primary .gov link — rail requires a named public source) and the CMS Medicaid "War Room" item (Medicaid-focused; when in doubt, omit). July had no fresh enrollment-period news and no SSA/Medicare crossover news — both categories came up genuinely empty.
+
+Bookkeeping done: `NEWS SWEEP 2026-08 QUEUED` added under HARVESTED in `blog/blog_topics.md`, and the Discord webhook accepted the report (204). I also refreshed the stale rebrand memory — the pipeline has been unblocked since July 27, which the memory still contradicted.
+
+Two observations, no action taken:
+1. The runbook has no commit step, so the new queue file and the `blog_topics.md` edit are sitting uncommitted. The weekly publisher commits queue-file *deletions*, which only works if the file was committed first — worth adding a commit step to `newssweep_task.md` (which is also still titled "BHB").
+2. The three older queued posts (from July 27) predate the TalosLeads footer badge, so they'll publish without it unless given a touch-up pass.

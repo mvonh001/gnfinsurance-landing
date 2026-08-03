@@ -1,0 +1,24 @@
+**The autopost run failed at step 6 (live verification) and nothing was published.** The root cause isn't the post — it's that the site was rebranded out from under the runbook: on July 26, `bayharborbenefits.com` was reconfigured on the droplet to 301-redirect every page to `brightwaterinsurancegroup.com` (served from `/var/www/brightwater` on the same server). The runbook's deploy target, `/var/www/bayharborbenefits/`, still exists but is no longer served, so the new post came back as a 404 on the new domain.
+
+What happened, step by step:
+
+1. **Queue-first:** Took the oldest of the 4 queued posts (identical timestamps, so alphabetical tiebreak, which is also the in-season pick): `hurricanes-and-your-medicare-disaster-sep.html`. Filled its `<!--PUBDATE-->` placeholders with today's date.
+2. **Compliance lint passed clean** — zero hits on all six banned patterns, all three required disclosures present.
+3. **Wired in and deployed** the post, updated blog index, and sitemap to the runbook's target with correct ownership.
+4. **Live verification failed:** the post URL returned 301 → 404 on `brightwaterinsurancegroup.com` ("Page Not Found | Brightwater Insurance Group").
+5. **Rolled back fully per the runbook:** removed the deployed post from the droplet, restored `blog/index.html` and `sitemap.xml` there to byte-identical pre-run copies, and reverted all local changes. The queued post remains in `blog/_queue/` for a future run; no bookkeeping, no commit.
+6. **Reported the failure to Discord** via the webhook on 104.131.54.54 (accepted, HTTP 204).
+
+**What's blocked until you act:** the runbook (`blog/autopost_task.md`), the local repo pages, and all four queued posts are still fully Bay Harbor–branded — canonical/OG URLs on `bayharborbenefits.com`, old brand name, logo, phone, and compliance footer. I deliberately did not publish old-brand content to the Brightwater site or touch `/var/www/brightwater`, since the runbook doesn't authorize either. Before the next scheduled run, the runbook's deploy target and URLs need to point at Brightwater, and the queued posts need a rebrand pass. I've saved a project memory so future sessions know the old docroot is dead.
+SessionEnd hook [bash "$HOME/.claude/hooks/hub_auto_texit.sh"] failed: Hook cancelled
+Autopost run complete — the post is live, verified, committed, and reported. Summary of the run:
+
+- **Queue-first (step 1):** Found 4 prewritten posts in `blog/_queue/`; took the oldest by creation time, `medicare-and-the-20-employee-rule.html` (queued 7/21), and skipped generation.
+- **Lint (step 3):** Clean — zero hits on carriers, dollar figures, urgency, superlatives, 2027, affiliation, and old-brand patterns; all three required compliance strings present.
+- **Wire-in (step 4):** Copied to `build_brightwater/blog/` with PUBDATE filled (ISO `2026-08-03` in JSON-LD, "August 3" visible), added the card at the top of the blog index, added the sitemap `<url>` entry, and bumped the blog index `<lastmod>` to today. The post already carried 3 related-post links; all targets verified to exist.
+- **Deploy + verify (steps 5–6):** scp'd post, index, and sitemap to the droplet and ran the chown. Live checks: post, blog index, sitemap, and homepage all returned 200; the full compliance lint re-run against the live HTML passed, the new card is in the live index, and the URL is in the live sitemap.
+- **Bookkeeping (step 7) + commit (step 8):** Queue file deleted (only after the confirmed verify), topic checked off `[x]` with a PUBLISHED LOG entry in `blog_topics.md`, committed as `3399c1e` ("blog autopost: medicare-and-the-20-employee-rule") staging only the runbook-listed files, pushed to origin/main.
+- **Report (step 9):** Discord webhook accepted the success message (HTTP 204).
+
+Live at https://brightwaterinsurancegroup.com/blog/medicare-and-the-20-employee-rule.html. Three posts remain in the queue (Part B penalty, Miami-Dade turning-65, and the August news roundup).
+SessionEnd hook [bash "$HOME/.claude/hooks/hub_auto_texit.sh"] failed: Hook cancelled

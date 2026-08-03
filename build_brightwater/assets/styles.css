@@ -910,6 +910,6 @@ h1,h2,h3,.brand-text,.btn,.badge { font-family:'Poppins',-apple-system,BlinkMacS
 .call-pill:hover { background: #c85f0a; filter: none; }
 .topbar a { color: #ffd9b3; }
 
-.talos-badge { color:#5b6b7b; font-size:.92rem; text-decoration:none; display:inline-flex; align-items:center; gap:7px; margin-right:175px; }
+.talos-badge { color:#5b6b7b; font-size:.92rem; text-decoration:none; display:inline-flex; align-items:center; gap:7px; }
 .talos-badge:hover { color:#8a9bb0; }
-@media (max-width:760px){ .talos-badge { margin-right:0; } }
+.talos-line { margin-top:10px; }
