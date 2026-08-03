@@ -782,6 +782,20 @@ input:focus, select:focus { outline: 3px solid #9cc4ee; border-color: var(--navy
   .site-nav.nav-6 a.nav-cta { margin-left: 6px; padding: 16px 16px; }
 }
 
+/* 1080-1250px band (portrait-monitor native width — first-class, not an edge
+   case): shrink links enough for a single line and forbid label wrapping. */
+@media (min-width: 1080px) and (max-width: 1249.98px) {
+  .site-nav a, .site-nav.nav-6 a { white-space: nowrap; font-size: .98rem; }
+  .site-nav a:not(.nav-cta), .site-nav.nav-6 a:not(.nav-cta) { padding: 10px 5px; }
+  .site-nav a.nav-cta, .site-nav.nav-6 a.nav-cta { padding: 12px 13px; margin-left: 5px; }
+  .brand-name { font-size: 1.6rem; }
+  .brand-mark { height: 52px; width: 52px; }
+  /* Hero photo: the +10% scale overflows the viewport right edge in this
+     band — run unscaled with 5px clearance instead. */
+  .hero-grid .hero-photo-rotator { transform: none; }
+  .hero-grid .hero-photo { margin-right: 5px; }
+}
+
 /* ---------- Blog: index card grid ---------- */
 .blog-cards { display: grid; gap: var(--sp-3); }
 .blog-card {
@@ -872,8 +886,10 @@ input:focus, select:focus { outline: 3px solid #9cc4ee; border-color: var(--navy
 .tpmo-footer { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.22); border-radius: 8px; padding: 14px 18px; font-size: .95rem !important; line-height: 1.6; max-width: 72ch; }
 
 /* Hero photo +10% visual size WITHOUT touching the grid/text columns:
-   scale the rotator in place; the large column gap absorbs the growth. */
-@media (min-width: 1080px) {
+   scale the rotator in place; the large column gap absorbs the growth.
+   >=1250 only: in the 1080-1250 portrait band the gap is too small and the
+   scaled photo overflowed the viewport right edge (operator report 8/3). */
+@media (min-width: 1250px) {
   .hero-grid .hero-photo-rotator { transform: scale(1.1); transform-origin: center; }
 }
 
