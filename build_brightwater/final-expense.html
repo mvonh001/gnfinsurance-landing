@@ -223,9 +223,9 @@
       <div class="q-success">
         <div class="big">&#10003;</div>
         <h2 id="qThanksName">Got it!</h2>
-        <p>Michael, a licensed Florida agent, is preparing your rate and will call you shortly from</p>
+        <p id="qThanksLine">Michael, a licensed Florida agent, is preparing your rate and will call you shortly from</p>
         <p class="phone">(305) 859-1704</p>
-        <p>Save that number so you know it's him. You'll also get a text from it in the next minute confirming your request.</p>
+        <p id="qThanksSub">Save that number so you know it's him. You'll also get a text from it in the next minute confirming your request.</p>
       </div>
     </div>
 
@@ -431,6 +431,13 @@
     setTimeout(function () {
       var first = name.split(" ")[0];
       document.getElementById("qThanksName").textContent = "Got it, " + first + "!";
+      var h = new Date().getHours();
+      if (h >= 21 || h < 8) {
+        document.getElementById("qThanksLine").textContent =
+          "Michael, a licensed Florida agent, has your request and will reach out first thing tomorrow morning from";
+        document.getElementById("qThanksSub").textContent =
+          "Save that number so you know it's him when he calls.";
+      }
       show(8);
     }, 500);
   });
