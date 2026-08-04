@@ -207,9 +207,11 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 7: CONTACT -->
+    <!-- STEP 7: CONTACT (reused as-is by core, review, and future bands;
+         qContactTitle/qContactBody are swapped by JS for the future band) -->
     <div class="q-screen" data-step="7">
-      <h2 class="q-title">Want this timeline with the exact dates, plus a plan comparison built around your doctors and prescriptions?</h2>
+      <h2 class="q-title" id="qContactTitle">Want this timeline with the exact dates, plus a plan comparison built around your doctors and prescriptions?</h2>
+      <p class="q-stepsub" id="qContactBody" style="display:none;">&nbsp;</p>
       <form id="qForm" novalidate>
         <div style="position:absolute; left:-6000px;" aria-hidden="true">
           <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
@@ -238,6 +240,7 @@
         <p class="q-secure">No obligation &middot; Your info is never sold &middot; Licensed FL agent</p>
         <p class="q-callout">Or talk it through now: <a id="qCallLink" href="tel:+13058591704">(305) 859-1704</a></p>
       </form>
+      <p class="q-note" id="qFeCrossLink" style="display:none; margin:16px 0 0;">Planning ahead on final costs? <a href="final-expense.html" id="qFeCrossLinkA" style="color:#0e6f95; text-decoration:underline;">Many people your age lock life insurance rates in now - see your range in 60 seconds</a></p>
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
@@ -250,6 +253,16 @@
         <p class="phone">(305) 859-1704</p>
         <p id="qThanksSub">Save that number so you know it's him. You'll also get a text from it in the next minute confirming your request.</p>
       </div>
+    </div>
+
+    <!-- STEP 9: UNDER-55 EXIT (age < 55; honest off-ramp, no contact gate, no lead) -->
+    <div class="q-screen" data-step="9">
+      <div class="q-success">
+        <h2 style="color:#0e3a5c;">Not quite time yet</h2>
+        <p style="color:#42556b; font-size:1rem;">Medicare eligibility starts at 65, so we're not the right fit yet.</p>
+        <p style="color:#42556b; font-size:1rem;">Researching for a parent? Send them to <a href="https://brightwaterinsurancegroup.com/turning65.html" style="color:#0e6f95; font-weight:700;">brightwaterinsurancegroup.com/turning65</a> - or call us with their questions: <a href="tel:+13058591704" style="color:#0e6f95; font-weight:700;">(305) 859-1704</a>.</p>
+      </div>
+      <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
   </div>
@@ -300,7 +313,8 @@
 
   // Populate birth month / birth year selects. Year select is generated
   // at load time (not hand-typed) so the page never needs a yearly edit:
-  // it always spans 1958 through the current year.
+  // it spans age 50 (currentYear - 50) down through age ~85+ (1941),
+  // descending (youngest/most-recent birth year first).
   var monthSel = document.getElementById("qMonth");
   var yearSel = document.getElementById("qYear");
   MONTHS.forEach(function (m, i) {
@@ -311,7 +325,8 @@
   });
   var nowForYears = new Date();
   var thisYear = nowForYears.getFullYear();
-  for (var y = thisYear; y >= 1958; y--) {
+  var yearRangeStart = thisYear - 50;
+  for (var y = yearRangeStart; y >= 1941; y--) {
     var yopt = document.createElement("option");
     yopt.value = String(y);
     yopt.textContent = String(y);
@@ -325,11 +340,91 @@
   monthSel.addEventListener("change", checkStep1);
   yearSel.addEventListener("change", checkStep1);
 
+  // Age-band classification. Pure function of birth month/year + "now" so
+  // it can be hand-tested independent of the live clock. monthsTo65 is
+  // signed: positive = still ahead, negative = already passed.
+  //   under55: age < 55                                -> honest exit, no gate
+  //   core:    monthsTo65 <= 12 AND age < 69            -> unchanged steps 2-6
+  //   review:  age >= 69                                -> same steps 2-6, tagged "-review"
+  //   future:  monthsTo65 > 12 AND age >= 55 (age < 69) -> skip 2-5, tagged "-future"
+  function classifyBand(bm, by) {
+    var now = new Date();
+    var curY = now.getFullYear(), curM = now.getMonth() + 1;
+    var turn65Year = by + 65;
+    var turn65Month = bm;
+    var monthsTo65 = (turn65Year - curY) * 12 + (turn65Month - curM);
+    var age = (curY - by) - (curM < bm ? 1 : 0);
+    var band;
+    if (age < 55) band = "under55";
+    else if (monthsTo65 <= 12 && age < 69) band = "core";
+    else if (age >= 69) band = "review";
+    else band = "future";
+    return { band: band, monthsTo65: monthsTo65, age: age, turn65Month: turn65Month, turn65Year: turn65Year };
+  }
+
+  // "About X years out" / "(~X yrs out)" phrasing shared by the future-band
+  // reveal copy and its lead concern tag. Months under 2 years, else years.
+  function yearsOutParts(monthsTo65) {
+    if (monthsTo65 < 24) {
+      var n = monthsTo65;
+      return { n: n, full: n + " month" + (n === 1 ? "" : "s"), tag: n + " mo" };
+    }
+    var y = Math.round(monthsTo65 / 12);
+    return { n: y, full: y + " year" + (y === 1 ? "" : "s"), tag: y + " yrs" };
+  }
+
+  var contactTitleEl = document.getElementById("qContactTitle");
+  var contactBodyEl = document.getElementById("qContactBody");
+  var feCrossLinkEl = document.getElementById("qFeCrossLink");
+  var feCrossLinkA = document.getElementById("qFeCrossLinkA");
+  var DEFAULT_CONTACT_TITLE = contactTitleEl.textContent;
+
+  function resetContactScreen() {
+    contactTitleEl.textContent = DEFAULT_CONTACT_TITLE;
+    contactBodyEl.style.display = "none";
+    feCrossLinkEl.style.display = "none";
+  }
+
+  function setFutureContactScreen(bandInfo) {
+    var parts = yearsOutParts(bandInfo.monthsTo65);
+    contactTitleEl.textContent = "Medicare starts at 65 - you're about " + parts.full + " out.";
+    contactBodyEl.textContent = "Want us to remind you when your enrollment window opens? One text, no spam, and you'll have a licensed Florida agent who already knows your timeline.";
+    contactBodyEl.style.display = "";
+    var qpNow = new URLSearchParams(window.location.search);
+    var feParams = new URLSearchParams();
+    if (qpNow.get("src")) feParams.set("src", qpNow.get("src"));
+    if (qpNow.get("grp")) feParams.set("grp", qpNow.get("grp"));
+    var feQS = feParams.toString();
+    feCrossLinkA.href = "final-expense.html" + (feQS ? "?" + feQS : "");
+    feCrossLinkEl.style.display = "";
+  }
+
   step1Continue.addEventListener("click", function () {
     if (!monthSel.value || !yearSel.value) return;
     answers.birthMonth = parseInt(monthSel.value, 10);
     answers.birthYear = parseInt(yearSel.value, 10);
     try { gtag('event', 't65_step_1', { 'birth_month': answers.birthMonth, 'birth_year': answers.birthYear }); } catch (e) {}
+
+    var bandInfo = classifyBand(answers.birthMonth, answers.birthYear);
+    answers._band = bandInfo.band;
+    answers._monthsTo65 = bandInfo.monthsTo65;
+    answers._age = bandInfo.age;
+    answers._turn65Month = bandInfo.turn65Month;
+    answers._turn65Year = bandInfo.turn65Year;
+
+    resetContactScreen();
+
+    if (bandInfo.band === "under55") {
+      try { gtag('event', 't65_under55_shown', { age: bandInfo.age }); } catch (e) {}
+      show(9);
+      return;
+    }
+    if (bandInfo.band === "future") {
+      setFutureContactScreen(bandInfo);
+      try { gtag('event', 't65_future_shown', { age: bandInfo.age, months_to_65: bandInfo.monthsTo65 }); } catch (e) {}
+      show(7);
+      return;
+    }
     show(2);
   });
 
@@ -423,7 +518,13 @@
   });
 
   document.querySelectorAll("[data-back]").forEach(function (btn) {
-    btn.addEventListener("click", function () { if (step > 1) show(step - 1); });
+    btn.addEventListener("click", function () {
+      // Future band jumps 1 -> 7 directly (steps 2-6 skipped); under-55
+      // exit jumps 1 -> 9. Back from either returns to step 1, not step-1.
+      if (step === 9) { show(1); return; }
+      if (step === 7 && answers._band === "future") { show(1); return; }
+      if (step > 1) show(step - 1);
+    });
   });
 
   var form = document.getElementById("qForm");
@@ -453,18 +554,30 @@
                         answers.doctors === "Somewhat" ? "doctors somewhat important" : "no doctor preference";
     var rxLabel = (answers.rx || "?") + " rx";
 
-    var concern = "T65 timeline quiz: turns 65 " + MONTHS_SHORT[(answers._turn65Month || 1) - 1] + " " + (answers._turn65Year || "?") +
-      ", " + workingLabel + ", " + doctorsLabel + ", " + rxLabel + ", wants " + (answers.priority || "?") +
-      (answers._already65 ? ", already 65+" : "");
+    var band = answers._band || "core";
+    var concern;
+    if (band === "future") {
+      var outParts = yearsOutParts(answers._monthsTo65 || 0);
+      concern = "T65 future pipeline: turns 65 " + MONTHS_SHORT[(answers._turn65Month || 1) - 1] + " " + (answers._turn65Year || "?") +
+        " (~" + outParts.tag + " out)";
+    } else {
+      concern = "T65 timeline quiz: turns 65 " + MONTHS_SHORT[(answers._turn65Month || 1) - 1] + " " + (answers._turn65Year || "?") +
+        ", " + workingLabel + ", " + doctorsLabel + ", " + rxLabel + ", wants " + (answers.priority || "?") +
+        (answers._already65 ? ", already 65+" : "") +
+        (band === "review" ? ", medicare review, age ~" + (answers._age != null ? answers._age : "?") : "");
+    }
 
     var dob = (answers.birthYear && answers.birthMonth) ?
       (answers.birthYear + "-" + (answers.birthMonth < 10 ? "0" + answers.birthMonth : answers.birthMonth) + "-01") : "";
+
+    var subsourceBase = (src ? (src + (grp ? "-" + grp : "")) : "t65") + "-v1";
+    var bandSuffix = band === "review" ? "-review" : (band === "future" ? "-future" : "");
 
     var payload = {
       name: name, phone: form.phone.value.trim(), zip: "",
       dob: dob, concern: concern,
       source: src || "organic",
-      subsource: (src ? (src + (grp ? "-" + grp : "")) : "t65") + "-v1",
+      subsource: subsourceBase + bandSuffix,
       gclid: (qp.get("gclid") || "").trim(),
       product_line: "medicare"
     };
