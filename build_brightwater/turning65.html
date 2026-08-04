@@ -488,6 +488,10 @@
 
   function show(n) {
     step = n;
+    if (n === 7 && !answers._gateLogged) {
+      answers._gateLogged = true;
+      try { gtag('event', 't65_gate_shown', { band: answers._band || 'core', already_65: !!answers._already65 }); } catch (e) {}
+    }
     document.querySelectorAll(".q-screen").forEach(function (s) {
       s.classList.toggle("active", parseInt(s.getAttribute("data-step"), 10) === n);
     });
