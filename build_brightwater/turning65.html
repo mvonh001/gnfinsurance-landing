@@ -452,7 +452,7 @@
   function setFutureContactScreen(bandInfo) {
     var parts = yearsOutParts(bandInfo.monthsTo65);
     contactTitleEl.textContent = "Medicare starts at 65 - you're about " + parts.full + " out.";
-    contactBodyEl.textContent = "Want us to remind you when your enrollment window opens? One text, no spam, and you'll have a licensed Florida agent who already knows your timeline.";
+    contactBodyEl.textContent = "Want a reminder when your enrollment window opens? You'll get one text from Michael when it's time, nothing else. And you'll already have a licensed Florida agent who knows your timeline.";
     contactBodyEl.style.display = "";
     var qpNow = new URLSearchParams(window.location.search);
     var feParams = new URLSearchParams();
@@ -678,9 +678,9 @@
         // the thanks copy becomes the reminder promise instead.
         document.getElementById("qRevealCard").style.display = "none";
         document.getElementById("qThanksLine").textContent =
-          "You're on the reminder list. When your enrollment window approaches, you'll hear from Michael, a licensed Florida agent, at";
+          "You're on the list. When your window gets close, you're going to get one text from Michael, a licensed Florida agent. It'll come from";
         document.getElementById("qThanksSub").textContent =
-          "One text, no spam. Save the number so you know it's him.";
+          "Save the number so you know it's him. Nothing else until then.";
       } else {
         try {
           gtag('event', 't65_timeline_shown', {
