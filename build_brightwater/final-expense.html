@@ -265,6 +265,12 @@
 
 <script>
 (function () {
+  function bwGaCid() {
+    try {
+      var m = document.cookie.match(/_ga=GA\d+\.\d+\.(\d+\.\d+)/);
+      return m ? m[1] : '';
+    } catch (e) { return ''; }
+  }
   var answers = {};
   var step = 1;
   var TOTAL = 7;
@@ -399,6 +405,7 @@
       source: src || "organic",
       subsource: (src ? (src + (grp ? "-" + grp : "")) : "fe") + "-v3r2r3",
       gclid: (qp.get("gclid") || "").trim(),
+      ga_cid: bwGaCid(),
       product_line: "fe"
     };
     submitBtn.disabled = true; submitBtn.textContent = "Sending…";
@@ -469,6 +476,7 @@
           source: src || "organic",
           subsource: (src ? (src + (grp ? "-" + grp : "")) : "fe") + "-v3r2r3-callout",
           gclid: (qp.get("gclid") || "").trim(),
+      ga_cid: bwGaCid(),
           product_line: "fe"
         })
       }).catch(function () {});
