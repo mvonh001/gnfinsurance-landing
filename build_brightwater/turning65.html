@@ -147,8 +147,9 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 3: STILL WORKING -->
+    <!-- STEP 3: STILL WORKING (V8 FLIP: post-capture) -->
     <div class="q-screen" data-step="3">
+      <p class="q-capnote" style="color:#2e7d4f; font-weight:600; margin-bottom:10px;">&#10003; Got it. Your window is on its way by text. Four quick taps so Michael can prep your call.</p>
       <h2 class="q-title">Will you (or your spouse) still be working with employer health coverage at 65?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="working" data-val="Yes, mine">Yes, mine</button>
@@ -251,6 +252,17 @@
         <p class="phone">(305) 859-1704</p>
         <p id="qThanksSub">Save that number so you know it's him. Have your doctor and medication list handy for the call - that's the coverage check.</p>
       </div>
+    </div>
+
+    <!-- STEP 10: FUTURE-BAND CHOICE (V8 FLIP: paid future clicks get a
+         review-now path; wording deliberately licenses the FE conversation) -->
+    <div class="q-screen" data-step="10">
+      <h2 class="q-title" id="qFutureChoiceTitle">Medicare starts at 65.</h2>
+      <div class="q-opts">
+        <button type="button" class="q-opt" id="qFutureNowBtn">Get my full coverage review now<span style="display:block; font-size:.85rem; font-weight:400; color:#42556b; margin-top:3px;">Michael calls this week: your Medicare timeline, plus life and final expense options while your age still works in your favor.</span></button>
+        <button type="button" class="q-opt" id="qFutureRemindBtn">Just remind me when my window opens<span style="display:block; font-size:.85rem; font-weight:400; color:#42556b; margin-top:3px;">One text from Michael when it's time. Nothing else until then.</span></button>
+      </div>
+      <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
     <!-- STEP 9: UNDER-55 EXIT (age < 55; honest off-ramp, no contact gate, no lead) -->
@@ -463,6 +475,13 @@
     feCrossLinkEl.style.display = "";
   }
 
+  function setFutureNowContactScreen() {
+    contactTitleEl.textContent = "Where should Michael reach you?";
+    contactBodyEl.textContent = "He'll call to go over your Medicare timeline, plus life and final expense coverage while your age still works in your favor. One licensed Florida agent, no call center.";
+    contactBodyEl.style.display = "";
+    feCrossLinkEl.style.display = "none";
+  }
+
   function routeAfterBirthday() {
     var bandInfo = classifyBand(answers.birthMonth, answers.birthYear);
     answers._band = bandInfo.band;
@@ -479,13 +498,31 @@
       return;
     }
     if (bandInfo.band === "future") {
-      setFutureContactScreen(bandInfo);
+      answers._futureInfo = bandInfo;
+      var fparts = yearsOutParts(bandInfo.monthsTo65);
+      document.getElementById("qFutureChoiceTitle").textContent =
+        "Medicare starts at 65 - you're about " + fparts.full + " out. Your call:";
       try { gtag('event', 't65_future_shown', { age: bandInfo.age, months_to_65: bandInfo.monthsTo65 }); } catch (e) {}
-      show(7);
+      show(10);
       return;
     }
-    show(3);
+    // V8 FLIP: core/review capture right after the birthday taps; the
+    // working/doctors/rx/priority questions moved post-capture.
+    show(7);
   }
+
+  document.getElementById("qFutureNowBtn").addEventListener("click", function () {
+    answers._futureNow = true;
+    setFutureNowContactScreen();
+    try { gtag('event', 't65_future_choice', { choice: 'review_now' }); } catch (e) {}
+    show(7);
+  });
+  document.getElementById("qFutureRemindBtn").addEventListener("click", function () {
+    answers._futureNow = false;
+    setFutureContactScreen(answers._futureInfo);
+    try { gtag('event', 't65_future_choice', { choice: 'remind' }); } catch (e) {}
+    show(7);
+  });
 
   // Timeline math (IEP = 3 months before birth month, the birth month
   // itself, and 3 months after = 7 months). "Already 65" is true only
@@ -565,18 +602,23 @@
       answers[btn.getAttribute("data-key")] = btn.getAttribute("data-val");
       btn.parentNode.querySelectorAll(".q-opt").forEach(function (b) { b.classList.remove("picked"); });
       btn.classList.add("picked");
-      if (btn.getAttribute("data-key") === "priority") renderTimeline();
+      var isPriority = btn.getAttribute("data-key") === "priority";
+      if (isPriority) renderTimeline();
       try { gtag('event', 't65_step_' + step, { 'choice': btn.getAttribute("data-val") }); } catch (e) {}
-      setTimeout(function () { show(step + 1); }, 160);
+      setTimeout(function () {
+        if (isPriority) { sendEnrich(); finishSuccess(); } else { show(step + 1); }
+      }, 160);
     });
   });
 
   document.querySelectorAll("[data-back]").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      // Band jumps: future goes 2 -> 7 (steps 3-6 skipped); under-55 goes
-      // 2 -> 9. Back from either returns to the year screen (2).
-      if (step === 9) { show(2); return; }
-      if (step === 7 && answers._band === "future") { show(2); return; }
+      // V8 FLIP: contact (7) sits right after birthday for every band, and
+      // the future choice (10) does too -- back from either returns toward
+      // the year screen. Step 3+ are post-capture: no path back into the form.
+      if (step === 9 || step === 10) { show(2); return; }
+      if (step === 7) { show(answers._band === "future" ? 10 : 2); return; }
+      if (step === 3) return;
       if (step > 1) show(step - 1);
     });
   });
@@ -610,13 +652,15 @@
 
     var band = answers._band || "core";
     var concern;
-    if (band === "future") {
-      var outParts = yearsOutParts(answers._monthsTo65 || 0);
-      concern = "T65 future pipeline: turns 65 " + MONTHS_SHORT[(answers._turn65Month || 1) - 1] + " " + (answers._turn65Year || "?") +
-        " (~" + outParts.tag + " out)";
+    var outParts = yearsOutParts(answers._monthsTo65 || 0);
+    var turnLabel = MONTHS_SHORT[(answers._turn65Month || 1) - 1] + " " + (answers._turn65Year || "?");
+    if (band === "future" && !answers._futureNow) {
+      concern = "T65 future pipeline: turns 65 " + turnLabel + " (~" + outParts.tag + " out)";
+    } else if (band === "future") {
+      concern = "T65 REVIEW-NOW: turns 65 " + turnLabel + " (~" + outParts.tag +
+        " out) - wants full review now incl life + final expense";
     } else {
-      concern = "T65 timeline quiz: turns 65 " + MONTHS_SHORT[(answers._turn65Month || 1) - 1] + " " + (answers._turn65Year || "?") +
-        ", " + workingLabel + ", " + doctorsLabel + ", " + rxLabel + ", wants " + (answers.priority || "?") +
+      concern = "T65 timeline quiz: turns 65 " + turnLabel + " (details on the call)" +
         (answers._already65 ? ", already 65+" : "") +
         (band === "review" ? ", medicare review, age ~" + (answers._age != null ? answers._age : "?") : "");
     }
@@ -624,8 +668,9 @@
     var dob = (answers.birthYear && answers.birthMonth) ?
       (answers.birthYear + "-" + (answers.birthMonth < 10 ? "0" + answers.birthMonth : answers.birthMonth) + "-01") : "";
 
-    var subsourceBase = (src ? (src + (grp ? "-" + grp : "")) : "t65") + "-v2";
-    var bandSuffix = band === "review" ? "-review" : (band === "future" ? "-future" : "");
+    var subsourceBase = (src ? (src + (grp ? "-" + grp : "")) : "t65") + "-v3cap";
+    var bandSuffix = band === "review" ? "-review" :
+        (band === "future" ? (answers._futureNow ? "-future-now" : "-future") : "");
 
     var payload = {
       name: name, phone: form.phone.value.trim(), zip: "",
@@ -661,38 +706,71 @@
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
+      }).then(function (r) { return r.json(); })
+        .then(function (j) { if (j && j.enrich_key) answers._ek = j.enrich_key; })
+        .catch(function () {});
+    } catch (e) {}
+    answers._first = name.split(" ")[0];
+    try { gtag('event', 't65_contact_captured', { band: band, future_now: !!answers._futureNow }); } catch (e) {}
+    setTimeout(function () {
+      if (answers._band === "future" && !answers._futureNow) {
+        finishSuccess();
+      } else {
+        // V8 FLIP: capture done -- the qualifying taps now prep the call.
+        show(3);
+      }
+    }, 400);
+  });
+
+  // V8 FLIP: success copy set at the moment the walk actually ends --
+  // right after submit for the reminder band, after the last tap otherwise.
+  function finishSuccess() {
+    document.getElementById("qThanksName").textContent = "Got it, " + (answers._first || "") + "!";
+    var h = new Date().getHours();
+    if (h >= 20 || h < 9) {
+      document.getElementById("qThanksLine").textContent =
+        "A text with this snapshot is on its way. Michael, a licensed Florida agent, will reach out first thing tomorrow morning from";
+      document.getElementById("qThanksSub").textContent =
+        "Save that number so you know it's him when he calls. Have your doctor and medication list handy for the call - that's the coverage check.";
+    }
+    if (answers._band === "future" && !answers._futureNow) {
+      document.getElementById("qRevealCard").style.display = "none";
+      document.getElementById("qThanksLine").textContent =
+        "You're on the list. When your window gets close, you'll get one text from Michael, a licensed Florida agent. It'll come from";
+      document.getElementById("qThanksSub").textContent =
+        "Save the number so you know it's him. Nothing else until then.";
+    } else if (answers._band === "future") {
+      document.getElementById("qRevealCard").style.display = "none";
+      document.getElementById("qThanksLine").textContent =
+        "Michael, a licensed Florida agent, has your request and will call you from";
+      document.getElementById("qThanksSub").textContent =
+        "Save the number so you know it's him. The call covers your Medicare timeline plus life and final expense options.";
+    } else {
+      try {
+        gtag('event', 't65_timeline_shown', {
+          already_65: !!answers._already65,
+          still_working: (answers.working === "Yes, mine" || answers.working === "Yes, spouse's"),
+          doctors: answers.doctors, rx: answers.rx, priority: answers.priority
+        });
+      } catch (e) {}
+    }
+    show(8);
+  }
+
+  // V8 FLIP: post-capture answers ride back to the CRM on the enrich key.
+  function sendEnrich() {
+    if (!answers._ek) return;
+    try {
+      fetch("/api/lead/enrich", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        keepalive: true,
+        body: JSON.stringify({ key: answers._ek,
+          extra: "working: " + (answers.working || "?") + ", doctors: " + (answers.doctors || "?") +
+                 ", rx: " + (answers.rx || "?") + ", wants " + (answers.priority || "?") })
       }).catch(function () {});
     } catch (e) {}
-    setTimeout(function () {
-      var first = name.split(" ")[0];
-      document.getElementById("qThanksName").textContent = "Got it, " + first + "!";
-      var h = new Date().getHours();
-      if (h >= 20 || h < 9) {
-        document.getElementById("qThanksLine").textContent =
-          "A text with this snapshot is on its way. Michael, a licensed Florida agent, will reach out first thing tomorrow morning from";
-        document.getElementById("qThanksSub").textContent =
-          "Save that number so you know it's him when he calls. Have your doctor and medication list handy for the call - that's the coverage check.";
-      }
-      if (answers._band === "future") {
-        // Future band never ran the timeline math -- no reveal card, and
-        // the thanks copy becomes the reminder promise instead.
-        document.getElementById("qRevealCard").style.display = "none";
-        document.getElementById("qThanksLine").textContent =
-          "You're on the list. When your window gets close, you'll get one text from Michael, a licensed Florida agent. It'll come from";
-        document.getElementById("qThanksSub").textContent =
-          "Save the number so you know it's him. Nothing else until then.";
-      } else {
-        try {
-          gtag('event', 't65_timeline_shown', {
-            already_65: !!answers._already65,
-            still_working: (answers.working === "Yes, mine" || answers.working === "Yes, spouse's"),
-            doctors: answers.doctors, rx: answers.rx, priority: answers.priority
-          });
-        } catch (e) {}
-      }
-      show(8);
-    }, 500);
-  });
+  }
 
   [document.getElementById("qCallLink"), document.getElementById("qHeaderCall")].forEach(function (callLink) {
   if (callLink) callLink.addEventListener("click", function () {

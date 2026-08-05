@@ -141,18 +141,18 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 3: GENDER -->
-    <div class="q-screen" data-step="3">
+    <!-- STEP 4: GENDER (post-capture) -->
+    <div class="q-screen" data-step="4">
+      <p class="q-capnote" style="color:#2e7d4f; font-weight:600; margin-bottom:10px;">&#10003; Got it. Michael will call you shortly. Three more taps so he has your options ready.</p>
       <h2 class="q-title" data-dyn="gender">Are you male or female?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="gender" data-val="Female">Female</button>
         <button type="button" class="q-opt" data-key="gender" data-val="Male">Male</button>
       </div>
-      <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 4: TOBACCO -->
-    <div class="q-screen" data-step="4">
+    <!-- STEP 5: TOBACCO (post-capture) -->
+    <div class="q-screen" data-step="5">
       <h2 class="q-title" data-dyn="tobacco">Any tobacco use in the last 12 months?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="tobacco" data-val="No tobacco">No</button>
@@ -161,8 +161,8 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 5: COVERAGE -->
-    <div class="q-screen" data-step="5">
+    <!-- STEP 6: COVERAGE (post-capture) -->
+    <div class="q-screen" data-step="6">
       <h2 class="q-title">How much coverage are you looking for?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="coverage" data-val="$5,000-$10,000">$5,000 to $10,000</button>
@@ -173,21 +173,25 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 6: RATE REVEAL (R2) -->
-    <div class="q-screen" data-step="6">
+    <!-- STEP 7: RATE REVEAL = SUCCESS (V8 FLIP: value delivered post-capture) -->
+    <div class="q-screen" data-step="7">
       <h2 class="q-title" data-dyn="reveal">Here's what coverage like this typically costs</h2>
       <div class="q-reveal">
         <div class="q-reveal-range" id="qRevealRange">$24 to $42/mo</div>
         <p class="q-reveal-note" id="qRevealNote">Typical range for $5,000 to $10,000 of coverage. Your exact rate depends on a few health questions and the carrier.</p>
         <p class="q-reveal-under50" id="qRevealUnder50" style="display:none;">Rates under 50 are often even lower than this range.</p>
       </div>
-      <button type="button" class="btn btn-submit q-submit" id="qRevealContinue">Get my exact rate</button>
-      <button type="button" class="q-back" data-back>&larr; Back</button>
+      <div class="q-success" style="margin-top:14px;">
+        <p id="qRevealCallLine">Michael, a licensed Florida agent, will call you shortly from</p>
+        <p class="phone">(305) 859-1704</p>
+        <p>Save the number so you know it's him. A text confirming your request is on its way.</p>
+      </div>
     </div>
 
-    <!-- STEP 7: CONTACT -->
-    <div class="q-screen" data-step="7">
-      <h2 class="q-title">Almost done…</h2>
+    <!-- STEP 3: CONTACT (V8 FLIP: capture before value) -->
+    <div class="q-screen" data-step="3">
+      <h2 class="q-title">Where should Michael reach you?</h2>
+      <p class="q-stepsub">Your rate range shows on the next screen, and Michael calls with the real answer.</p>
       <form id="qForm" novalidate>
         <div style="position:absolute; left:-6000px;" aria-hidden="true">
           <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
@@ -212,7 +216,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
           <p>You'll get one call from Michael von Heesen, a licensed Florida agent. Lic. G345487. No call center. No lead lists. Your information is never sold.</p>
         </div>
-        <button type="submit" class="btn btn-submit q-submit" id="qSubmit">Get My Exact Rate</button>
+        <button type="submit" class="btn btn-submit q-submit" id="qSubmit">Show My Rate Range</button>
         <p class="q-secure">Free &amp; no obligation · Your info is never sold · Licensed FL agent</p>
         <p class="q-callout">Or get your answer right now: call Michael at <a id="qCallLink" href="tel:+13058591704">(305) 859-1704</a></p>
       </form>
@@ -365,14 +369,10 @@
       btn.parentNode.querySelectorAll(".q-opt").forEach(function (b) { b.classList.remove("picked"); });
       btn.classList.add("picked");
       if (btn.getAttribute("data-key") === "who") applyDyn();
-      if (btn.getAttribute("data-key") === "coverage") renderReveal();
+      if (btn.getAttribute("data-key") === "coverage") { renderReveal(); sendEnrich(); }
       try { gtag('event', 'quiz_step_' + step, { 'choice': btn.getAttribute("data-val") }); } catch (e) {}
       setTimeout(function () { show(step + 1); }, 160);
     });
-  });
-
-  document.getElementById("qRevealContinue").addEventListener("click", function () {
-    show(step + 1);
   });
 
   document.querySelectorAll("[data-back]").forEach(function (btn) {
@@ -397,14 +397,12 @@
     var qp = new URLSearchParams(window.location.search);
     var src = (qp.get("src") || "").trim();
     var grp = (qp.get("grp") || "").trim();
-    var concern = "FE quiz: for " + (answers.who || "?") + ", " + (answers.age || "?") + ", " +
-                  (answers.gender || "?") + ", " + (answers.tobacco || "?") + ", wants " + (answers.coverage || "?") +
-                  ", shown $" + answers._revealLow + "-$" + answers._revealHigh + "/mo";
+    var concern = "FE quiz: for " + (answers.who || "?") + ", " + (answers.age || "?") + " (details on the call)";
     var payload = {
       name: name, phone: form.phone.value.trim(), zip: "",
       dob: "", concern: concern,
       source: src || "organic",
-      subsource: (src ? (src + (grp ? "-" + grp : "")) : "febn") + "-bn1",
+      subsource: (src ? (src + (grp ? "-" + grp : "")) : "febn") + "-bn2cap",
       gclid: (qp.get("gclid") || "").trim(),
       ga_cid: bwGaCid(),
       product_line: "fe"
@@ -434,21 +432,35 @@
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
-      }).catch(function () {});
+      }).then(function (r) { return r.json(); })
+        .then(function (j) { if (j && j.enrich_key) answers._ek = j.enrich_key; })
+        .catch(function () {});
     } catch (e) {}
+    try { gtag('event', 'contact_captured', { who: answers.who || "", age: answers.age || "" }); } catch (e) {}
     setTimeout(function () {
-      var first = name.split(" ")[0];
-      document.getElementById("qThanksName").textContent = "Got it, " + first + "!";
       var h = new Date().getHours();
       if (h >= 20 || h < 9) {
-        document.getElementById("qThanksLine").textContent =
-          "Michael, a licensed Florida agent, has your request and will reach out first thing tomorrow morning from";
-        document.getElementById("qThanksSub").textContent =
-          "Save that number so you know it's him when he calls. You can also text it anytime, day or night, and Michael will get right back to you.";
+        document.getElementById("qRevealCallLine").textContent =
+          "Michael, a licensed Florida agent, has your request and will call first thing tomorrow morning from";
       }
-      show(8);
-    }, 500);
+      show(4);
+    }, 400);
   });
+
+  // V8 FLIP: post-capture answers ride back to the CRM on the enrich key.
+  function sendEnrich() {
+    if (!answers._ek) return;
+    try {
+      fetch("/api/lead/enrich", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        keepalive: true,
+        body: JSON.stringify({ key: answers._ek,
+          extra: (answers.gender || "?") + ", " + (answers.tobacco || "?") + ", wants " + (answers.coverage || "?") +
+                 ", shown $" + (answers._revealLow || "?") + "-$" + (answers._revealHigh || "?") + "/mo" })
+      }).catch(function () {});
+    } catch (e) {}
+  }
 
   [document.getElementById("qCallLink"), document.getElementById("qHeaderCall")].forEach(function (callLink) {
   if (callLink) callLink.addEventListener("click", function () {
@@ -471,11 +483,9 @@
           name: form.name.value.trim(),
           phone: form.phone.value.trim(),
           zip: "", dob: "",
-          concern: "CALL-OUT from quiz: for " + (answers.who || "?") + ", " + (answers.age || "?") + ", " +
-                   (answers.gender || "?") + ", " + (answers.tobacco || "?") + ", wants " + (answers.coverage || "?") +
-                   ", shown $" + (answers._revealLow || "?") + "-$" + (answers._revealHigh || "?") + "/mo",
+          concern: "CALL-OUT from quiz: for " + (answers.who || "?") + ", " + (answers.age || "?") + " (details on the call)",
           source: src || "organic",
-          subsource: (src ? (src + (grp ? "-" + grp : "")) : "febn") + "-bn1-callout",
+          subsource: (src ? (src + (grp ? "-" + grp : "")) : "febn") + "-bn2cap-callout",
           gclid: (qp.get("gclid") || "").trim(),
       ga_cid: bwGaCid(),
           product_line: "fe"
