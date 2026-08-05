@@ -64,6 +64,9 @@
 
   <div class="truth">There is no government or state "$25,000 burial program." Those ads sell final expense life insurance. The insurance itself is real, useful, and state-regulated. The "program" part is marketing built to look like a government benefit.</div>
 
+  <p style="margin:14px 0 22px;"><a class="btn quiz-link" href="final-expense.html">See My Real Rate Range</a><br>
+  <span class="alt" style="display:inline-block; margin-top:8px;">60 seconds, six taps. Or call: <a href="tel:+13058591704" style="color:#0e6f95; font-weight:700;">(305) 859-1704</a></span></p>
+
   <h2>So the ads are a scam?</h2>
   <p>Not exactly, and that is the confusing part. The product behind the ads is usually legitimate: a small whole life insurance policy, typically $2,000 to $40,000, made to cover funeral and final costs. Licensed insurance carriers issue these policies and the State of Florida regulates them.</p>
   <p>The misleading part is the wrapper: the "program" language, the government look, the fake deadlines. The biggest catch is what happens to your phone number. Many of those TV and mail offers are run by lead companies, not agents. Call the 800 number and your information often gets sold to several call centers. Then the calls start and they do not stop.</p>
@@ -99,7 +102,7 @@
   <div class="cta">
     <h2>See your real rate range in 60 seconds</h2>
     <p class="alt">Six quick taps: age, coverage amount, tobacco. You get an honest range for your situation.</p>
-    <a class="btn" id="quizLink" href="final-expense.html">Get My Honest Rate Range</a>
+    <a class="btn quiz-link" id="quizLink" href="final-expense.html">Get My Honest Rate Range</a>
     <p class="alt">Or just ask a person: <a href="tel:+13058591704">(305) 859-1704</a>. One call, one agent, no pressure.</p>
   </div>
 </main>
@@ -120,11 +123,13 @@
   if (qp.get("grp")) pass.set("grp", qp.get("grp"));
   if (qp.get("gclid")) pass.set("gclid", qp.get("gclid"));
   var qs = pass.toString();
-  if (qs) document.getElementById("quizLink").href = "final-expense.html?" + qs;
-  try { gtag('event', 'fep_page_view', { src: qp.get('src') || 'organic' }); } catch (e) {}
-  document.getElementById("quizLink").addEventListener("click", function () {
-    try { gtag('event', 'fep_quiz_click', {}); } catch (e) {}
+  document.querySelectorAll(".quiz-link").forEach(function (a) {
+    if (qs) a.href = "final-expense.html?" + qs;
+    a.addEventListener("click", function () {
+      try { gtag('event', 'fep_quiz_click', {}); } catch (e) {}
+    });
   });
+  try { gtag('event', 'fep_page_view', { src: qp.get('src') || 'organic' }); } catch (e) {}
 })();
 </script>
 </body>
