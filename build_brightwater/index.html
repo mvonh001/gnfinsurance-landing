@@ -326,6 +326,39 @@
   </div>
 </section>
 
+<!-- ============ TESTIMONIALS (hidden until real client reviews exist;
+     data lives in assets/testimonials.js — REAL, PERMISSIONED QUOTES ONLY) -->
+<section class="band-panel" id="bwTestimonials" style="display:none;">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="rule"></div>
+      <h2>What clients say</h2>
+    </div>
+    <div id="bwTestimonialTrack" style="display:flex; gap:16px; overflow-x:auto; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; padding:6px 2px 14px;"></div>
+  </div>
+</section>
+<script src="assets/testimonials.js"></script>
+<script>
+(function () {
+  var data = window.BW_TESTIMONIALS || [];
+  if (!data.length) return; // stays hidden until real reviews land
+  var track = document.getElementById("bwTestimonialTrack");
+  data.forEach(function (t) {
+    var card = document.createElement("div");
+    card.style.cssText = "flex:0 0 300px; scroll-snap-align:start; background:#fff; border:1px solid #dde4ec; border-radius:12px; padding:18px 20px; box-shadow:0 1px 4px rgba(14,58,92,.06);";
+    var q = document.createElement("p");
+    q.style.cssText = "margin:0 0 12px; color:#2c3f54; font-size:.95rem; line-height:1.55;";
+    q.textContent = "“" + t.quote + "”";
+    var who = document.createElement("p");
+    who.style.cssText = "margin:0; font-weight:700; color:#0e3a5c; font-size:.88rem;";
+    who.textContent = t.name + (t.city ? " · " + t.city : "");
+    card.appendChild(q); card.appendChild(who);
+    track.appendChild(card);
+  });
+  document.getElementById("bwTestimonials").style.display = "";
+})();
+</script>
+
 <!-- ============ PHONE CTA BAND ============ -->
 <section class="phoneband">
   <div class="wrap-wide">

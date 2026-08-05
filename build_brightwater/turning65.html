@@ -93,6 +93,14 @@
   .q-row { display:flex; gap:12px; }
   .q-row .q-field { flex:1; margin-bottom:0; }
   @media (max-width:420px) { .q-row { flex-direction:column; gap:11px; } }
+
+  /* V2: all-tap birth month/year grids (NN/g: dropdowns are a documented
+     failure point for 65+ on mobile; every control >=48px tall). */
+  .q-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }
+  .q-grid .q-opt { min-height:52px; font-size:1.02rem; padding:12px 6px; text-align:center; }
+  @media (max-width:380px) { .q-grid { grid-template-columns:repeat(2, 1fr); } }
+  .q-hero-chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:14px 0 0; }
+  .q-hero-chips span { font-size:.8rem; font-weight:600; color:#0e3a5c; background:#eaf3f8; border:1px solid #cfe2ee; border-radius:999px; padding:5px 12px; }
 </style>
 </head>
 <body>
@@ -112,8 +120,9 @@
 
 <main id="main">
 <section class="q-hero">
-  <h1>Turning 65? Get your personal Medicare timeline in 60 seconds.</h1>
-  <p class="sub">Six questions. No contact info needed to see it.</p>
+  <h1>Make sure your doctors and medications are covered when you turn 65.</h1>
+  <p class="sub">Free pre-65 Medicare assessment by a licensed Florida agent: your monthly cost picture, plus your doctors and prescriptions checked against plans in your area. Six quick taps to start.</p>
+  <p class="q-hero-chips"><span>Free</span><span>No obligation</span><span>Licensed FL agent G345487</span><span>No call center</span></p>
 </section>
 
 <div class="q-shell">
@@ -123,29 +132,23 @@
     <div class="q-stepnum" id="qStepNum">Step 1 of 7</div>
     <div class="q-microtrust">Licensed independent insurance agency. Not affiliated with the government or the federal Medicare program.</div>
 
-    <!-- STEP 1: BIRTH MONTH / YEAR -->
+    <!-- STEP 1: BIRTH MONTH (all-tap) -->
     <div class="q-screen active" data-step="1">
-      <h2 class="q-title">When do you turn 65?</h2>
-      <p class="q-stepsub">Already 65? We'll build your late-enrollment picture.</p>
-      <div class="q-row">
-        <div class="q-field">
-          <label for="qMonth">Birth month</label>
-          <select id="qMonth" required>
-            <option value="" selected disabled>Month&hellip;</option>
-          </select>
-        </div>
-        <div class="q-field">
-          <label for="qYear">Birth year</label>
-          <select id="qYear" required>
-            <option value="" selected disabled>Year&hellip;</option>
-          </select>
-        </div>
-      </div>
-      <button type="button" class="btn btn-submit q-submit" id="qStep1Continue" style="margin-top:26px;" disabled>Continue</button>
+      <h2 class="q-title">First, what month is your birthday?</h2>
+      <p class="q-stepsub">Your enrollment window is built around it.</p>
+      <div class="q-grid" id="qMonthGrid"></div>
     </div>
 
-    <!-- STEP 2: STILL WORKING -->
+    <!-- STEP 2: BIRTH YEAR (all-tap, expandable edges) -->
     <div class="q-screen" data-step="2">
+      <h2 class="q-title">And what year were you born?</h2>
+      <p class="q-stepsub">Already 65? We'll build your picture too.</p>
+      <div class="q-grid" id="qYearGrid"></div>
+      <button type="button" class="q-back" data-back>&larr; Back</button>
+    </div>
+
+    <!-- STEP 3: STILL WORKING -->
+    <div class="q-screen" data-step="3">
       <h2 class="q-title">Will you (or your spouse) still be working with employer health coverage at 65?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="working" data-val="Yes, mine">Yes, mine</button>
@@ -156,8 +159,8 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 3: DOCTORS -->
-    <div class="q-screen" data-step="3">
+    <!-- STEP 4: DOCTORS -->
+    <div class="q-screen" data-step="4">
       <h2 class="q-title">Do you have doctors you want to keep seeing?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="doctors" data-val="Yes, very important">Yes, very important</button>
@@ -167,8 +170,8 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 4: PRESCRIPTIONS -->
-    <div class="q-screen" data-step="4">
+    <!-- STEP 5: PRESCRIPTIONS -->
+    <div class="q-screen" data-step="5">
       <h2 class="q-title">Do you take regular prescriptions?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="rx" data-val="None">None</button>
@@ -178,8 +181,8 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 5: PRIORITY -->
-    <div class="q-screen" data-step="5">
+    <!-- STEP 6: PRIORITY -->
+    <div class="q-screen" data-step="6">
       <h2 class="q-title">What matters most to you?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="priority" data-val="Lowest monthly cost">Lowest monthly cost</button>
@@ -190,28 +193,12 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 6: TIMELINE REVEAL -->
-    <div class="q-screen" data-step="6">
-      <h2 class="q-title">Your Medicare Timeline</h2>
-      <div class="q-reveal">
-        <p class="q-reveal-label" id="qTimelineLabel">Your Initial Enrollment Period</p>
-        <div class="q-reveal-range" id="qTimelineRange">&nbsp;</div>
-        <p class="q-reveal-note" id="qTimelineNote">&nbsp;</p>
-        <div class="q-trustblock" id="qWorkingNote" style="display:none;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-          <p>Because you'll have employer coverage, you may be able to delay Part B without penalty, and you get a Special Enrollment Period when that coverage ends. This is worth a 10-minute conversation to get right.</p>
-        </div>
-        <p class="q-reveal-personal" id="qPersonalLine">&nbsp;</p>
-      </div>
-      <button type="button" class="btn btn-submit q-submit" id="qRevealContinue">Get My Exact Dates</button>
-      <button type="button" class="q-back" data-back>&larr; Back</button>
-    </div>
-
-    <!-- STEP 7: CONTACT (reused as-is by core, review, and future bands;
-         qContactTitle/qContactBody are swapped by JS for the future band) -->
+    <!-- STEP 7: CONTACT GATE (before the reveal -- V2. Reused by core,
+         review, and future bands; qContactTitle/qContactBody swapped by JS
+         for the future band) -->
     <div class="q-screen" data-step="7">
-      <h2 class="q-title" id="qContactTitle">Want this timeline with the exact dates, plus a plan comparison built around your doctors and prescriptions?</h2>
-      <p class="q-stepsub" id="qContactBody" style="display:none;">&nbsp;</p>
+      <h2 class="q-title" id="qContactTitle">Your assessment is ready to start. Where should we text your enrollment window and cost snapshot?</h2>
+      <p class="q-stepsub" id="qContactBody">Then one call from Michael checks your doctors and prescriptions, by name, against the plans in your area.</p>
       <form id="qForm" novalidate>
         <div style="position:absolute; left:-6000px;" aria-hidden="true">
           <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
@@ -244,14 +231,25 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- SUCCESS -->
+    <!-- SUCCESS + FULL REVEAL (V2: the timeline now lives here, AFTER the
+         gate -- the texted snapshot + this screen deliver the payoff) -->
     <div class="q-screen" data-step="8">
       <div class="q-success">
         <div class="big">&#10003;</div>
         <h2 id="qThanksName">Got it!</h2>
-        <p id="qThanksLine">Michael, a licensed Florida agent, is preparing your full timeline and will call you shortly from</p>
+        <div class="q-reveal" id="qRevealCard">
+          <p class="q-reveal-label" id="qTimelineLabel">Your Initial Enrollment Period</p>
+          <div class="q-reveal-range" id="qTimelineRange">&nbsp;</div>
+          <p class="q-reveal-note" id="qTimelineNote">&nbsp;</p>
+          <div class="q-trustblock" id="qWorkingNote" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            <p>Because you'll have employer coverage, you may be able to delay Part B without penalty, and you get a Special Enrollment Period when that coverage ends. This is worth a 10-minute conversation to get right.</p>
+          </div>
+          <p class="q-reveal-personal" id="qPersonalLine">&nbsp;</p>
+        </div>
+        <p id="qThanksLine">A text with this snapshot is on its way. Michael, a licensed Florida agent, will call you from</p>
         <p class="phone">(305) 859-1704</p>
-        <p id="qThanksSub">Save that number so you know it's him. You'll also get a text from it in the next minute confirming your request.</p>
+        <p id="qThanksSub">Save that number so you know it's him. Have your doctor and medication list handy for the call - that's the coverage check.</p>
       </div>
     </div>
 
@@ -311,34 +309,74 @@
 
   var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-  // Populate birth month / birth year selects. Year select is generated
-  // at load time (not hand-typed) so the page never needs a yearly edit:
-  // it spans age 50 (currentYear - 50) down through age ~85+ (1941),
-  // descending (youngest/most-recent birth year first).
-  var monthSel = document.getElementById("qMonth");
-  var yearSel = document.getElementById("qYear");
-  MONTHS.forEach(function (m, i) {
-    var opt = document.createElement("option");
-    opt.value = String(i + 1);
-    opt.textContent = m;
-    monthSel.appendChild(opt);
-  });
-  var nowForYears = new Date();
-  var thisYear = nowForYears.getFullYear();
-  var yearRangeStart = thisYear - 50;
-  for (var y = yearRangeStart; y >= 1941; y--) {
-    var yopt = document.createElement("option");
-    yopt.value = String(y);
-    yopt.textContent = String(y);
-    yearSel.appendChild(yopt);
+  // V2: all-tap birth month/year grids (dropdowns removed -- NN/g documents
+  // pickers as a top failure point for 65+ on mobile; our own funnel data
+  // agreed: tap steps retained 100%, the dropdown step lost 75%).
+  // Year grid centers on the T65 window (turning 65 within ~1-2 years) and
+  // expands at the edges: "1957 or earlier" / "1965 or later" swap in wider
+  // ranges of real year buttons, still all-tap, two levels deep max.
+  var monthGrid = document.getElementById("qMonthGrid");
+  var yearGrid = document.getElementById("qYearGrid");
+
+  function tapBtn(label, cls, fn) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "q-opt " + cls;
+    b.textContent = label;
+    b.addEventListener("click", function () {
+      monthGrid.parentNode.querySelectorAll("." + cls).forEach(function (x) { x.classList.remove("picked"); });
+      b.classList.add("picked");
+      setTimeout(function () { fn(); }, 140);
+    });
+    return b;
   }
 
-  var step1Continue = document.getElementById("qStep1Continue");
-  function checkStep1() {
-    step1Continue.disabled = !(monthSel.value && yearSel.value);
+  MONTHS.forEach(function (m, i) {
+    monthGrid.appendChild(tapBtn(m.slice(0, 3), "q-mon", function () {
+      answers.birthMonth = i + 1;
+      try { gtag('event', 't65_step_1', { 'birth_month': answers.birthMonth }); } catch (e) {}
+      show(2);
+    }));
+  });
+
+  function pickYear(by) {
+    answers.birthYear = by;
+    try { gtag('event', 't65_step_2', { 'birth_year': by }); } catch (e) {}
+    routeAfterBirthday();
   }
-  monthSel.addEventListener("change", checkStep1);
-  yearSel.addEventListener("change", checkStep1);
+
+  function fillYearGrid(years, edges) {
+    yearGrid.innerHTML = "";
+    years.forEach(function (y) {
+      yearGrid.appendChild(tapBtn(String(y), "q-yr", function () { pickYear(y); }));
+    });
+    if (edges) {
+      var now = new Date();
+      var t65y = now.getFullYear() - 65;
+      yearGrid.appendChild(tapBtn((t65y - 8) + " or earlier", "q-yr", function () {
+        var older = [];
+        for (var y = t65y - 8; y >= t65y - 20; y--) older.push(y);
+        fillYearGrid(older, false);
+        var oldest = tapBtn((t65y - 21) + " or earlier", "q-yr", function () { pickYear(t65y - 21); });
+        yearGrid.appendChild(oldest);
+      }));
+      yearGrid.appendChild(tapBtn((t65y + 8) + " or later", "q-yr", function () {
+        var younger = [];
+        for (var y2 = t65y + 8; y2 <= t65y + 18; y2++) younger.push(y2);
+        fillYearGrid(younger, false);
+        var youngest = tapBtn((t65y + 19) + " or later", "q-yr", function () { pickYear(t65y + 19); });
+        yearGrid.appendChild(youngest);
+      }));
+    }
+  }
+
+  (function seedYears() {
+    var now = new Date();
+    var t65y = now.getFullYear() - 65; // born this year => turns 65 now
+    var years = [];
+    for (var y = t65y - 7; y <= t65y + 7; y++) years.push(y);
+    fillYearGrid(years, true);
+  })();
 
   // Age-band classification. Pure function of birth month/year + "now" so
   // it can be hand-tested independent of the live clock. monthsTo65 is
@@ -378,10 +416,12 @@
   var feCrossLinkEl = document.getElementById("qFeCrossLink");
   var feCrossLinkA = document.getElementById("qFeCrossLinkA");
   var DEFAULT_CONTACT_TITLE = contactTitleEl.textContent;
+  var DEFAULT_CONTACT_BODY = contactBodyEl.textContent;
 
   function resetContactScreen() {
     contactTitleEl.textContent = DEFAULT_CONTACT_TITLE;
-    contactBodyEl.style.display = "none";
+    contactBodyEl.textContent = DEFAULT_CONTACT_BODY;
+    contactBodyEl.style.display = "";
     feCrossLinkEl.style.display = "none";
   }
 
@@ -399,12 +439,7 @@
     feCrossLinkEl.style.display = "";
   }
 
-  step1Continue.addEventListener("click", function () {
-    if (!monthSel.value || !yearSel.value) return;
-    answers.birthMonth = parseInt(monthSel.value, 10);
-    answers.birthYear = parseInt(yearSel.value, 10);
-    try { gtag('event', 't65_step_1', { 'birth_month': answers.birthMonth, 'birth_year': answers.birthYear }); } catch (e) {}
-
+  function routeAfterBirthday() {
     var bandInfo = classifyBand(answers.birthMonth, answers.birthYear);
     answers._band = bandInfo.band;
     answers._monthsTo65 = bandInfo.monthsTo65;
@@ -425,8 +460,8 @@
       show(7);
       return;
     }
-    show(2);
-  });
+    show(3);
+  }
 
   // Timeline math (IEP = 3 months before birth month, the birth month
   // itself, and 3 months after = 7 months). "Already 65" is true only
@@ -475,15 +510,8 @@
     };
     document.getElementById("qPersonalLine").textContent = PERSONAL[answers.priority] || "We'll walk through your options in plain language, based on everything you just told us.";
 
-    try {
-      gtag('event', 't65_timeline_shown', {
-        already_65: already65,
-        still_working: stillWorking,
-        doctors: answers.doctors,
-        rx: answers.rx,
-        priority: answers.priority
-      });
-    } catch (e) {}
+    // V2: timeline is computed here (priority tap) but SHOWN only on the
+    // post-submit success screen -- t65_timeline_shown now fires there.
   }
 
   function show(n) {
@@ -506,7 +534,9 @@
     document.getElementById("quiz").scrollIntoView({ block: "nearest" });
   }
 
-  document.querySelectorAll(".q-opt").forEach(function (btn) {
+  // [data-key] excludes the dynamically-built month/year grid buttons,
+  // which carry their own handlers (and their own step-1/step-2 events).
+  document.querySelectorAll(".q-opt[data-key]").forEach(function (btn) {
     btn.addEventListener("click", function () {
       answers[btn.getAttribute("data-key")] = btn.getAttribute("data-val");
       btn.parentNode.querySelectorAll(".q-opt").forEach(function (b) { b.classList.remove("picked"); });
@@ -517,16 +547,12 @@
     });
   });
 
-  document.getElementById("qRevealContinue").addEventListener("click", function () {
-    show(step + 1);
-  });
-
   document.querySelectorAll("[data-back]").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      // Future band jumps 1 -> 7 directly (steps 2-6 skipped); under-55
-      // exit jumps 1 -> 9. Back from either returns to step 1, not step-1.
-      if (step === 9) { show(1); return; }
-      if (step === 7 && answers._band === "future") { show(1); return; }
+      // Band jumps: future goes 2 -> 7 (steps 3-6 skipped); under-55 goes
+      // 2 -> 9. Back from either returns to the year screen (2).
+      if (step === 9) { show(2); return; }
+      if (step === 7 && answers._band === "future") { show(2); return; }
       if (step > 1) show(step - 1);
     });
   });
@@ -574,7 +600,7 @@
     var dob = (answers.birthYear && answers.birthMonth) ?
       (answers.birthYear + "-" + (answers.birthMonth < 10 ? "0" + answers.birthMonth : answers.birthMonth) + "-01") : "";
 
-    var subsourceBase = (src ? (src + (grp ? "-" + grp : "")) : "t65") + "-v1";
+    var subsourceBase = (src ? (src + (grp ? "-" + grp : "")) : "t65") + "-v2";
     var bandSuffix = band === "review" ? "-review" : (band === "future" ? "-future" : "");
 
     var payload = {
@@ -618,9 +644,26 @@
       var h = new Date().getHours();
       if (h >= 20 || h < 9) {
         document.getElementById("qThanksLine").textContent =
-          "Michael, a licensed Florida agent, has your request and will reach out first thing tomorrow morning from";
+          "A text with this snapshot is on its way. Michael, a licensed Florida agent, will reach out first thing tomorrow morning from";
         document.getElementById("qThanksSub").textContent =
-          "Save that number so you know it's him when he calls. You can also text it anytime, day or night, and Michael will get right back to you.";
+          "Save that number so you know it's him when he calls. Have your doctor and medication list handy for the call - that's the coverage check.";
+      }
+      if (answers._band === "future") {
+        // Future band never ran the timeline math -- no reveal card, and
+        // the thanks copy becomes the reminder promise instead.
+        document.getElementById("qRevealCard").style.display = "none";
+        document.getElementById("qThanksLine").textContent =
+          "You're on the reminder list. When your enrollment window approaches, you'll hear from Michael, a licensed Florida agent, at";
+        document.getElementById("qThanksSub").textContent =
+          "One text, no spam. Save the number so you know it's him.";
+      } else {
+        try {
+          gtag('event', 't65_timeline_shown', {
+            already_65: !!answers._already65,
+            still_working: (answers.working === "Yes, mine" || answers.working === "Yes, spouse's"),
+            doctors: answers.doctors, rx: answers.rx, priority: answers.priority
+          });
+        } catch (e) {}
       }
       show(8);
     }, 500);
