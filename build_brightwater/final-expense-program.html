@@ -133,11 +133,14 @@
   if (qp.get("src")) pass.set("src", qp.get("src"));
   if (qp.get("grp")) pass.set("grp", qp.get("grp"));
   if (qp.get("gclid")) pass.set("gclid", qp.get("gclid"));
-  var qs = pass.toString();
   document.querySelectorAll(".quiz-link").forEach(function (a) {
-    if (qs) a.href = "final-expense.html?" + qs;
+    // V9g: MERGE attribution into each link's own params (pre_who etc.)
+    // instead of replacing them -- replacement silently dropped pre_who.
+    var u = new URL(a.getAttribute("href"), location.href);
+    pass.forEach(function (v, k) { u.searchParams.set(k, v); });
+    a.href = u.pathname.replace(/^\//, "") + "?" + u.searchParams.toString();
     a.addEventListener("click", function () {
-      try { gtag('event', 'fep_quiz_click', {}); } catch (e) {}
+      try { gtag('event', 'fep_quiz_click', { pre: u.searchParams.get("pre_who") || "" }); } catch (e) {}
     });
   });
   try { gtag('event', 'fep_page_view', { src: qp.get('src') || 'organic' }); } catch (e) {}
