@@ -120,8 +120,8 @@
 
 <main id="main">
 <section class="q-hero">
-  <h1>Make sure your doctors and medications are covered when you turn 65.</h1>
-  <p class="sub">Free pre-65 Medicare assessment by a licensed Florida agent: your monthly cost picture, plus your doctors and prescriptions checked against plans in your area. Six quick taps to start.</p>
+  <h1 id="heroH1">Make sure your doctors and medications are covered when you turn 65.</h1>
+  <p class="sub" id="heroSub">Free pre-65 Medicare assessment by a licensed Florida agent: your monthly cost picture, plus your doctors and prescriptions checked against plans in your area. Six quick taps to start.</p>
   <p class="q-hero-chips"><span>Free</span><span>No obligation</span><span>Licensed FL agent G345487</span><span>No call center</span></p>
 </section>
 
@@ -300,6 +300,24 @@
 </footer>
 
 <script>
+// V2b: themed pre-frames -- the hero matches the ad the visitor clicked
+// (grp tag); the funnel below stays identical so all data pools together.
+(function () {
+  var g = new URLSearchParams(location.search).get("grp");
+  var F = {
+    t65c: ["What Medicare actually costs at 65.",
+           "Part A is usually free. Part B is not. Six quick taps and I will text you your honest cost picture and your enrollment window. Licensed Florida agent, no pressure."],
+    t65w: ["Still working at 65? Here is the rule.",
+           "With employer coverage you may be able to delay Part B without penalty. Six quick taps: your situation, your enrollment window, and what to do. Checked by a licensed Florida agent."],
+    t65m: ["Is Medicare mandatory at 65? Honest answer: it depends.",
+           "Skipping it is fine for some people and a lifetime penalty for others. Six quick taps show which one you are. Licensed Florida agent, straight answers."]
+  };
+  if (F[g]) {
+    document.getElementById("heroH1").textContent = F[g][0];
+    document.getElementById("heroSub").textContent = F[g][1];
+    try { gtag("event", "t65_preframe", { frame: g }); } catch (e) {}
+  }
+})();
 (function () {
   function bwGaCid() {
     try {
