@@ -306,9 +306,9 @@
   var g = new URLSearchParams(location.search).get("grp");
   var F = {
     t65c: ["What Medicare actually costs at 65.",
-           "Part A is usually free. Part B is not. Six quick taps and I will text you your honest cost picture and your enrollment window. Licensed Florida agent, no pressure."],
-    t65w: ["Still working at 65? Here is the rule.",
-           "With employer coverage you may be able to delay Part B without penalty. Six quick taps: your situation, your enrollment window, and what to do. Checked by a licensed Florida agent."],
+           "Part A is usually free. Part B is not. Six quick taps, and I'll text you your cost picture and enrollment window. Licensed Florida agent, no pressure."],
+    t65w: ["Still working at 65? Here's the rule.",
+           "With employer coverage, you may be able to delay Part B without penalty. Six quick taps: your situation, your enrollment window, and what to do. Checked by a licensed Florida agent."],
     t65m: ["Is Medicare mandatory at 65? Honest answer: it depends.",
            "Skipping it is fine for some people and a lifetime penalty for others. Six quick taps show which one you are. Licensed Florida agent, straight answers."]
   };
@@ -678,7 +678,7 @@
         // the thanks copy becomes the reminder promise instead.
         document.getElementById("qRevealCard").style.display = "none";
         document.getElementById("qThanksLine").textContent =
-          "You're on the list. When your window gets close, you're going to get one text from Michael, a licensed Florida agent. It'll come from";
+          "You're on the list. When your window gets close, you'll get one text from Michael, a licensed Florida agent. It'll come from";
         document.getElementById("qThanksSub").textContent =
           "Save the number so you know it's him. Nothing else until then.";
       } else {
