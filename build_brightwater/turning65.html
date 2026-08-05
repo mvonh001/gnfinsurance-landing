@@ -712,8 +712,15 @@
   // right after submit for the reminder band, after the last tap otherwise.
   function finishSuccess() {
     document.getElementById("qThanksName").textContent = "Got it, " + (answers._first || "") + "!";
-    var h = new Date().getHours();
-    if (h >= 20 || h < 9) {
+    var nowD = new Date();
+    var h = nowD.getHours(), wd = nowD.getDay();
+    if (wd === 0 || wd === 6) {
+      // V8c: weekend submissions hear Monday, honestly.
+      document.getElementById("qThanksLine").textContent =
+        "A text with this snapshot is on its way. Michael, a licensed Florida agent, will call you Monday morning from";
+      document.getElementById("qThanksSub").textContent =
+        "Save that number so you know it's him when he calls. Have your doctor and medication list handy for the call - that's the coverage check.";
+    } else if (h >= 20 || h < 9) {
       document.getElementById("qThanksLine").textContent =
         "A text with this snapshot is on its way. Michael, a licensed Florida agent, will reach out first thing tomorrow morning from";
       document.getElementById("qThanksSub").textContent =

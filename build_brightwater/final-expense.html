@@ -442,8 +442,13 @@
     } catch (e) {}
     try { gtag('event', 'contact_captured', { who: answers.who || "", age: answers.age || "" }); } catch (e) {}
     setTimeout(function () {
-      var h = new Date().getHours();
-      if (h >= 20 || h < 9) {
+      var now = new Date();
+      var h = now.getHours(), wd = now.getDay();
+      if (wd === 0 || wd === 6) {
+        // V8c: weekend submissions hear Monday, honestly.
+        document.getElementById("qRevealCallLine").textContent =
+          "Michael, a licensed Florida agent, has your request and will call you Monday morning from";
+      } else if (h >= 20 || h < 9) {
         document.getElementById("qRevealCallLine").textContent =
           "Michael, a licensed Florida agent, has your request and will call first thing tomorrow morning from";
       }
