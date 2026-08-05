@@ -364,6 +364,19 @@
     document.getElementById("quiz").scrollIntoView({ block: "nearest" });
   }
 
+  // V9g: the Program page asks the quiz's first question inline; arrivals
+  // with ?pre_who land one answer deep (age is next, contact right after).
+  (function () {
+    var pw = new URLSearchParams(location.search).get("pre_who");
+    var VALID = { "Myself": 1, "My spouse": 1, "A parent": 1, "Someone else": 1 };
+    if (pw && VALID[pw]) {
+      answers.who = pw;
+      applyDyn();
+      try { gtag('event', 'quiz_step_1', { choice: pw, via: 'program_inline' }); } catch (e) {}
+      show(2);
+    }
+  })();
+
   document.querySelectorAll(".q-opt").forEach(function (btn) {
     btn.addEventListener("click", function () {
       answers[btn.getAttribute("data-key")] = btn.getAttribute("data-val");
