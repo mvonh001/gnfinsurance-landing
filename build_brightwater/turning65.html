@@ -30,6 +30,19 @@
   .q-hero h1 { font-family:Poppins,sans-serif; font-size:1.55rem; line-height:1.25; margin:0 auto 8px; max-width:620px; color:#fff; }
   .q-hero .sub { color:#cfe5f2; font-size:1rem; margin:0 auto; max-width:560px; }
   @media (min-width:700px) { .q-hero h1 { font-size:2rem; } }
+  /* V8b: compact hero on phones -- first month row above the fold on 375x667 */
+  @media (max-width:520px) {
+    .q-hero { padding:14px 14px 66px; }
+    .q-hero h1 { font-size:1.18rem; line-height:1.22; margin-bottom:5px; }
+    .q-hero .sub { font-size:.86rem; line-height:1.35; }
+    .q-hero-chips { margin-top:8px; gap:5px; }
+    .q-hero-chips span { font-size:.68rem; padding:3px 8px; }
+    .q-shell { margin-top:-52px; }
+    .q-card { padding:14px 14px 20px; }
+    .q-stepnum { margin-bottom:8px; }
+    .q-title { font-size:1.12rem; margin-bottom:10px; }
+    .q-microtrust { margin-bottom:8px; }
+  }
 
   .q-shell { max-width:640px; margin:-64px auto 0; padding:0 14px 40px; }
   .q-card { background:#fff; border-radius:14px; box-shadow:0 12px 44px rgba(0,0,0,.28); padding:22px 20px 26px; }
@@ -306,6 +319,8 @@
 (function () {
   var g = new URLSearchParams(location.search).get("grp");
   var F = {
+    t65e: ["When you file for Medicare decides when your coverage starts.",
+           "Six quick taps and I'll text you your exact enrollment window, free. Enroll in the right 3 months and coverage starts your birthday month with no gap. Licensed Florida agent."],
     t65c: ["What Medicare actually costs at 65.",
            "Part A is usually free. Part B is not. Six quick taps, and I'll text you your cost picture and enrollment window. Licensed Florida agent, no pressure."],
     t65w: ["Still working at 65? Here's the rule.",
