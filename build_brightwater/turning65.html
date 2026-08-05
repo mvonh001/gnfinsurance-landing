@@ -226,7 +226,7 @@
         </div>
         <button type="submit" class="btn btn-submit q-submit" id="qSubmit">Send My Full Timeline</button>
         <p class="q-secure">No obligation &middot; Your info is never sold &middot; Licensed FL agent</p>
-        <p class="q-callout">Or talk it through now: <a id="qCallLink" href="tel:+13058591704">(305) 859-1704</a></p>
+        <p class="q-callout"><span id="qCalloutPrefix">Or talk it through now:</span> <a id="qCallLink" href="tel:+13058591704">(305) 859-1704</a></p>
       </form>
       <p class="q-note" id="qFeCrossLink" style="display:none; margin:16px 0 0;">Planning ahead on final costs? <a href="final-expense.html" id="qFeCrossLinkA" style="color:#0e6f95; text-decoration:underline;">Many people your age lock life insurance rates in now - see your range in 60 seconds</a></p>
       <button type="button" class="q-back" data-back>&larr; Back</button>
@@ -252,17 +252,6 @@
         <p class="phone">(305) 859-1704</p>
         <p id="qThanksSub">Save that number so you know it's him. Have your doctor and medication list handy for the call - that's the coverage check.</p>
       </div>
-    </div>
-
-    <!-- STEP 10: FUTURE-BAND CHOICE (V8 FLIP: paid future clicks get a
-         review-now path; wording deliberately licenses the FE conversation) -->
-    <div class="q-screen" data-step="10">
-      <h2 class="q-title" id="qFutureChoiceTitle">Medicare starts at 65.</h2>
-      <div class="q-opts">
-        <button type="button" class="q-opt" id="qFutureNowBtn">Get my full coverage review now<span style="display:block; font-size:.85rem; font-weight:400; color:#42556b; margin-top:3px;">Michael calls this week: your Medicare timeline, plus life and final expense options while your age still works in your favor.</span></button>
-        <button type="button" class="q-opt" id="qFutureRemindBtn">Just remind me when my window opens<span style="display:block; font-size:.85rem; font-weight:400; color:#42556b; margin-top:3px;">One text from Michael when it's time. Nothing else until then.</span></button>
-      </div>
-      <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
     <!-- STEP 9: UNDER-55 EXIT (age < 55; honest off-ramp, no contact gate, no lead) -->
@@ -459,6 +448,7 @@
     contactBodyEl.textContent = DEFAULT_CONTACT_BODY;
     contactBodyEl.style.display = "";
     feCrossLinkEl.style.display = "none";
+    document.getElementById("qCalloutPrefix").textContent = "Or talk it through now:";
   }
 
   function setFutureContactScreen(bandInfo) {
@@ -473,13 +463,8 @@
     var feQS = feParams.toString();
     feCrossLinkA.href = "final-expense.html" + (feQS ? "?" + feQS : "");
     feCrossLinkEl.style.display = "";
-  }
-
-  function setFutureNowContactScreen() {
-    contactTitleEl.textContent = "Where should Michael reach you?";
-    contactBodyEl.textContent = "He'll call to go over your Medicare timeline, plus life and final expense coverage while your age still works in your favor. One licensed Florida agent, no call center.";
-    contactBodyEl.style.display = "";
-    feCrossLinkEl.style.display = "none";
+    document.getElementById("qCalloutPrefix").textContent =
+      "Rather talk before then? Life and final expense questions welcome:";
   }
 
   function routeAfterBirthday() {
@@ -498,12 +483,9 @@
       return;
     }
     if (bandInfo.band === "future") {
-      answers._futureInfo = bandInfo;
-      var fparts = yearsOutParts(bandInfo.monthsTo65);
-      document.getElementById("qFutureChoiceTitle").textContent =
-        "Medicare starts at 65 - you're about " + fparts.full + " out. Your call:";
+      setFutureContactScreen(bandInfo);
       try { gtag('event', 't65_future_shown', { age: bandInfo.age, months_to_65: bandInfo.monthsTo65 }); } catch (e) {}
-      show(10);
+      show(7);
       return;
     }
     // V8 FLIP: core/review capture right after the birthday taps; the
@@ -511,18 +493,7 @@
     show(7);
   }
 
-  document.getElementById("qFutureNowBtn").addEventListener("click", function () {
-    answers._futureNow = true;
-    setFutureNowContactScreen();
-    try { gtag('event', 't65_future_choice', { choice: 'review_now' }); } catch (e) {}
-    show(7);
-  });
-  document.getElementById("qFutureRemindBtn").addEventListener("click", function () {
-    answers._futureNow = false;
-    setFutureContactScreen(answers._futureInfo);
-    try { gtag('event', 't65_future_choice', { choice: 'remind' }); } catch (e) {}
-    show(7);
-  });
+
 
   // Timeline math (IEP = 3 months before birth month, the birth month
   // itself, and 3 months after = 7 months). "Already 65" is true only
@@ -616,8 +587,8 @@
       // V8 FLIP: contact (7) sits right after birthday for every band, and
       // the future choice (10) does too -- back from either returns toward
       // the year screen. Step 3+ are post-capture: no path back into the form.
-      if (step === 9 || step === 10) { show(2); return; }
-      if (step === 7) { show(answers._band === "future" ? 10 : 2); return; }
+      if (step === 9) { show(2); return; }
+      if (step === 7) { show(2); return; }
       if (step === 3) return;
       if (step > 1) show(step - 1);
     });
@@ -738,7 +709,7 @@
       document.getElementById("qThanksLine").textContent =
         "You're on the list. When your window gets close, you'll get one text from Michael, a licensed Florida agent. It'll come from";
       document.getElementById("qThanksSub").textContent =
-        "Save the number so you know it's him. Nothing else until then.";
+        "Save the number so you know it's him. Nothing else until then. Need something sooner? Call or text that number anytime.";
     } else if (answers._band === "future") {
       document.getElementById("qRevealCard").style.display = "none";
       document.getElementById("qThanksLine").textContent =
