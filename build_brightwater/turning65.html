@@ -584,7 +584,11 @@
     });
     if (n <= TOTAL) {
       bar.style.width = (n / TOTAL * 100) + "%";
-      stepNum.textContent = "Step " + n + " of " + TOTAL;
+      // V9k: display JOURNEY position, not internal screen id - the gate is
+      // screen 7 but journey step 4 (found in the 8/6 vestige sweep: users
+      // saw 1,2,3 then "Step 7 of 7" then "Step 4 of 7").
+      var DISP = {1:1, 2:2, 3:3, 7:4, 4:5, 5:6, 6:7};
+      stepNum.textContent = "Step " + (DISP[n] || n) + " of " + TOTAL;
       stepNum.style.display = "";
     } else {
       bar.style.width = "100%";
