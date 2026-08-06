@@ -114,7 +114,6 @@
 <section class="q-hero">
   <h1>See your final expense rate in about 30 seconds.</h1>
   <p class="sub">$5,000 to $25,000 in coverage. No medical exam. Your rate locks for life.</p>
-  <p style="margin:14px auto 0;"><a href="#quiz" id="qStartCue" style="display:inline-block; background:#e8721c; color:#fff; font-family:Poppins,sans-serif; font-weight:700; font-size:1.05rem; padding:13px 26px; border-radius:10px; text-decoration:none;">Start here: a few quick taps</a></p>
   <p class="sub" style="margin-top:8px; font-size:.85rem;">No pressure either way. If the honest answer is you don't need this, that's the answer you'll get.</p>
 </section>
 
@@ -402,9 +401,6 @@
     btn.addEventListener("click", function () { if (step > 1) show(step - 1); });
   });
 
-  document.getElementById("qStartCue").addEventListener("click", function () {
-    try { gtag('event', 'start_cue_click', {}); } catch (e) {}
-  });
   var form = document.getElementById("qForm");
   var submitBtn = document.getElementById("qSubmit");
   function showErr(id, on) { var el = document.getElementById("qerr-" + id); if (el) el.classList.toggle("show", !!on); }
