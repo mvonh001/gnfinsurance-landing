@@ -160,9 +160,9 @@
       <button type="button" class="q-back" data-back>&larr; Back</button>
     </div>
 
-    <!-- STEP 3: STILL WORKING (V8 FLIP: post-capture) -->
+    <!-- STEP 3: STILL WORKING (V9h: pre-capture - one investment
+         question before the gate; 0-for-6 gate submits at 2 taps) -->
     <div class="q-screen" data-step="3">
-      <p class="q-capnote" style="color:#2e7d4f; font-weight:600; margin-bottom:10px;">&#10003; Got it. Your window is on its way by text. Four quick taps so Michael can prep your call.</p>
       <h2 class="q-title">Will you (or your spouse) still be working with employer health coverage at 65?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="working" data-val="Yes, mine">Yes, mine</button>
@@ -175,6 +175,7 @@
 
     <!-- STEP 4: DOCTORS -->
     <div class="q-screen" data-step="4">
+      <p class="q-capnote" style="color:#2e7d4f; font-weight:600; margin-bottom:10px;">&#10003; Got it. Your window is on its way by text. Three quick taps so Michael can prep your call.</p>
       <h2 class="q-title">Do you have doctors you want to keep seeing?</h2>
       <div class="q-opts">
         <button type="button" class="q-opt" data-key="doctors" data-val="Yes, very important">Yes, very important</button>
@@ -211,6 +212,7 @@
          review, and future bands; qContactTitle/qContactBody swapped by JS
          for the future band) -->
     <div class="q-screen" data-step="7">
+      <p class="q-stepsub" id="qGateProgress" style="color:#2b6e6a; font-weight:600;">Your timeline is built. It starts sooner than most people expect.</p>
       <h2 class="q-title" id="qContactTitle">Your assessment is ready to start. Where should we text your enrollment window and cost snapshot?</h2>
       <p class="q-stepsub" id="qContactBody">Then one call from Michael checks your doctors and prescriptions, by name, against the plans in your area.</p>
       <form id="qForm" novalidate>
@@ -320,11 +322,11 @@
   var g = new URLSearchParams(location.search).get("grp");
   var F = {
     t65e: ["When you file for Medicare decides when your coverage starts.",
-           "Six quick taps and I'll text you your exact enrollment window, free. Enroll in the right 3 months and coverage starts your birthday month with no gap. Licensed Florida agent."],
+           "Most people file in the wrong month and only find out when there's a coverage gap. Six taps, and I'll text you your exact window, free. Licensed Florida agent."],
     t65c: ["What Medicare actually costs at 65.",
-           "Part A is usually free. Part B is not. Six quick taps, and I'll text you your cost picture and enrollment window. Licensed Florida agent, no pressure."],
+           "Part A is usually free. Part B is not, and the real number surprises most people. Six taps, and I'll text you your cost picture and your window. Licensed Florida agent."],
     t65w: ["Still working at 65? Here's the rule.",
-           "With employer coverage, you may be able to delay Part B without penalty. Six quick taps: your situation, your enrollment window, and what to do. Checked by a licensed Florida agent."],
+           "Whether you can wait on Medicare depends on your exact situation, and guessing wrong can mean a lifetime penalty. Six taps gets your answer. Licensed Florida agent."],
     t65m: ["Is Medicare mandatory at 65? Honest answer: it depends.",
            "Skipping it is fine for some people and a lifetime penalty for others. Six quick taps show which one you are. Licensed Florida agent, straight answers."]
   };
@@ -459,6 +461,7 @@
   var DEFAULT_CONTACT_BODY = contactBodyEl.textContent;
 
   function resetContactScreen() {
+    document.getElementById("qGateProgress").style.display = "";
     contactTitleEl.textContent = DEFAULT_CONTACT_TITLE;
     contactBodyEl.textContent = DEFAULT_CONTACT_BODY;
     contactBodyEl.style.display = "";
@@ -467,6 +470,7 @@
   }
 
   function setFutureContactScreen(bandInfo) {
+    document.getElementById("qGateProgress").style.display = "none";
     var parts = yearsOutParts(bandInfo.monthsTo65);
     contactTitleEl.textContent = "Medicare starts at 65 - you're about " + parts.full + " out.";
     contactBodyEl.textContent = "Want a reminder when your enrollment window opens? You'll get one text from Michael when it's time, nothing else. And you'll already have a licensed Florida agent who knows your timeline.";
@@ -503,9 +507,8 @@
       show(7);
       return;
     }
-    // V8 FLIP: core/review capture right after the birthday taps; the
-    // working/doctors/rx/priority questions moved post-capture.
-    show(7);
+    // V9h: one investment question (working) before the gate.
+    show(3);
   }
 
 
@@ -588,11 +591,14 @@
       answers[btn.getAttribute("data-key")] = btn.getAttribute("data-val");
       btn.parentNode.querySelectorAll(".q-opt").forEach(function (b) { b.classList.remove("picked"); });
       btn.classList.add("picked");
-      var isPriority = btn.getAttribute("data-key") === "priority";
+      var key = btn.getAttribute("data-key");
+      var isPriority = key === "priority";
       if (isPriority) renderTimeline();
       try { gtag('event', 't65_step_' + step, { 'choice': btn.getAttribute("data-val") }); } catch (e) {}
       setTimeout(function () {
-        if (isPriority) { sendEnrich(); finishSuccess(); } else { show(step + 1); }
+        if (isPriority) { sendEnrich(); finishSuccess(); }
+        else if (key === "working" && !answers._captured) { show(7); }
+        else { show(step + 1); }
       }, 160);
     });
   });
@@ -603,8 +609,9 @@
       // the future choice (10) does too -- back from either returns toward
       // the year screen. Step 3+ are post-capture: no path back into the form.
       if (step === 9) { show(2); return; }
-      if (step === 7) { show(2); return; }
-      if (step === 3) return;
+      if (step === 7) { show(3); return; }
+      if (step === 3) { if (!answers._captured) show(2); return; }
+      if (step === 4) return;
       if (step > 1) show(step - 1);
     });
   });
@@ -697,13 +704,13 @@
         .catch(function () {});
     } catch (e) {}
     answers._first = name.split(" ")[0];
+    answers._captured = true;
     try { gtag('event', 't65_contact_captured', { band: band, future_now: !!answers._futureNow }); } catch (e) {}
     setTimeout(function () {
       if (answers._band === "future" && !answers._futureNow) {
         finishSuccess();
       } else {
-        // V8 FLIP: capture done -- the qualifying taps now prep the call.
-        show(3);
+        show(4);  // V9h: working answered pre-gate; doctors next
       }
     }, 400);
   });
