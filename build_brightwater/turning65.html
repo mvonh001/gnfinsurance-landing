@@ -248,6 +248,7 @@
           <p>You'll get one call from Michael von Heesen, a licensed Florida agent. Lic. G345487. No call center. No lead lists. Your information is never sold.</p>
         </div>
         <button type="submit" class="btn btn-submit q-submit" id="qSubmit">Send My Full Timeline</button>
+        <p class="q-err" id="qerr-send">Sorry, that didn't go through. Please tap the button to try again, or call us right now at <a href="tel:+13058591704" style="color:inherit; font-weight:700;">(305) 859-1704</a>.</p>
         <p class="q-secure">No obligation &middot; Your info is never sold &middot; Licensed FL agent</p>
         <p class="q-callout"><span id="qCalloutPrefix">Or talk it through now:</span> <a id="qCallLink" href="tel:+13058591704">(305) 859-1704</a></p>
       </form>
@@ -724,32 +725,39 @@
         })
       }).catch(function () {});
     } catch (e) {}
-    try {
-      gtag('event', 'conversion', {
-        'send_to': 'AW-18338196634/i5qNCOfE-tYcEJrZqqhE',
-        'value': 1.0,
-        'currency': 'USD'
-      });
-    } catch (e) {}
-    try {
-      fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }).then(function (r) { return r.json(); })
-        .then(function (j) { if (j && j.enrich_key) answers._ek = j.enrich_key; })
-        .catch(function () {});
-    } catch (e) {}
-    answers._first = name.split(" ")[0];
-    answers._captured = true;
-    try { gtag('event', 't65_contact_captured', { band: band, future_now: !!answers._futureNow }); } catch (e) {}
-    setTimeout(function () {
+    // V9i: success, conversion pixel, and walk-advance all key on the CRM's
+    // actual accept. Optimistic 400ms fake-success is how a dead POST pipe
+    // stays invisible; on failure the prospect gets the phone number instead.
+    document.getElementById("qerr-send").classList.remove("show");
+    fetch("/api/lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).then(function (r) {
+      if (!r.ok) throw new Error("lead rejected: " + r.status);
+      return r.json();
+    }).then(function (j) {
+      if (j && j.enrich_key) answers._ek = j.enrich_key;
+      try {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-18338196634/i5qNCOfE-tYcEJrZqqhE',
+          'value': 1.0,
+          'currency': 'USD'
+        });
+      } catch (e) {}
+      answers._first = name.split(" ")[0];
+      answers._captured = true;
+      try { gtag('event', 't65_contact_captured', { band: band, future_now: !!answers._futureNow }); } catch (e) {}
       if (answers._band === "future" && !answers._futureNow) {
         finishSuccess();
       } else {
         show(4);  // V9h: working answered pre-gate; doctors next
       }
-    }, 400);
+    }).catch(function () {
+      submitBtn.disabled = false; submitBtn.textContent = "Send My Full Timeline";
+      document.getElementById("qerr-send").classList.add("show");
+      try { gtag('event', 't65_submit_failed', {}); } catch (e) {}
+    });
   });
 
   // V8 FLIP: success copy set at the moment the walk actually ends --

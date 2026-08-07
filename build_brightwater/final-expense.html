@@ -225,7 +225,8 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
           <p>You'll get one call from Michael von Heesen, a licensed Florida agent. Lic. G345487. No call center. No lead lists. Your information is never sold.</p>
         </div>
-        <button type="submit" class="btn btn-submit q-submit" id="qSubmit">Show My Rate Range</button>
+        <button type="submit" class="btn btn-submit q-submit" id="qSubmit" data-label="Show My Rate Range">Show My Rate Range</button>
+        <p class="q-err" id="qerr-send">Sorry, that didn't go through. Please tap the button to try again, or call us right now at <a href="tel:+13058591704" style="color:inherit; font-weight:700;">(305) 859-1704</a>.</p>
         <p class="q-secure">Free &amp; no obligation · Your info is never sold · Licensed FL agent</p>
         <p class="q-callout">Or get your answer right now: call Michael at <a id="qCallLink" href="tel:+13058591704">(305) 859-1704</a></p>
       </form>
@@ -460,24 +461,27 @@
         })
       }).catch(function () {});
     } catch (e) {}
-    try {
-      gtag('event', 'conversion', {
-        'send_to': 'AW-18338196634/i5qNCOfE-tYcEJrZqqhE',
-        'value': 1.0,
-        'currency': 'USD'
-      });
-    } catch (e) {}
-    try {
-      fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }).then(function (r) { return r.json(); })
-        .then(function (j) { if (j && j.enrich_key) answers._ek = j.enrich_key; })
-        .catch(function () {});
-    } catch (e) {}
-    try { gtag('event', 'contact_captured', { who: answers.who || "", age: answers.age || "" }); } catch (e) {}
-    setTimeout(function () {
+    // V9i: success, conversion pixel, and walk-advance all key on the CRM's
+    // actual accept. Optimistic 400ms fake-success is how a dead POST pipe
+    // stays invisible; on failure the prospect gets the phone number instead.
+    document.getElementById("qerr-send").classList.remove("show");
+    fetch("/api/lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).then(function (r) {
+      if (!r.ok) throw new Error("lead rejected: " + r.status);
+      return r.json();
+    }).then(function (j) {
+      if (j && j.enrich_key) answers._ek = j.enrich_key;
+      try {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-18338196634/i5qNCOfE-tYcEJrZqqhE',
+          'value': 1.0,
+          'currency': 'USD'
+        });
+      } catch (e) {}
+      try { gtag('event', 'contact_captured', { who: answers.who || "", age: answers.age || "" }); } catch (e) {}
       var now = new Date();
       var h = now.getHours(), wd = now.getDay();
       if (wd === 0 || wd === 6) {
@@ -489,7 +493,11 @@
           "Michael, a licensed Florida agent, has your request and will call first thing tomorrow morning from";
       }
       show(4);
-    }, 400);
+    }).catch(function () {
+      submitBtn.disabled = false; submitBtn.textContent = submitBtn.getAttribute("data-label") || "See My Rate Range";
+      document.getElementById("qerr-send").classList.add("show");
+      try { gtag('event', 'fe_submit_failed', {}); } catch (e) {}
+    });
   });
 
   // V8 FLIP: post-capture answers ride back to the CRM on the enrich key.
