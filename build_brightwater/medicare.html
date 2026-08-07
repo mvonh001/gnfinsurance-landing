@@ -146,7 +146,7 @@
         <p>Request a review online or call a licensed insurance agent directly.</p>
       </div>
       <div class="phoneband-actions">
-        <a class="btn btn-primary" href="#lead-form">Request my free plan review</a>
+        <a class="btn btn-primary" href="review.html#lead-form">Request my free plan review</a>
         <a class="btn btn-call btn-inline" href="tel:+13058591704">
           <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           Call (305) 859-1704
@@ -160,68 +160,6 @@
 </main>
 
 <!-- ============ FOOTER ============ -->
-
-<section id="lead-form" class="band-panel">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="rule"></div>
-      <h2>Request your free, no-obligation plan review</h2>
-      <p>Tell us a little about your situation and a licensed agent will follow up. It only takes a minute.</p>
-    </div>
-
-    <div class="formwrap">
-      <form id="leadForm" novalidate>
-        <!-- Honeypot: hidden from humans; bots that fill it are rejected -->
-        <div class="honeypot" aria-hidden="true">
-          <label for="company">Company (leave blank)</label>
-          <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
-        </div>
-
-        <label for="name">Your name</label>
-        <input type="text" id="name" name="name" autocomplete="name" required>
-        <p class="err" id="err-name">Please enter your name.</p>
-
-        <label for="phone">Phone number</label>
-        <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(305) 555-0123" required>
-        <p class="err" id="err-phone">Please enter a valid phone number (at least 10 digits).</p>
-
-        <label for="zip">ZIP code</label>
-        <input type="text" id="zip" name="zip" autocomplete="postal-code" inputmode="numeric" maxlength="10" placeholder="33154" required>
-        <p class="err" id="err-zip">Please enter a valid 5-digit ZIP code.</p>
-
-        <label for="dob">Date of birth (optional, helps us time your enrollment windows)</label>
-        <input type="date" id="dob" name="dob" autocomplete="bday">
-
-        <label for="concern">What's on your mind?</label>
-        <select id="concern" name="concern" required>
-          <option value="" selected disabled>Choose one…</option>
-          <option value="prescription costs">Prescription costs</option>
-          <option value="turning 65">Turning 65</option>
-          <option value="reviewing my plan">Reviewing my plan</option>
-          <option value="medicare supplement">Medicare Supplement / Medigap</option>
-          <option value="life insurance">Life insurance</option>
-          <option value="other">Other</option>
-        </select>
-        <p class="err" id="err-concern">Please choose an option.</p>
-
-        <div class="consent">
-          <input type="checkbox" id="consent" name="consent" required>
-          <label for="consent">By checking this box and submitting, I give my express written consent for Michael von Heesen, licensed insurance agent, Brightwater Insurance Group, to contact me about insurance options at the number and email I provided, by phone call, text message, and email, including through automated technology and prerecorded messages. Consent is not a condition of purchase. Message and data rates may apply, message frequency varies, reply STOP to opt out or HELP for help. I have read the <a href="privacy.html" target="_blank" rel="noopener" style="color:#0e6f95;">Privacy Policy</a> and <a href="terms.html" target="_blank" rel="noopener" style="color:#0e6f95;">Terms of Use</a>.</label>
-        </div>
-        <p class="err" id="err-consent">Please check the box so a licensed agent can contact you.</p>
-        <p class="agent-note">The information you provide on this form will be provided to a licensed insurance agent who may call, text, or email you.</p>
-
-        <!-- TPMO disclaimer (verbatim) — above the submit button -->
-        <p class="tpmo">We do not offer every plan available in your area. Currently we represent 6 organizations which offer 5&ndash;100 products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Assistance Program (SHIP) to get information on all of your options.</p>
-
-        <input type="hidden" id="source" name="source" value="organic">
-
-        <button type="submit" class="btn btn-submit" id="submitBtn">Request my free review</button>
-        <p id="form-status"></p>
-      </form>
-    </div>
-  </div>
-</section>
 
 <section class="ms-learn" style="max-width:720px; margin:34px auto 10px; padding:0 20px;">
   <h2 style="font-family:Poppins,sans-serif; color:#0e3a5c; font-size:1.35rem;">Medicare Supplement (Medigap) plans, explained honestly</h2>
@@ -284,141 +222,6 @@
 
 <script src="assets/site.js" defer></script>
 <a class="call-pill" href="tel:+13058591704" aria-label="Call Brightwater Insurance Group at (305) 859-1704"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(305) 859-1704</a>
-<script>
-(function () {
-  "use strict";
 
-  // ---- Wire the Apps Script web app URL here (see DEPLOY.md) ----
-  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMM1JaXe_V5y8c6iZVGbol8mq8MxhcldVkk3RCV9yFdZzYSniBgAD0SiFrzkwVhnV4/exec";
-
-  // Current year in footer
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  // ---- source: default "organic", overridable via ?src= ----
-  try {
-    var params = new URLSearchParams(window.location.search);
-    var src = params.get("src");
-    if (src) {
-      document.getElementById("source").value = src.slice(0, 60);
-    }
-  } catch (e) { /* URLSearchParams unsupported: keep default */ }
-
-  var form = document.getElementById("leadForm");
-  var statusEl = document.getElementById("form-status");
-  var submitBtn = document.getElementById("submitBtn");
-
-  function showErr(id, show) {
-    var el = document.getElementById("err-" + id);
-    if (el) { el.classList.toggle("show", show); }
-  }
-
-  function validate() {
-    var ok = true;
-    var name = form.name.value.trim();
-    var phoneDigits = form.phone.value.replace(/\D/g, "");
-    var zip = form.zip.value.trim();
-    var concern = form.concern.value;
-    var consent = form.consent.checked;
-
-    showErr("name", false); showErr("phone", false); showErr("zip", false);
-    showErr("concern", false); showErr("consent", false);
-
-    if (name.length < 2) { showErr("name", true); ok = false; }
-    if (phoneDigits.length < 10) { showErr("phone", true); ok = false; }
-    if (!/^\d{5}(-\d{4})?$/.test(zip)) { showErr("zip", true); ok = false; }
-    if (!concern) { showErr("concern", true); ok = false; }
-    if (!consent) { showErr("consent", true); ok = false; }
-    return ok;
-  }
-
-  form.addEventListener("submit", function (ev) {
-    ev.preventDefault();
-    statusEl.className = "";
-    statusEl.textContent = "";
-
-    // Honeypot: if filled, silently pretend success (bot)
-    if (form.company.value) {
-      window.location.href = "thanks.html";
-      return;
-    }
-
-    if (!validate()) {
-      statusEl.textContent = "Please fix the highlighted fields above.";
-      statusEl.className = "show error";
-      return;
-    }
-
-    var payload = {
-      name: form.name.value.trim(),
-      phone: form.phone.value.trim(),
-      zip: form.zip.value.trim(),
-      dob: form.dob.value || "",
-      concern: form.concern.value,
-      source: (new URLSearchParams(window.location.search).get("src") || form.source.value || "organic"),
-      subsource: (new URLSearchParams(window.location.search).get("grp") || ""),
-      gclid: (new URLSearchParams(window.location.search).get("gclid") || ""),
-      product_line: "medicare"
-    };
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending…";
-
-    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.indexOf("PASTE_") === 0) {
-      // URL not wired yet — fail loud in dev, still let user know.
-      statusEl.textContent = "Form endpoint not configured yet. Please call us instead.";
-      statusEl.className = "show error";
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Request my free review";
-      return;
-    }
-
-    // Destination 2: instant email notification via FormSubmit (fire-and-forget;
-    // never blocks or breaks the primary submission below).
-    try {
-      fetch("https://formsubmit.co/ajax/michael@brightwaterinsurancegroup.com", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify({
-          _subject: "NEW LEAD: " + payload.name + " - " + payload.phone,
-          _template: "table",
-          name: payload.name,
-          phone: payload.phone,
-          zip: payload.zip,
-          dob: payload.dob,
-          concern: payload.concern,
-          source: payload.source
-        })
-      }).catch(function () {});
-    } catch (e) {}
-
-    // Destination 3: the BHB CRM lead-funnel intake (fire-and-forget; same
-    // origin, no CORS). Never blocks or breaks the primary submission below.
-    try {
-      fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }).catch(function () {});
-    } catch (e) {}
-
-    // Destination 1 (primary): the Google Sheet via Apps Script.
-    // text/plain avoids a CORS preflight; Apps Script parses the JSON body.
-    fetch(APPS_SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload)
-    })
-    .then(function () {
-      window.location.href = "thanks.html";
-    })
-    .catch(function () {
-      statusEl.textContent = "Sorry — something went wrong sending your request. Please call us and we'll help right away.";
-      statusEl.className = "show error";
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Request my free review";
-    });
-  });
-})();
-</script>
 </body>
 </html>
