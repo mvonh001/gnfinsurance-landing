@@ -143,13 +143,13 @@
     </div>
 
     <div class="q-step q-gate" id="step5" style="display:none">
-      <h2>Your comparison is ready to build.</h2>
-      <p style="color:#42556b; font-size:.92rem; margin:0 0 4px;">Michael, a licensed Florida agent, will call you with an honest side-by-side of your options. One person, no call center.</p>
+      <h2>Plan G is Plan G everywhere. The difference is what you pay for it.</h2>
+      <p style="color:#42556b; font-size:.92rem; margin:0 0 4px;">Michael checks your rate against the same plan letter from every carrier we represent in your county, and your prescriptions against your drug plan. If you are not overpaying, he will tell you that too.</p>
             <div class="q-teaser" style="background:#f0f7fb; border:1px solid #cfe2ee; border-radius:10px; padding:10px 14px; margin:10px 0 4px;">
         <p style="font-size:.8rem; font-weight:800; color:#0e3a5c; text-transform:uppercase; letter-spacing:.04em; margin:0 0 5px;">Ready for you:</p>
-        <p style="font-size:.92rem; color:#2a4a60; margin:3px 0;">&#10003; Plan G and Plan N compared for your age and county</p>
-        <p style="font-size:.92rem; color:#2a4a60; margin:3px 0;">&#10003; Whether switching actually saves you money</p>
-        <p style="font-size:.92rem; color:#2a4a60; margin:3px 0;">&#10003; Any Medicare doctor in the country, no networks</p>
+        <p style="font-size:.92rem; color:#2a4a60; margin:3px 0;">&#10003; Same-plan price comparison across carriers</p>
+        <p style="font-size:.92rem; color:#2a4a60; margin:3px 0;">&#10003; Rate-increase history weighed, not just today's price</p>
+        <p style="font-size:.92rem; color:#2a4a60; margin:3px 0;">&#10003; Prescriptions checked against your Part D drug plan</p>
       </div>
       <label for="qName">Your name</label>
       <input type="text" id="qName" autocomplete="name" placeholder="First and last name">
@@ -173,7 +173,7 @@
         <span id="agentPhotoSlot" style="flex:0 0 auto;display:block;width:64px;height:64px;"><img src="assets/michael.jpg?v=2" alt="Michael von Heesen, licensed Florida insurance agent" width="64" height="64" style="width:64px;height:64px;max-width:none;border-radius:50%;object-fit:cover;border:2px solid #cfe2ee;display:block;" loading="lazy"></span>
         <span><b style="color:#0e3a5c;">What happens next:</b> one call from <b>Michael von Heesen</b>, a licensed Florida agent (Lic. G345487), from <b>(305) 859-1704</b>. Save the number so you know it's him. No call center, no lead lists, and your information is never sold.</span>
       </div>
-      <button type="button" class="q-submit" id="qSubmit">Build my comparison</button>
+      <button type="button" class="q-submit" id="qSubmit">Check My Rate</button>
       <p id="q-status"></p>
     </div>
 
@@ -307,7 +307,7 @@
     }).catch(function () {
       status.textContent = "Sorry, something went wrong sending your request. Please call us at (305) 859-1704 and we'll help right away.";
       status.className = "show error";
-      btn.disabled = false; btn.textContent = "Build my comparison";
+      btn.disabled = false; btn.textContent = "Check My Rate";
     });
   });
 })();
