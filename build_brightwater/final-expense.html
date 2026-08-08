@@ -206,7 +206,12 @@
         <div style="position:absolute; left:-6000px;" aria-hidden="true">
           <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
         </div>
-        <div class="q-field">
+        <div id="bwCallFirst" style="display:none; margin:0 0 14px;">
+        <p style="display:flex;align-items:center;gap:7px;font-size:.78rem;font-weight:800;color:#2e7d4f;margin:0 0 8px;"><span style="width:9px;height:9px;border-radius:99px;background:#2e7d4f;box-shadow:0 0 0 3px rgba(46,125,79,.2);"></span>Michael is answering right now</p>
+        <a id="bwGateCall" href="tel:+13058591704" style="display:block;text-align:center;background:#2e7d4f;color:#fff;border-radius:12px;padding:15px 16px;font-size:1.08rem;font-weight:800;text-decoration:none;">&#9742; Call For My Exact Rate<br><span style="font-size:.72rem;font-weight:600;opacity:.92;">(305) 859-1704 &middot; most quotes done in one call</span></a>
+        <p style="text-align:center;font-size:.75rem;color:#8a9bab;margin:10px 0 0;text-transform:uppercase;letter-spacing:.05em;">or have Michael call you</p>
+      </div>
+      <div class="q-field">
           <label for="qname">Name</label>
           <input type="text" id="qname" name="name" autocomplete="name" required>
           <p class="q-err" id="qerr-name">Please enter your name.</p>
@@ -234,7 +239,8 @@
         </div>
         <button type="submit" class="btn btn-submit q-submit" id="qSubmit" data-label="Show My Rate Range">Show My Rate Range</button>
         <p class="q-err" id="qerr-send">Sorry, that didn't go through. Please tap the button to try again, or call us right now at <a href="tel:+13058591704" style="color:inherit; font-weight:700;">(305) 859-1704</a>.</p>
-        <p class="q-secure">Free &amp; no obligation · Your info is never sold · Licensed FL agent</p>
+        <p id="bwCallLater" style="display:none;text-align:center;font-size:.85rem;color:#42556b;margin:12px 0 0;">Prefer to talk? Call <b style="color:#0e6f95;">(305) 859-1704</b> weekdays 9 AM to 6 PM. Save the number now.</p>
+      <p class="q-secure">Free &amp; no obligation · Your info is never sold · Licensed FL agent</p>
         <p class="q-callout">Or get your answer right now: call Michael at <a id="qCallLink" href="tel:+13058591704">(305) 859-1704</a></p>
       </form>
       <button type="button" class="q-back" data-back>&larr; Back</button>
@@ -568,6 +574,35 @@
     } catch (e) {}
   });
   });
+})();
+</script>
+
+<script>
+(function () {
+  // Operator hours (8/8): call-first weekdays 9am-6pm; form-first evenings + weekends.
+  function bwApplyCallWindow() {
+    var d = new Date(), wd = d.getDay(), h = d.getHours();
+    var open = wd >= 1 && wd <= 5 && h >= 9 && h < 18;
+    var cf = document.getElementById("bwCallFirst"), cl = document.getElementById("bwCallLater");
+    if (cf) cf.style.display = open ? "" : "none";
+    if (cl) cl.style.display = open ? "none" : "";
+    return open;
+  }
+  window.bwApplyCallWindow = bwApplyCallWindow;
+  bwApplyCallWindow();
+  var b = document.getElementById("bwGateCall");
+  if (b) b.addEventListener("click", function () { try { gtag('event', 'fe_call_click', {}); } catch (e) {} });
+  // industry-standard mobile sticky call bar, call-window hours only
+  if (bwApplyCallWindow() && window.matchMedia && window.matchMedia("(max-width: 760px)").matches) {
+    var bar = document.createElement("div");
+    bar.id = "bwStickyCall";
+    bar.style.cssText = "position:fixed;left:0;right:0;bottom:0;z-index:60;background:#2e7d4f;padding:11px 14px;text-align:center;box-shadow:0 -4px 14px rgba(0,0,0,.2);";
+    bar.innerHTML = '<a id="bwStickyCallLink" href="tel:+13058591704" style="color:#fff;font-weight:800;font-size:1rem;text-decoration:none;">&#9742; Call Michael &mdash; answering now</a>';
+    document.body.appendChild(bar);
+    var sl = document.getElementById("bwStickyCallLink");
+    if (sl) sl.addEventListener("click", function () { try { gtag("event", "fe_call_click", {}); } catch (e) {} });
+    document.body.style.paddingBottom = "58px";
+  }
 })();
 </script>
 </body>

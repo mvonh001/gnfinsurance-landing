@@ -202,6 +202,11 @@
     </div>
 
     <div class="formwrap">
+      <div id="bwCallFirst" style="display:none; margin:0 0 14px;">
+        <p style="display:flex;align-items:center;gap:7px;font-size:.78rem;font-weight:800;color:#2e7d4f;margin:0 0 8px;"><span style="width:9px;height:9px;border-radius:99px;background:#2e7d4f;box-shadow:0 0 0 3px rgba(46,125,79,.2);"></span>Michael is answering right now</p>
+        <a id="bwGateCall" href="tel:+13058591704" style="display:block;text-align:center;background:#2e7d4f;color:#fff;border-radius:12px;padding:15px 16px;font-size:1.08rem;font-weight:800;text-decoration:none;">&#9742; Call For Your Free Review<br><span style="font-size:.72rem;font-weight:600;opacity:.92;">(305) 859-1704 &middot; doctors and meds checked by name</span></a>
+        <p style="text-align:center;font-size:.75rem;color:#8a9bab;margin:10px 0 0;text-transform:uppercase;letter-spacing:.05em;">or have Michael call you</p>
+      </div>
       <form id="leadForm" novalidate>
         <!-- Honeypot: hidden from humans; bots that fill it are rejected -->
         <div class="honeypot" aria-hidden="true">
@@ -252,6 +257,8 @@
           <span><b style="color:#0e3a5c;">What happens next:</b> one call from <b>Michael von Heesen</b>, a licensed Florida agent (Lic. G345487), from <b>(305) 859-1704</b>. Save the number so you know it's him. No call center, no lead lists, and your information is never sold.</span>
         </div>
         <button type="submit" class="btn btn-submit" id="submitBtn">Request my free review</button>
+        <p id="bwCallLater" style="display:none;text-align:center;font-size:.85rem;color:#42556b;margin:12px 0 0;">Prefer to talk? Call <b style="color:#0e6f95;">(305) 859-1704</b> weekdays 9 AM to 6 PM. Save the number now.</p>
+      
         <p id="form-status"></p>
       </form>
     </div>
@@ -457,6 +464,24 @@
     }
   } catch(e) {}
 })();
+</script>
+
+<script>
+(function () {
+  // Operator hours (8/8): call-first weekdays 9am-6pm; form-first evenings + weekends.
+  function bwApplyCallWindow() {
+    var d = new Date(), wd = d.getDay(), h = d.getHours();
+    var open = wd >= 1 && wd <= 5 && h >= 9 && h < 18;
+    var cf = document.getElementById("bwCallFirst"), cl = document.getElementById("bwCallLater");
+    if (cf) cf.style.display = open ? "" : "none";
+    if (cl) cl.style.display = open ? "none" : "";
+    return open;
+  }
+  window.bwApplyCallWindow = bwApplyCallWindow;
+  bwApplyCallWindow();
+  var b = document.getElementById("bwGateCall");
+  if (b) b.addEventListener("click", function () { try { gtag('event', 'review_call_click', {}); } catch (e) {} });
+  })();
 </script>
 </body>
 </html>

@@ -236,6 +236,11 @@
         <p class="q-teaser-item">&#10003; Your prescriptions checked against your county's plans</p>
         <p class="q-teaser-item">&#10003; Your enrollment dates texted instantly</p>
       </div>
+      <div id="bwCallFirst" style="display:none; margin:0 0 14px;">
+        <p style="display:flex;align-items:center;gap:7px;font-size:.78rem;font-weight:800;color:#2e7d4f;margin:0 0 8px;"><span style="width:9px;height:9px;border-radius:99px;background:#2e7d4f;box-shadow:0 0 0 3px rgba(46,125,79,.2);"></span>Michael is answering right now</p>
+        <a id="bwGateCall" href="tel:+13058591704" style="display:block;text-align:center;background:#2e7d4f;color:#fff;border-radius:12px;padding:15px 16px;font-size:1.08rem;font-weight:800;text-decoration:none;">&#9742; Call Michael Now<br><span style="font-size:.72rem;font-weight:600;opacity:.92;">(305) 859-1704 &middot; licensed FL agent, no call center</span></a>
+        <p style="text-align:center;font-size:.75rem;color:#8a9bab;margin:10px 0 0;text-transform:uppercase;letter-spacing:.05em;">or have Michael call you</p>
+      </div>
       <form id="qForm" novalidate>
         <div style="position:absolute; left:-6000px;" aria-hidden="true">
           <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
@@ -265,6 +270,8 @@
         <button type="submit" class="btn btn-submit q-submit" id="qSubmit">Check My Doctors &amp; Meds</button>
         <p class="q-err" id="qerr-send">Sorry, that didn't go through. Please tap the button to try again, or call us right now at <a href="tel:+13058591704" style="color:inherit; font-weight:700;">(305) 859-1704</a>.</p>
         <p class="q-secure">No obligation &middot; Your info is never sold &middot; Licensed FL agent</p>
+        <p id="bwCallLater" style="display:none;text-align:center;font-size:.85rem;color:#42556b;margin:12px 0 0;">Prefer to talk? Call <b style="color:#0e6f95;">(305) 859-1704</b> weekdays 9 AM to 6 PM. Save the number now.</p>
+      
         <p class="q-callout"><span id="qCalloutPrefix">Or talk it through now:</span> <a id="qCallLink" href="tel:+13058591704">(305) 859-1704</a></p>
       </form>
       <p class="q-note" id="qFeCrossLink" style="display:none; margin:16px 0 0;">Planning ahead on final costs? <a href="final-expense.html" id="qFeCrossLinkA" style="color:#0e6f95; text-decoration:underline;">Many people your age lock life insurance rates in now - see your range in 60 seconds</a></p>
@@ -527,6 +534,7 @@
 
   function resetContactScreen() {
     document.getElementById("qGateProgress").style.display = "";
+    if (window.bwApplyCallWindow) window.bwApplyCallWindow();
     contactTitleEl.textContent = DEFAULT_CONTACT_TITLE;
     contactBodyEl.textContent = DEFAULT_CONTACT_BODY;
     contactBodyEl.style.display = "";
@@ -536,6 +544,7 @@
 
   function setFutureContactScreen(bandInfo) {
     document.getElementById("qGateProgress").style.display = "none";
+    var cfx = document.getElementById("bwCallFirst"); if (cfx) cfx.style.display = "none";
     var parts = yearsOutParts(bandInfo.monthsTo65);
     contactTitleEl.textContent = "Medicare starts at 65 - you're about " + parts.full + " out.";
     contactBodyEl.textContent = "Want a reminder when your enrollment window opens? You'll get one text from Michael when it's time, nothing else. And you'll already have a licensed Florida agent who knows your timeline.";
@@ -848,7 +857,7 @@
     } catch (e) {}
   }
 
-  [document.getElementById("qCallLink"), document.getElementById("qHeaderCall")].forEach(function (callLink) {
+  [document.getElementById("qCallLink"), document.getElementById("qHeaderCall"), document.getElementById("bwGateCall")].forEach(function (callLink) {
   if (callLink) callLink.addEventListener("click", function () {
     try {
       gtag('event', 't65_call_click', {
@@ -884,6 +893,35 @@
     } catch (e) {}
   });
   });
+})();
+</script>
+
+<script>
+(function () {
+  // Operator hours (8/8): call-first weekdays 9am-6pm; form-first evenings + weekends.
+  function bwApplyCallWindow() {
+    var d = new Date(), wd = d.getDay(), h = d.getHours();
+    var open = wd >= 1 && wd <= 5 && h >= 9 && h < 18;
+    var cf = document.getElementById("bwCallFirst"), cl = document.getElementById("bwCallLater");
+    if (cf) cf.style.display = open ? "" : "none";
+    if (cl) cl.style.display = open ? "none" : "";
+    return open;
+  }
+  window.bwApplyCallWindow = bwApplyCallWindow;
+  bwApplyCallWindow();
+  var b = document.getElementById("bwGateCall");
+  if (b) b.addEventListener("click", function () { try { gtag('event', 't65_gate_call_shown', {}); } catch (e) {} });
+  // industry-standard mobile sticky call bar, call-window hours only
+  if (bwApplyCallWindow() && window.matchMedia && window.matchMedia("(max-width: 760px)").matches) {
+    var bar = document.createElement("div");
+    bar.id = "bwStickyCall";
+    bar.style.cssText = "position:fixed;left:0;right:0;bottom:0;z-index:60;background:#2e7d4f;padding:11px 14px;text-align:center;box-shadow:0 -4px 14px rgba(0,0,0,.2);";
+    bar.innerHTML = '<a id="bwStickyCallLink" href="tel:+13058591704" style="color:#fff;font-weight:800;font-size:1rem;text-decoration:none;">&#9742; Call Michael &mdash; answering now</a>';
+    document.body.appendChild(bar);
+    var sl = document.getElementById("bwStickyCallLink");
+    if (sl) sl.addEventListener("click", function () { try { gtag("event", "t65_gate_call_shown", {}); } catch (e) {} });
+    document.body.style.paddingBottom = "58px";
+  }
 })();
 </script>
 </body>
