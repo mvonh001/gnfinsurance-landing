@@ -145,6 +145,12 @@
     <div class="q-step q-gate" id="step5" style="display:none">
       <h2>Your comparison is ready to build.</h2>
       <p style="color:#42556b; font-size:.92rem; margin:0 0 4px;">Michael, a licensed Florida agent, will call you with an honest side-by-side of your options. One person, no call center.</p>
+            <div class="q-teaser" style="background:#f0f7fb; border:1px solid #cfe2ee; border-radius:10px; padding:10px 14px; margin:10px 0 4px;">
+        <p style="font-size:.8rem; font-weight:800; color:#0e3a5c; text-transform:uppercase; letter-spacing:.04em; margin:0 0 5px;">Ready for you:</p>
+        <p style="font-size:.92rem; color:#2a4a60; margin:3px 0;">&#10003; Plan G and Plan N compared for your age and county</p>
+        <p style="font-size:.92rem; color:#2a4a60; margin:3px 0;">&#10003; Whether switching actually saves you money</p>
+        <p style="font-size:.92rem; color:#2a4a60; margin:3px 0;">&#10003; Any Medicare doctor in the country, no networks</p>
+      </div>
       <label for="qName">Your name</label>
       <input type="text" id="qName" autocomplete="name" placeholder="First and last name">
       <p class="q-err" id="err-name">Please enter your name.</p>
@@ -163,6 +169,10 @@
       <p class="agent-note">The information you provide on this form will be provided to a licensed insurance agent who may call, text, or email you.</p>
       <p class="tpmo">We do not offer every plan available in your area. Currently we represent 6 organizations which offer 5&ndash;100 products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Assistance Program (SHIP) to get information on all of your options.</p>
 
+            <div class="q-consent" id="qWhatNext" style="background:#f0f7fb; border:1px solid #cfe2ee; border-radius:10px; padding:10px 12px; margin:12px 0 0;">
+        <span id="agentPhotoSlot"></span>
+        <span><b style="color:#0e3a5c;">What happens next:</b> one call from <b>Michael von Heesen</b>, a licensed Florida agent (Lic. G345487), from <b>(305) 859-1704</b>. Save the number so you know it's him. No call center, no lead lists, and your information is never sold.</span>
+      </div>
       <button type="button" class="q-submit" id="qSubmit">Build my comparison</button>
       <p id="q-status"></p>
     </div>
@@ -193,6 +203,9 @@
   <p>Michael von Heesen, an independent licensed Florida agent (license G345487, NPN 22236708), AHIP certified, based in Miami, appointed with multiple A-rated carriers for Medicare Supplement plans. One person, no call center, and your information is never sold.</p>
 </section>
 
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is a Medicare Supplement (Medigap) plan?", "acceptedAnswer": {"@type": "Answer", "text": "A Medigap plan works alongside Original Medicare instead of replacing it. Medicare pays first and the supplement covers most of the remaining deductibles and coinsurance. You can see any doctor in the country who accepts Medicare, with no networks and no referrals."}}, {"@type": "Question", "name": "What is the difference between Plan G and Plan N?", "acceptedAnswer": {"@type": "Answer", "text": "Plan G is the fullest supplement available to new enrollees: after the annual Part B deductible it covers essentially everything Medicare approves. Plan N trades a lower monthly premium for small copays at the doctor and ER and does not cover excess charges."}}, {"@type": "Question", "name": "Can I switch my Medicare Supplement plan any time of year?", "acceptedAnswer": {"@type": "Answer", "text": "Usually yes. Outside your first open enrollment window, switching generally involves answering health questions, and if you qualify you can move to a lower rate or different carrier any month of the year, unlike Medicare Advantage."}}]}
+</script>
 <footer class="site-footer">
   <p>Michael von Heesen &middot; Independent Licensed Insurance Agent &middot; FL Lic. G345487 &middot; NPN 22236708</p>
   <p>Not affiliated with or endorsed by the government or the federal Medicare program. This is a solicitation for insurance.</p>
