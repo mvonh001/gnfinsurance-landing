@@ -902,6 +902,8 @@
   function bwApplyCallWindow() {
     var d = new Date(), wd = d.getDay(), h = d.getHours();
     var open = wd >= 1 && wd <= 5 && h >= 9 && h < 18;
+    var _tp = new URLSearchParams(location.search).get("bwtest");
+    if (_tp === "call") open = true; else if (_tp === "form") open = false;
     var cf = document.getElementById("bwCallFirst"), cl = document.getElementById("bwCallLater");
     if (cf) cf.style.display = open ? "" : "none";
     if (cl) cl.style.display = open ? "none" : "";
