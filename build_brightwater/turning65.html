@@ -228,13 +228,13 @@
          for the future band) -->
     <div class="q-screen" data-step="7">
       <p class="q-stepsub" id="qGateProgress" style="color:#2b6e6a; font-weight:600;">Your timeline is built. It starts sooner than most people expect.</p>
-      <h2 class="q-title" id="qContactTitle">Your assessment is ready to start. Where should we text your enrollment window and cost snapshot?</h2>
-      <p class="q-stepsub" id="qContactBody">Then one call from Michael checks your doctors and prescriptions, by name, against the plans in your area.</p>
+      <h2 class="q-title" id="qContactTitle">Make sure your doctors and prescriptions are covered before you enroll.</h2>
+      <p class="q-stepsub" id="qContactBody">That is what the call is for: Michael checks them by name against the plans in your county. Your timeline snapshot is texted to you right away either way.</p>
       <div class="q-teaser" aria-hidden="false">
         <p class="q-teaser-head">Built and waiting for you:</p>
-        <p class="q-teaser-item">&#10003; Your exact enrollment dates, month by month</p>
-        <p class="q-teaser-item">&#10003; Your monthly cost picture for your county</p>
-        <p class="q-teaser-item">&#10003; Your doctors and prescriptions checked by name</p>
+        <p class="q-teaser-item">&#10003; Your doctors checked by name</p>
+        <p class="q-teaser-item">&#10003; Your prescriptions checked against your county's plans</p>
+        <p class="q-teaser-item">&#10003; Your enrollment dates texted instantly</p>
       </div>
       <form id="qForm" novalidate>
         <div style="position:absolute; left:-6000px;" aria-hidden="true">
@@ -262,7 +262,7 @@
             <p style="margin:0;">One call from <b>Michael von Heesen</b>, a licensed Florida agent (Lic. G345487), from <b>(305) 859-1704</b>. Save the number so you know it's him. No call center, no lead lists, and your information is never sold. Not ready to talk? Your texted snapshot is yours to keep either way.</p>
           </div>
         </div>
-        <button type="submit" class="btn btn-submit q-submit" id="qSubmit">Send My Full Timeline</button>
+        <button type="submit" class="btn btn-submit q-submit" id="qSubmit">Check My Doctors &amp; Meds</button>
         <p class="q-err" id="qerr-send">Sorry, that didn't go through. Please tap the button to try again, or call us right now at <a href="tel:+13058591704" style="color:inherit; font-weight:700;">(305) 859-1704</a>.</p>
         <p class="q-secure">No obligation &middot; Your info is never sold &middot; Licensed FL agent</p>
         <p class="q-callout"><span id="qCalloutPrefix">Or talk it through now:</span> <a id="qCallLink" href="tel:+13058591704">(305) 859-1704</a></p>
@@ -785,7 +785,7 @@
         show(4);  // V9h: working answered pre-gate; doctors next
       }
     }).catch(function () {
-      submitBtn.disabled = false; submitBtn.textContent = "Send My Full Timeline";
+      submitBtn.disabled = false; submitBtn.textContent = "Check My Doctors & Meds";
       document.getElementById("qerr-send").classList.add("show");
       try { gtag('event', 't65_submit_failed', {}); } catch (e) {}
     });
