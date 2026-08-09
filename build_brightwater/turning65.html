@@ -262,7 +262,11 @@
           <span>By checking this box and submitting, I give my express written consent for Michael von Heesen, licensed insurance agent, Brightwater Insurance Group, to contact me about insurance options at the number and email I provided, by phone call, text message, and email, including through automated technology and prerecorded messages. Consent is not a condition of purchase. Message and data rates may apply, message frequency varies, reply STOP to opt out or HELP for help. I have read the <a href="privacy.html" target="_blank" rel="noopener" style="color:#0e6f95;">Privacy Policy</a> and <a href="terms.html" target="_blank" rel="noopener" style="color:#0e6f95;">Terms of Use</a>.</span>
         </label>
         <p class="q-err" id="qerr-consent" style="margin-top:-6px;">Please check the box so a licensed agent can contact you.</p>
-        <p class="q-note">The information you provide on this form will be provided to a licensed insurance agent who may call, text, or email you.</p><div class="rvw"><p>"Extremely helpful and professional. They took the time to explain the process clearly... options that I wouldn't have known how to navigate on my own."<span class="who"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Daniel L.</span></p></div><div class="rvw"><p>"They were organized, attentive, and followed up consistently, which made me feel confident and well taken care of."<span class="who"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Julian P.</span></p></div>        <div class="q-trustblock" id="qWhatNext">
+        <div class="q-consent" id="soaBlock" style="background:#f7fafc; border:1px solid #d9e4ea; border-radius:10px; padding:10px 12px; margin:10px 0 0;">
+        <input type="checkbox" id="qSoa">
+        <span><b style="color:#0e3a5c;">Save time on the call (optional):</b> I agree that during the call, licensed agent Michael von Heesen may discuss Medicare Advantage (Part C) and Prescription Drug (Part D) plan options with me. Signing this does not obligate me to enroll, does not affect my current or future Medicare enrollment, and will not be used to automatically enroll me in any plan.</span>
+      </div>
+      <p class="q-note">The information you provide on this form will be provided to a licensed insurance agent who may call, text, or email you.</p><div class="rvw"><p>"Extremely helpful and professional. They took the time to explain the process clearly... options that I wouldn't have known how to navigate on my own."<span class="who"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Daniel L.</span></p></div><div class="rvw"><p>"They were organized, attentive, and followed up consistently, which made me feel confident and well taken care of."<span class="who"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Julian P.</span></p></div>        <div class="q-trustblock" id="qWhatNext">
           <span id="agentPhotoSlot" style="flex:0 0 auto;display:block;width:64px;height:64px;"><img src="assets/michael.jpg?v=2" alt="Michael von Heesen, licensed Florida insurance agent" width="64" height="64" style="width:64px;height:64px;max-width:none;border-radius:50%;object-fit:cover;border:2px solid #cfe2ee;display:block;"></span>
           <div>
             <p style="font-weight:700; color:#0e3a5c; margin:0 0 3px;">What happens next</p>
@@ -753,7 +757,8 @@
       subsource: subsourceBase + bandSuffix,
       gclid: (qp.get("gclid") || "").trim(),
       ga_cid: bwGaCid(),
-      product_line: "medicare"
+      product_line: "medicare",
+      soa: !!(document.getElementById("qSoa") && document.getElementById("qSoa").checked)
     };
     submitBtn.disabled = true; submitBtn.textContent = "Sending…";
     try {
