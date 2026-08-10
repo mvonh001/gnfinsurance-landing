@@ -247,6 +247,20 @@
   function err(id, on) { document.getElementById(id).className = "q-err" + (on ? " show" : ""); }
   function digits(s) { return (s || "").replace(/\D/g, ""); }
 
+  // A blocked submit shows the error next to its FIELD, which on a 375px
+  // screen sits well above the submit button -- measured 514px here on 8/10,
+  // the worst of the four gates, even after the SOA block came out. The
+  // prospect taps, nothing appears to happen, and they leave. Bring the first
+  // blocker on screen.
+  function bwShowFirstError() {
+    try {
+      var first = document.querySelector(".q-err.show");
+      if (!first) return;
+      try { first.scrollIntoView({ behavior: "smooth", block: "center" }); }
+      catch (e) { first.scrollIntoView(); }
+    } catch (e) {}
+  }
+
   document.getElementById("qSubmit").addEventListener("click", function () {
     var name = document.getElementById("qName").value.trim();
     var phone = document.getElementById("qPhone").value.trim();
@@ -269,6 +283,7 @@
           missing_consent: !consent
         });
       } catch (e) {}
+      bwShowFirstError();
       return;
     }
 
