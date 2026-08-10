@@ -157,10 +157,6 @@
         <span>By checking this box and submitting, I give my express written consent for Michael von Heesen, licensed insurance agent, Brightwater Insurance Group, to contact me about insurance options at the number and email I provided, by phone call, text message, and email, including through automated technology and prerecorded messages. Consent is not a condition of purchase. Message and data rates may apply, message frequency varies, reply STOP to opt out or HELP for help. I have read the <a href="privacy.html" target="_blank" rel="noopener" style="color:#0e6f95;">Privacy Policy</a> and <a href="terms.html" target="_blank" rel="noopener" style="color:#0e6f95;">Terms of Use</a>.</span>
       </div>
       <p class="q-err" id="err-consent">Please check the box so a licensed agent can contact you.</p>
-      <div class="q-consent" id="soaBlock" style="background:#f7fafc; border:1px solid #d9e4ea; border-radius:10px; padding:10px 12px; margin:10px 0 0;">
-        <input type="checkbox" id="qSoa">
-        <span><b style="color:#0e3a5c;">Save time on the call (optional):</b> I agree that during the call, licensed agent Michael von Heesen may discuss Medicare Advantage (Part C) and Prescription Drug (Part D) plan options with me. Signing this does not obligate me to enroll, does not affect my current or future Medicare enrollment, and will not be used to automatically enroll me in any plan.</span>
-      </div>
       <p class="agent-note">The information you provide on this form will be provided to a licensed insurance agent who may call, text, or email you.</p>
       <p id="bwCallLater" style="display:none;text-align:center;font-size:.85rem;color:#42556b;margin:12px 0 0;">Prefer to talk? Call <b style="color:#0e6f95;">(305) 859-1704</b> weekdays 9 AM to 6 PM. Save the number now.</p>
       <p class="tpmo">We do not offer every plan available in your area. Currently we represent 6 organizations which offer 5&ndash;100 products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Assistance Program (SHIP) to get information on all of your options.</p>
@@ -302,7 +298,8 @@
       subsource: (params.get("grp") || "network-quiz"),
       gclid: params.get("gclid") || "",
       product_line: "medicare",
-      soa: !!(document.getElementById("qSoa") && document.getElementById("qSoa").checked)
+      // SOA captured verbally on the recorded call (CRM wizard step 3), not here.
+      soa: false
     };
 
     var btn = document.getElementById("qSubmit");
