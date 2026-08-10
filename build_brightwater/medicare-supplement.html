@@ -245,7 +245,33 @@
     num.textContent = "Step " + n + " of " + TOTAL;
     back.style.visibility = (n > 1) ? "visible" : "hidden";
     current = n;
-    if (n === 5) { try { gtag('event', 'ms_gate_shown', {}); } catch (e) {} }
+    if (n === 5) {
+      try { gtag('event', 'ms_gate_shown', {}); } catch (e) {}
+      bwScrollGateTop(el);
+    }
+  }
+
+  // Robot 8/10 r2p: this page had no scroll handling at all, so the gate
+  // opened wherever the last tap left the reader. Measured on production at
+  // 375x667: name field top y=746, phone y=841, ZIP y=960, submit y=1633 --
+  // every field and the button below a 667px fold, nothing to indicate a form
+  // had appeared. This is the account's best-completing quiz (100% of starters
+  // reach the gate) and its worst gate. Land it at its own top instead.
+  // Revert: delete this function and the bwScrollGateTop(el) call above.
+  function bwScrollGateTop(el) {
+    try {
+      if (!el) return;
+      var hdr = document.querySelector(".site-header");
+      var off = 8;
+      if (hdr && window.getComputedStyle(hdr).position === "sticky") {
+        off += hdr.getBoundingClientRect().height;
+      }
+      var tgt = el.querySelector("h2") || el;
+      var y = window.pageYOffset + tgt.getBoundingClientRect().top - off;
+      if (y < 0) y = 0;
+      try { window.scrollTo({ top: y, behavior: "smooth" }); }
+      catch (e) { window.scrollTo(0, y); }
+    } catch (e) {}
   }
 
   document.getElementById("qBack").addEventListener("click", function () {

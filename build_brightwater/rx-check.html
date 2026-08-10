@@ -223,7 +223,29 @@
     if (n === 4) {
       try { gtag('event', 'rx_gate_shown', {}); } catch (e) {}
       if (window.bwApplyCallWindow) window.bwApplyCallWindow();
+      bwScrollGateTop(el);
     }
+  }
+
+  // Robot 8/10 r2p: same gate-landing fix shipped to all four gates this run.
+  // The gate opened wherever the last tap left the reader, so the headline and
+  // the promise could sit above the viewport while the form filled it. Land
+  // the gate at its own top, clear of the sticky header.
+  // Revert: delete this function and the bwScrollGateTop(el) call above.
+  function bwScrollGateTop(el) {
+    try {
+      if (!el) return;
+      var hdr = document.querySelector(".site-header");
+      var off = 8;
+      if (hdr && window.getComputedStyle(hdr).position === "sticky") {
+        off += hdr.getBoundingClientRect().height;
+      }
+      var tgt = el.querySelector("h2") || el;
+      var y = window.pageYOffset + tgt.getBoundingClientRect().top - off;
+      if (y < 0) y = 0;
+      try { window.scrollTo({ top: y, behavior: "smooth" }); }
+      catch (e) { window.scrollTo(0, y); }
+    } catch (e) {}
   }
 
   document.getElementById("qBack").addEventListener("click", function () {

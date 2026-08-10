@@ -673,7 +673,39 @@
       bar.style.width = "100%";
       stepNum.style.display = "none";
     }
-    document.getElementById("quiz").scrollIntoView({ block: "nearest" });
+    if (n === 7) {
+      bwScrollGateTop(document.querySelector('.q-screen[data-step="7"]'));
+    } else {
+      document.getElementById("quiz").scrollIntoView({ block: "nearest" });
+    }
+  }
+
+  // Robot 8/10 r2p: measured on production at 375x667 the instant the gate
+  // opens. scrollIntoView({block:"nearest"}) left the prospect at scrollY=783
+  // with the gate's own headline at viewport y=-190 and its body at y=-102 --
+  // both already scrolled past. They landed in the middle of a form with the
+  // reason for the form above them, a 318px consent block below the fields,
+  // and the submit button 371px under the fold. Land the gate at its own top,
+  // clear of the sticky header, so the promise is read before the ask.
+  // Revert: restore the single scrollIntoView line above and delete this.
+  function bwScrollGateTop(el) {
+    try {
+      if (!el) return;
+      var hdr = document.querySelector(".site-header");
+      var off = 8;
+      if (hdr && window.getComputedStyle(hdr).position === "sticky") {
+        off += hdr.getBoundingClientRect().height;
+      }
+      // Aim at the gate's HEADLINE, not the container: on turning65 the gate
+      // opens with a progress line above the h2, and landing the container at
+      // the top pushed the name field to y=737 (below a 667 fold) and the
+      // submit button 672px under it -- worse than the defect being fixed.
+      var tgt = el.querySelector("h2") || el;
+      var y = window.pageYOffset + tgt.getBoundingClientRect().top - off;
+      if (y < 0) y = 0;
+      try { window.scrollTo({ top: y, behavior: "smooth" }); }
+      catch (e) { window.scrollTo(0, y); }
+    } catch (e) {}
   }
 
   // [data-key] excludes the dynamically-built month/year grid buttons,
