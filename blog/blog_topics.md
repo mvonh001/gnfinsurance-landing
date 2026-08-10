@@ -41,7 +41,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [ ] Hospital observation status vs admitted: the billing difference that surprises people
 
 ## EVERGREEN — local / Miami flavor
-- [q] Turning 65 in Miami-Dade: the local resources nobody tells you about (SHIP/SHINE, Medicare.gov, and a local agent) — QUEUED 2026-07-21 · turning-65-in-miami-dade-local-resources
+- [x] Turning 65 in Miami-Dade: the local resources nobody tells you about (SHIP/SHINE, Medicare.gov, and a local agent) — PUBLISHED 2026-08-10 · turning-65-in-miami-dade-local-resources
 - [ ] Helping your Spanish-speaking parents navigate Medicare: a bilingual family guide (English post)
 - [ ] Why Miami seniors should review provider networks yearly (hospital systems shift — no names)
 - [ ] Retiring to Florida: moving your Medicare when you become a Florida resident
@@ -52,6 +52,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - NEWS SWEEP 2026-08 QUEUED · news-roundup-2026-08 (queued 2026-08-01)
 
 ## PUBLISHED LOG (auto-appended by the job: date · slug · topic)
+- 2026-08-10 · turning-65-in-miami-dade-local-resources · Miami-Dade local resources SHINE/Medicare.gov/agent (queue-first)
 - 2026-08-03 · medicare-and-the-20-employee-rule · 20-employee rule / employer size (queue-first)
 - 2026-07-27 · hurricanes-and-your-medicare-disaster-sep · disaster SEP (queue-first, rebrand pipeline fix)
 - 2026-07-21 · turning-65-miami-dade-medicare-timeline · IEP month-by-month
