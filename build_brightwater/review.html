@@ -472,14 +472,26 @@
   function bwApplyCallWindow() {
     var d = new Date(), wd = d.getDay(), h = d.getHours();
     var open = wd >= 1 && wd <= 5 && h >= 9 && h < 18;
+    if (typeof window.__bwCW === "boolean") open = window.__bwCW; // V16h: operator's Answering-now toggle wins
     var _tp = new URLSearchParams(location.search).get("bwtest");
     if (_tp === "call") open = true; else if (_tp === "form") open = false;
     var cf = document.getElementById("bwCallFirst"), cl = document.getElementById("bwCallLater");
     if (cf) cf.style.display = open ? "" : "none";
     if (cl) cl.style.display = open ? "none" : "";
+    var sb = document.getElementById("bwStickyCall");
+    if (sb) sb.style.display = open ? "" : "none";
     return open;
   }
   window.bwApplyCallWindow = bwApplyCallWindow;
+  // V16h: server truth - CRM /api/call-window (the TalosAI Answering-now
+  // toggle). Local clock renders instantly; server state re-applies on arrival.
+  fetch("/api/call-window", {cache: "no-store"}).then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d && typeof d.call_first === "boolean") {
+        window.__bwCW = d.call_first;
+        if (bwApplyCallWindow() && window.bwMakeSticky) window.bwMakeSticky();
+      }
+    }).catch(function () {});
   bwApplyCallWindow();
   var b = document.getElementById("bwGateCall");
   if (b) b.addEventListener("click", function () { try { gtag('event', 'review_call_click', {}); } catch (e) {} });

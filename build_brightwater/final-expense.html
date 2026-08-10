@@ -583,14 +583,26 @@
   function bwApplyCallWindow() {
     var d = new Date(), wd = d.getDay(), h = d.getHours();
     var open = wd >= 1 && wd <= 5 && h >= 9 && h < 18;
+    if (typeof window.__bwCW === "boolean") open = window.__bwCW; // V16h: operator's Answering-now toggle wins
     var _tp = new URLSearchParams(location.search).get("bwtest");
     if (_tp === "call") open = true; else if (_tp === "form") open = false;
     var cf = document.getElementById("bwCallFirst"), cl = document.getElementById("bwCallLater");
     if (cf) cf.style.display = open ? "" : "none";
     if (cl) cl.style.display = open ? "none" : "";
+    var sb = document.getElementById("bwStickyCall");
+    if (sb) sb.style.display = open ? "" : "none";
     return open;
   }
   window.bwApplyCallWindow = bwApplyCallWindow;
+  // V16h: server truth - CRM /api/call-window (the TalosAI Answering-now
+  // toggle). Local clock renders instantly; server state re-applies on arrival.
+  fetch("/api/call-window", {cache: "no-store"}).then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d && typeof d.call_first === "boolean") {
+        window.__bwCW = d.call_first;
+        if (bwApplyCallWindow() && window.bwMakeSticky) window.bwMakeSticky();
+      }
+    }).catch(function () {});
   if (document.getElementById("bwCallFirst") && window.matchMedia && window.matchMedia("(min-width: 761px)").matches && ("ontouchstart" in window)) {
     var tn = document.createElement("p");
     tn.style.cssText = "text-align:center;font-size:.85rem;color:#42556b;margin:8px 0 0;";
@@ -603,7 +615,9 @@
   var b = document.getElementById("bwGateCall");
   if (b) b.addEventListener("click", function () { try { gtag('event', 'fe_call_click', {}); } catch (e) {} });
   // industry-standard mobile sticky call bar, call-window hours only
-  if (bwApplyCallWindow() && window.matchMedia && window.matchMedia("(max-width: 760px)").matches) {
+  window.bwMakeSticky = function () {
+    if (document.getElementById("bwStickyCall")) return;
+    if (!(window.matchMedia && window.matchMedia("(max-width: 760px)").matches)) return;
     var bar = document.createElement("div");
     bar.id = "bwStickyCall";
     bar.style.cssText = "position:fixed;left:0;right:0;bottom:0;z-index:60;background:#2e7d4f;padding:11px 14px;text-align:center;box-shadow:0 -4px 14px rgba(0,0,0,.2);";
@@ -612,7 +626,8 @@
     var sl = document.getElementById("bwStickyCallLink");
     if (sl) sl.addEventListener("click", function () { try { gtag("event", "fe_call_click", {}); } catch (e) {} });
     document.body.style.paddingBottom = "58px";
-  }
+  };
+  if (bwApplyCallWindow()) window.bwMakeSticky();
 })();
 </script>
 </body>
