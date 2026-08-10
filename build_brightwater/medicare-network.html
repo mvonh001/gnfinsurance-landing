@@ -229,6 +229,7 @@
                  "Some Medicare Advantage plans have changed their Moffitt network status. A licensed Florida agent can check which plans keep your care covered. Free, no pressure."]
   };
   var grp = (params.get("grp") || "").toLowerCase();
+  try { gtag('event', 'net_view', { grp: grp || "(none)" }); } catch (e) {}
   if (HEADS[grp]) {
     document.getElementById("heroH1").textContent = HEADS[grp][0];
     document.getElementById("heroSub").textContent = HEADS[grp][1];
