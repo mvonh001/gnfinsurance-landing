@@ -278,7 +278,20 @@
     err("err-phone", digits(phone).length < 10); if (digits(phone).length < 10) ok = false;
     err("err-zip", zip.length < 5); if (zip.length < 5) ok = false;
     err("err-consent", !consent); if (!consent) ok = false;
-    if (!ok) return;
+    if (!ok) {
+      // Robot 8/10: a blocked submit used to fire nothing at all, so "tapped
+      // the button and got stopped" was indistinguishable from "never tapped".
+      // Revert: restore `if (!ok) return;`.
+      try {
+        gtag('event', 'ms_gate_blocked', {
+          missing_name: !name,
+          missing_phone: digits(phone).length < 10,
+          missing_zip: zip.length < 5,
+          missing_consent: !consent
+        });
+      } catch (e) {}
+      return;
+    }
 
     var concern = "medicare supplement - " + [answers.have, answers.plan, answers.compared, answers.doctors]
       .filter(Boolean).join(", ");

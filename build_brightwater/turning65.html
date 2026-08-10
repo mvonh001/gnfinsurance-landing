@@ -265,16 +265,17 @@
         <input type="checkbox" id="qSoa">
         <span><b style="color:#0e3a5c;">Save time on the call (optional):</b> I agree that during the call, licensed agent Michael von Heesen may discuss Medicare Advantage (Part C) and Prescription Drug (Part D) plan options with me. Signing this does not obligate me to enroll, does not affect my current or future Medicare enrollment, and will not be used to automatically enroll me in any plan.</span>
       </div>
-      <p class="q-note">The information you provide on this form will be provided to a licensed insurance agent who may call, text, or email you.</p><div class="rvw"><p>"Extremely helpful and professional. They took the time to explain the process clearly... options that I wouldn't have known how to navigate on my own."<span class="who"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Daniel L.</span></p></div><div class="rvw"><p>"They were organized, attentive, and followed up consistently, which made me feel confident and well taken care of."<span class="who"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Julian P.</span></p></div>        <div class="q-trustblock" id="qWhatNext">
+      <p class="q-note">The information you provide on this form will be provided to a licensed insurance agent who may call, text, or email you.</p><button type="submit" class="btn btn-submit q-submit" id="qSubmit">Check My Doctors &amp; Meds</button>
+        <p style="text-align:center; font-size:.82rem; color:#5b6c80; margin:8px 0 0;">Michael runs the check personally and texts you what he finds.</p>
+        <p class="q-err" id="qerr-send">Sorry, that didn't go through. Please tap the button to try again, or call us right now at <a href="tel:+13058591704" style="color:inherit; font-weight:700;">(305) 859-1704</a>.</p>
+<div class="rvw"><p>"Extremely helpful and professional. They took the time to explain the process clearly... options that I wouldn't have known how to navigate on my own."<span class="who"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Daniel L.</span></p></div><div class="rvw"><p>"They were organized, attentive, and followed up consistently, which made me feel confident and well taken care of."<span class="who"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Julian P.</span></p></div>
+<div class="q-trustblock" id="qWhatNext">
           <span id="agentPhotoSlot" style="flex:0 0 auto;display:block;width:64px;height:64px;"><img src="assets/michael.jpg?v=2" alt="Michael von Heesen, licensed Florida insurance agent" width="64" height="64" style="width:64px;height:64px;max-width:none;border-radius:50%;object-fit:cover;border:2px solid #cfe2ee;display:block;"></span>
           <div>
             <p style="font-weight:700; color:#0e3a5c; margin:0 0 3px;">What happens next</p>
             <p style="margin:0;">One call from <b>Michael von Heesen</b>, a licensed Florida agent (Lic. G345487), from <b>(305) 859-1704</b>. Save the number so you know it's him. No call center, no lead lists, and your information is never sold. Not ready to talk? Your texted snapshot is yours to keep either way.</p>
           </div>
         </div>
-        <button type="submit" class="btn btn-submit q-submit" id="qSubmit">Check My Doctors &amp; Meds</button>
-        <p style="text-align:center; font-size:.82rem; color:#5b6c80; margin:8px 0 0;">Michael runs the check personally and texts you what he finds.</p>
-        <p class="q-err" id="qerr-send">Sorry, that didn't go through. Please tap the button to try again, or call us right now at <a href="tel:+13058591704" style="color:inherit; font-weight:700;">(305) 859-1704</a>.</p>
         <p class="q-secure">No obligation &middot; Your info is never sold &middot; Licensed FL agent</p>
         <p id="bwCallLater" style="display:none;text-align:center;font-size:.85rem;color:#42556b;margin:12px 0 0;">Prefer to talk? Call <b style="color:#0e6f95;">(305) 859-1704</b> weekdays 9 AM to 6 PM. Save the number now.</p>
       
@@ -661,7 +662,16 @@
       // screen 7 but journey step 4 (found in the 8/6 vestige sweep: users
       // saw 1,2,3 then "Step 7 of 7" then "Step 4 of 7").
       var DISP = {1:1, 2:2, 3:3, 7:4, 4:5, 5:6, 6:7};
-      stepNum.textContent = "Step " + (DISP[n] || n) + " of " + TOTAL;
+      if (answers._band === "future") {
+        // Robot 8/10 vestige fix: the future band is routed straight from the
+        // year screen to the gate (1 -> 2 -> 7), so the shared remap showed
+        // "Step 2 of 7" then "Step 4 of 7" - skipping 3 and implying a 7-step
+        // walk this band never takes. Its real journey is 3 screens.
+        // Revert: delete this branch, keep the else line.
+        stepNum.textContent = "Step " + (n === 7 ? 3 : n) + " of 3";
+      } else {
+        stepNum.textContent = "Step " + (DISP[n] || n) + " of " + TOTAL;
+      }
       stepNum.style.display = "";
     } else {
       bar.style.width = "100%";
@@ -695,7 +705,10 @@
       // the future choice (10) does too -- back from either returns toward
       // the year screen. Step 3+ are post-capture: no path back into the form.
       if (step === 9) { show(2); return; }
-      if (step === 7) { show(3); return; }
+      // Robot 8/10 vestige fix: the future band never sees screen 3 (it routes
+      // 2 -> gate), so Back from the gate used to drop it into a question it
+      // had skipped. Send that band back to the year screen instead.
+      if (step === 7) { show(answers._band === "future" ? 2 : 3); return; }
       if (step === 3) { if (!answers._captured) show(2); return; }
       if (step === 4) return;
       if (step > 1) show(step - 1);
@@ -715,7 +728,20 @@
     showErr("name", !name); if (!name) ok = false;
     showErr("phone", phone.length < 10); if (phone.length < 10) ok = false;
     showErr("consent", !form.consent.checked); if (!form.consent.checked) ok = false;
-    if (!ok) return;
+    if (!ok) {
+      // Robot 8/10: a blocked submit used to fire nothing at all, so "tapped
+      // the button and got stopped" was indistinguishable from "never tapped".
+      // 32 gate views / 0 submits across three funnels could not be diagnosed
+      // without this. Revert: restore `if (!ok) return;`.
+      try {
+        gtag('event', 't65_gate_blocked', {
+          missing_name: !name,
+          missing_phone: phone.length < 10,
+          missing_consent: !form.consent.checked
+        });
+      } catch (e) {}
+      return;
+    }
 
     var qp = new URLSearchParams(window.location.search);
     var src = (qp.get("src") || "").trim();
