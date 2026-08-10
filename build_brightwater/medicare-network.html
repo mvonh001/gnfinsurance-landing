@@ -344,6 +344,14 @@
     return open;
   }
   window.bwApplyCallWindow = bwApplyCallWindow;
+  if (document.getElementById("bwCallFirst") && window.matchMedia && window.matchMedia("(min-width: 761px)").matches && ("ontouchstart" in window)) {
+    var tn = document.createElement("p");
+    tn.style.cssText = "text-align:center;font-size:.85rem;color:#42556b;margin:8px 0 0;";
+    tn.innerHTML = 'On a tablet? Dial <b style="color:#0e6f95;">(305) 859-1704</b> from your phone.';
+    var cf = document.getElementById("bwCallFirst");
+    cf.appendChild(tn);
+  }
+
   bwApplyCallWindow();
   var b = document.getElementById("bwGateCall");
   if (b) b.addEventListener("click", function () { try { gtag('event', 'net_call_click', {}); } catch (e) {} });
