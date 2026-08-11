@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18338196634"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18338196634');
+  gtag('config', 'G-86X6YSBKWY');
+</script>
+<script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"343264488", enableAutoSpaTracking:true};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://brightwaterinsurancegroup.com/plan-check.html">
+<!-- PREVIEW STATE: unlinked from all nav + sitemap, noindex while under veto.
+     An ads-only landing page does not need organic indexing, so this can stay
+     even after approval -- it just keeps the variant out of the organic auction
+     against turning65.html. Remove only on a deliberate call. -->
+<meta name="robots" content="noindex,nofollow">
+<title>Check the Medicare Plans Sold in Your Florida County | Brightwater Insurance Group</title>
+<meta name="description" content="Medicare plans are county-specific. A licensed Florida agent checks your doctors and prescriptions against the plans actually sold where you live. No cost, no obligation.">
+<link rel="icon" type="image/svg+xml" href="assets/bw_favicon.svg">
+<link rel="stylesheet" href="assets/styles.css?v=bw5">
+<style>
+  /* V18 LOW-FRICTION CAPTURE (conversion lab, 2026-08-11).
+     CONTROL = the 7-step quiz at ~0.45% click-to-lead over 30 days.
+     This page changes exactly ONE variable: friction. One screen, two
+     required fields, two optional ones.
+
+     Why DOB and ZIP are on the form rather than captured after the POST:
+     /api/lead/enrich only appends free text to `concern`. It does not write
+     the dob or zip COLUMNS, and leads.dob is what the IEP window calculator
+     and the auto-welcome SMS read. A DOB captured post-submit would be a
+     sentence nobody's code can use. So they ride the initial POST, marked
+     optional so they never block a capture.
+
+     Nothing on this page is invented: no plan counts, no premiums, no
+     "you may qualify" language. */
+  /* GEOMETRY IS A FEATURE. The submit button must sit inside the first
+     viewport at 390x667, asserted by the preview script, not eyeballed.
+     Every value below is sized to that constraint. */
+  .lf-hero { max-width:640px; margin:0 auto; padding:12px 20px 2px; text-align:center; }
+  .lf-hero h1 { font-size:1.36rem; line-height:1.16; margin:0 0 6px; color:#0e3a5c; }
+  .lf-hero .sub { font-size:.95rem; color:#42556b; line-height:1.4; margin:0 auto; max-width:440px; }
+  .lf-card { max-width:480px; margin:14px auto 0; background:#fff; border:1px solid #dbe6ef;
+             border-radius:14px; padding:16px 18px; box-shadow:0 2px 14px rgba(14,58,92,.06); }
+  .lf-card h2 { font-size:1.08rem; margin:0 0 3px; color:#0e3a5c; }
+  .lf-card .hint { font-size:.87rem; color:#5e7288; margin:0 0 12px; line-height:1.4; }
+  .lf-field { margin:0 0 10px; }
+  .lf-field label { display:block; font-size:.86rem; font-weight:700; color:#2a4a60; margin:0 0 5px; }
+  .lf-field label .opt { font-weight:600; color:#8598a9; font-size:.8rem; }
+  .lf-field input { width:100%; box-sizing:border-box; font-size:1.06rem; padding:11px 12px;
+                    border:2px solid #cfdae4; border-radius:10px; font-family:inherit; }
+  .lf-field input:focus { outline:none; border-color:#2b6e6a; }
+  /* DOB + ZIP share ONE line at every width, including mobile. Stacking them
+     would make a 2-field ask read as a 4-field form, which is the exact
+     friction this page exists to remove. */
+  .lf-row { display:flex; gap:10px; }
+  .lf-row .lf-field { min-width:0; }
+  .lf-row .lf-field:first-child { flex:1.55 1 0; }
+  .lf-row .lf-field:last-child { flex:1 1 0; }
+  .lf-why { font-size:.78rem; color:#8598a9; margin:-4px 0 9px; line-height:1.35; }
+  .lf-consent { display:flex; gap:9px; align-items:flex-start; font-size:.76rem;
+                color:#5e7288; line-height:1.4; margin:2px 0 11px; }
+  .lf-consent input { margin-top:2px; flex:0 0 auto; width:18px; height:18px; }
+  .lf-submit { width:100%; border:0; border-radius:12px; padding:14px; background:#e07a1a; color:#fff;
+               font-size:1.1rem; font-weight:800; cursor:pointer; font-family:inherit; }
+  .lf-err { display:none; background:#fbe9e7; color:#b3382c; border:1px solid #f0c4bd;
+            border-radius:9px; padding:11px 13px; font-size:.92rem; margin:0 0 12px; font-weight:600; }
+  .lf-err.show { display:block; }
+  .lf-thanks { display:none; }
+  .lf-thanks.show { display:block; }
+  .lf-info { max-width:600px; margin:28px auto 0; padding:0 20px; color:#42556b;
+             font-size:.96rem; line-height:1.6; }
+  .lf-info h2 { font-size:1.06rem; color:#0e3a5c; margin:22px 0 8px; }
+  .lf-info ul { margin:0 0 10px; padding-left:20px; }
+  .lf-info li { margin:0 0 7px; }
+  .lf-info p { margin:0 0 10px; }
+  .lf-info-note { font-size:.9rem; color:#5e7288; }
+  .lf-trust { max-width:560px; margin:24px auto 0; padding:0 20px; font-size:.9rem;
+              color:#5e7288; line-height:1.6; }
+  .lf-callline { text-align:center; font-size:.95rem; color:#42556b; margin:16px 0 0; }
+  .lf-callline a { color:#0e3a5c; font-weight:700; }
+  @media (max-width:420px){ .lf-hero h1 { font-size:1.46rem; } }
+</style>
+</head>
+<body>
+<main>
+
+<section class="lf-hero">
+  <h1>Medicare plans are sold county by county.</h1>
+  <p class="sub">I'll check your doctors and prescriptions against the plans actually sold where you live.</p>
+</section>
+
+<div class="lf-card">
+
+  <div id="lfFormWrap">
+    <h2>Have Michael check your plans</h2>
+    <p class="hint">Name and number is all I need. No quiz, no cost.</p>
+    <div class="lf-err" id="lfErr">Please add your name, a 10-digit phone number, and check the box so I'm allowed to call you.</div>
+    <div class="lf-err" id="lfErrSend">That didn't go through on my end. Please call me directly at <a href="tel:+13058591704">(305) 859-1704</a> and I'll take care of it.</div>
+    <form id="lfForm" novalidate>
+      <div class="lf-field">
+        <label for="lfName">Your name</label>
+        <input id="lfName" name="name" type="text" autocomplete="name" placeholder="First and last">
+      </div>
+      <div class="lf-field">
+        <label for="lfPhone">Best number to reach you</label>
+        <input id="lfPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(305) 555-0123">
+      </div>
+      <div class="lf-row">
+        <div class="lf-field">
+          <label for="lfDob">Date of birth <span class="opt">optional</span></label>
+          <input id="lfDob" name="dob" type="tel" inputmode="numeric" autocomplete="bday"
+                 placeholder="MM/DD/YYYY" maxlength="10">
+        </div>
+        <div class="lf-field">
+          <label for="lfZip">ZIP <span class="opt">optional</span></label>
+          <input id="lfZip" name="zip" type="tel" inputmode="numeric" autocomplete="postal-code"
+                 placeholder="33139" maxlength="5">
+        </div>
+      </div>
+      <p class="lf-why">Both optional. They just save time on the call.</p>
+      <!-- Honeypot: bots fill this, the CRM fake-successes them. Hidden from humans + AT. -->
+      <input type="text" name="company" id="lfCompany" tabindex="-1" autocomplete="off"
+             aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px;">
+      <label class="lf-consent">
+        <input type="checkbox" id="lfConsent" name="consent">
+        <span>Yes, Michael may call or text me about Medicare options at this number, including
+          with an autodialer or prerecorded message. Consent isn't a condition of purchase and I
+          can opt out any time. This is a solicitation for insurance.</span>
+      </label>
+      <button type="submit" class="lf-submit" id="lfSubmit">Check my plans</button>
+    </form>
+  </div>
+
+  <div class="lf-thanks" id="lfThanks">
+    <h2 id="lfThanksHead">Got it.</h2>
+    <p id="lfThanksLine" style="color:#42556b; line-height:1.6;"></p>
+    <p style="color:#5e7288; font-size:.92rem;">Save <b>(305) 859-1704</b> so you know it's me.
+      Have your doctor and medication list handy &mdash; that's the whole check.</p>
+  </div>
+
+</div>
+
+<p class="lf-callline">Rather just talk now? <a href="tel:+13058591704" id="lfCallLink">(305) 859-1704</a></p>
+
+<!-- QUALITY SCORE / RELEVANCE BLOCK. Sits BELOW the form on purpose: the
+     submit button is asserted at y~602 on a 390x667 viewport and nothing here
+     may move it. Thin landers are what earned the QS-3 penalty on T65 and FE
+     earlier this month, and a QS hit raises CPC, which shrinks what the promo
+     credit buys. Content is factual and CMS-safe: no plan names, no benefit
+     claims, no "you may qualify", no urgency pressure. -->
+<section class="lf-info">
+  <h2>What the check actually covers</h2>
+  <ul>
+    <li><b>Your doctors, by name.</b> Not "most doctors in your area" — the specific people you see, checked against each plan's network.</li>
+    <li><b>Your prescriptions, by name and dose.</b> Drug lists differ by plan and change every year, including for plans you already have.</li>
+    <li><b>Your pharmacy.</b> Cost for the same drug can differ depending on where you fill it.</li>
+    <li><b>What's actually sold in your county.</b> Not a national list.</li>
+  </ul>
+
+  <h2>Why the county matters</h2>
+  <p>Medicare Advantage and Part D plans are approved and priced county by county. Two people the
+  same age, with the same doctors and the same prescriptions, living twenty minutes apart, can have
+  completely different options. It's the first thing that has to be right, which is why the ZIP is
+  worth giving even though it's optional.</p>
+
+  <h2>When you're able to make a change</h2>
+  <p>Enrollment in a plan may be limited to certain times of the year. The main ones:</p>
+  <ul>
+    <li><b>Turning 65.</b> Your Initial Enrollment Period runs seven months: the three months before
+      your birthday month, that month, and the three months after.</li>
+    <li><b>Annual Enrollment, October 15 to December 7.</b> Anyone with Medicare can change plans
+      for the following year.</li>
+    <li><b>Special Enrollment Periods.</b> Moving, losing employer coverage, and certain other life
+      events can open a window outside those dates.</li>
+  </ul>
+  <p class="lf-info-note">If you're outside every window, I'll tell you that on the call rather than
+  waste your time. Knowing the date you can act is worth the conversation on its own.</p>
+
+  <h2>Common questions</h2>
+  <p><b>Does this cost anything?</b> No. There's no fee for the review and no obligation to change
+  anything.</p>
+  <p><b>Will you tell me to switch?</b> Only if the numbers say so. A fair share of these calls end
+  with me telling someone their current plan is already the right one.</p>
+  <p><b>Are you with Medicare?</b> No. I'm an independent licensed agent and I'm not affiliated with
+  or endorsed by the government or the federal Medicare program.</p>
+  <p><b>How long does it take?</b> Usually fifteen to twenty minutes if you have your doctor and
+  medication list handy.</p>
+</section>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Does a Medicare plan check cost anything?","acceptedAnswer":{"@type":"Answer","text":"No. There is no fee for the review and no obligation to change anything."}},
+{"@type":"Question","name":"Why does my county matter for Medicare plans?","acceptedAnswer":{"@type":"Answer","text":"Medicare Advantage and Part D plans are approved and priced county by county, so two people with the same doctors and prescriptions living twenty minutes apart can have completely different options."}},
+{"@type":"Question","name":"When can I change my Medicare plan?","acceptedAnswer":{"@type":"Answer","text":"Enrollment may be limited to certain times of year. The Initial Enrollment Period around your 65th birthday runs seven months. Annual Enrollment runs October 15 to December 7. Special Enrollment Periods can open after events such as moving or losing employer coverage."}},
+{"@type":"Question","name":"How long does the review take?","acceptedAnswer":{"@type":"Answer","text":"Usually fifteen to twenty minutes if you have your doctor and medication list handy."}}]}
+</script>
+
+<section class="lf-trust">
+  <p>Michael von Heesen, an independent licensed Florida agent (license G345487, NPN 22236708),
+  AHIP certified, based in Miami and serving all of Florida by phone. I'm not employed by a carrier,
+  so I'm not steering you to one company's plan. One person, no call center, and your information is
+  never sold. We do not offer every plan available in your area. Please contact Medicare.gov or
+  1-800-MEDICARE to get information on all of your options.</p>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap" style="padding:26px 20px; font-size:.9rem; color:#94a5b8;">
+    <p><b style="color:#e4ebf3;">Brightwater Insurance Group</b> &middot; Michael von Heesen, Licensed Insurance Agent &middot; FL Lic. G345487</p>
+    <p>Miami, FL &middot; Serving all of Florida by phone &middot; <a href="tel:+13058591704" style="color:#7fd4e8;">(305) 859-1704</a> &middot; <a href="mailto:michael@brightwaterinsurancegroup.com" style="color:#7fd4e8;" target="_blank" rel="noopener">michael@brightwaterinsurancegroup.com</a></p>
+    <p>We do not offer every plan available in your area. Currently we represent 6 organizations which offer 5&ndash;100 products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Assistance Program (SHIP) to get information on all of your options.</p>
+    <p>Not affiliated with or endorsed by the government or the federal Medicare program. This is a solicitation for insurance.</p>
+    <p>Enrollment in a plan may be limited to certain times of the year unless you qualify for a special enrollment period or you are in your Medicare Initial Election Period.</p>
+    <p>&copy; 2026 Brightwater Insurance Group. All rights reserved. &middot; <a href="privacy.html" style="color:#7fd4e8;" target="_blank" rel="noopener">Privacy Policy</a> &middot; <a href="terms.html" style="color:#7fd4e8;" target="_blank" rel="noopener">Terms</a></p><div class="talos-line"><a href="https://talosleads.com" target="_blank" rel="noopener" class="talos-badge"><img src="assets/talos_mark.svg" alt="" width="32" height="32" style="display:inline-block; vertical-align:middle;">Powered by TalosLeads</a></div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var qp = new URLSearchParams(location.search);
+
+  function digits(s) { return (s || "").replace(/[^0-9]/g, ""); }
+  function bwGaCid() {
+    try {
+      var m = document.cookie.match(/_ga=GA\d\.\d\.(\d+\.\d+)/);
+      return m ? m[1] : "";
+    } catch (e) { return ""; }
+  }
+
+  var callLink = document.getElementById("lfCallLink");
+  if (callLink) callLink.addEventListener("click", function () {
+    try { gtag('event', 'lf_call_click', {}); } catch (e) {}
+  });
+
+  // DOB convenience: auto-insert slashes as they type. Never blocks, never
+  // rejects -- the field is optional and the CRM's clean_dob() is the
+  // authority on what parses.
+  var dobEl = document.getElementById("lfDob");
+  dobEl.addEventListener("input", function () {
+    var d = digits(dobEl.value).slice(0, 8), out = d;
+    if (d.length > 4) out = d.slice(0, 2) + "/" + d.slice(2, 4) + "/" + d.slice(4);
+    else if (d.length > 2) out = d.slice(0, 2) + "/" + d.slice(2);
+    dobEl.value = out;
+  });
+
+  // Fire once when the visitor first touches any field: separates "landed and
+  // left" from "started and abandoned", which the quiz could never distinguish.
+  var started = false;
+  ["lfName", "lfPhone", "lfDob", "lfZip"].forEach(function (id) {
+    document.getElementById(id).addEventListener("focus", function () {
+      if (started) return;
+      started = true;
+      try { gtag('event', 'lf_form_started', {}); } catch (e) {}
+    });
+  });
+
+  var form = document.getElementById("lfForm");
+  var submitBtn = document.getElementById("lfSubmit");
+  var err = document.getElementById("lfErr");
+  var errSend = document.getElementById("lfErrSend");
+
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var name = document.getElementById("lfName").value.trim();
+    var phone = document.getElementById("lfPhone").value.trim();
+    var dobRaw = dobEl.value.trim();
+    var zip = digits(document.getElementById("lfZip").value).slice(0, 5);
+    var consent = document.getElementById("lfConsent").checked;
+    var okName = name.length >= 2, okPhone = digits(phone).length >= 10;
+
+    // FAILURE PATH (the 8/10 silent-gate law): a blocked submit must be
+    // VISIBLE and must emit an event, so "tapped and blocked" can never again
+    // be indistinguishable from "never tapped". The error sits above the
+    // button inside the same card so it cannot render off-viewport.
+    // NOTE: dob and zip are NEVER part of this gate.
+    if (!okName || !okPhone || !consent) {
+      err.classList.add("show");
+      errSend.classList.remove("show");
+      try {
+        gtag('event', 'lf_gate_blocked', {
+          missing_name: !okName, missing_phone: !okPhone, missing_consent: !consent
+        });
+      } catch (e) {}
+      err.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    err.classList.remove("show");
+    errSend.classList.remove("show");
+
+    // MM/DD/YYYY -> YYYY-MM-DD. Anything that doesn't parse is sent empty
+    // rather than guessed; clean_dob() server-side is the final authority.
+    var dob = "";
+    var m = dobRaw.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (m) dob = m[3] + "-" + m[1] + "-" + m[2];
+
+    var src = (qp.get("src") || "").trim();
+    if (qp.get("msclkid")) src = "bing";
+    var grp = (qp.get("grp") || "").trim();
+    var payload = {
+      name: name, phone: phone, zip: zip, dob: dob,
+      company: document.getElementById("lfCompany").value,
+      concern: "PLAN-CHECK page (low-friction): asked for a doctors-and-medications check against " +
+               "the plans sold in their county" +
+               (zip ? (" | ZIP " + zip) : " | ZIP not given") +
+               (dob ? "" : " | DOB not given"),
+      source: src || "organic",
+      subsource: (src ? (src + (grp ? "-" + grp : "")) : "plancheck") + "-v18lf",
+      gclid: (qp.get("gclid") || "").trim(),
+      ga_cid: bwGaCid(),
+      product_line: "medicare",
+      soa: false
+    };
+
+    submitBtn.disabled = true; submitBtn.textContent = "Sending…";
+    try {
+      fetch("https://formsubmit.co/ajax/michael@brightwaterinsurancegroup.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          _subject: "NEW PLAN-CHECK LEAD: " + payload.name + " - " + payload.phone,
+          _template: "table",
+          name: payload.name, phone: payload.phone, zip: payload.zip || "(not given)",
+          dob: dobRaw || "(not given)", details: payload.concern, source: payload.source
+        })
+      }).catch(function () {});
+    } catch (e) {}
+
+    // Success + conversion pixel key on the CRM's actual accept, never a
+    // timer -- V9i law. On failure the prospect gets the phone number.
+    fetch("/api/lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).then(function (r) {
+      if (!r.ok) throw new Error("lead rejected: " + r.status);
+      return r.json();
+    }).then(function () {
+      try {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-18338196634/i5qNCOfE-tYcEJrZqqhE', 'value': 1.0, 'currency': 'USD'
+        });
+        try { window.uetq = window.uetq || []; window.uetq.push('event', 'submit_lead', {}); } catch (e) {}
+        gtag('event', 'lf_contact_captured', { has_dob: !!dob, has_zip: !!zip });
+      } catch (e) {}
+      document.getElementById("lfFormWrap").style.display = "none";
+      var th = document.getElementById("lfThanks");
+      th.classList.add("show");
+      document.getElementById("lfThanksHead").textContent =
+        "Got it, " + name.split(" ")[0] + ".";
+      var d = new Date(), wd = d.getDay(), h = d.getHours(), when;
+      if (wd === 0 || wd === 6) when = "Monday morning";
+      else if (h >= 18) when = (wd === 5 ? "Monday morning" : "first thing tomorrow morning");
+      else if (h < 9) when = "this morning";
+      else when = "shortly";
+      document.getElementById("lfThanksLine").textContent =
+        "I'll call you " + when + " from (305) 859-1704.";
+      th.scrollIntoView({ behavior: "smooth", block: "center" });
+    }).catch(function () {
+      submitBtn.disabled = false; submitBtn.textContent = "Check my plans";
+      errSend.classList.add("show");
+      errSend.scrollIntoView({ behavior: "smooth", block: "center" });
+      try { gtag('event', 'lf_submit_failed', {}); } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>
