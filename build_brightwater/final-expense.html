@@ -202,7 +202,7 @@
     <!-- STEP 3: CONTACT (V8 FLIP: capture before value) -->
     <div class="q-screen" data-step="3">
       <h2 class="q-title">Where should Michael reach you?</h2>
-      <p class="q-stepsub">Your rate range shows on the next screen, and Michael calls with the real answer.</p>
+      <p class="q-stepsub">Three quick questions after this and your rate range shows, and Michael calls with the real answer.</p>
       <form id="qForm" novalidate>
         <div style="position:absolute; left:-6000px;" aria-hidden="true">
           <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
@@ -230,7 +230,7 @@
         </label>
         <p class="q-err" id="qerr-consent" style="margin-top:-6px;">Please check the box so a licensed agent can contact you.</p>
         <p class="q-note">The information you provide on this form will be provided to a licensed insurance agent who may call, text, or email you.</p><div class="rvw"><p>"The process was easy, communication was clear, and they delivered exactly what they promised."<span class="who"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Valentina S.</span></p></div><div class="rvw"><p>"From the first contact, they were very attentive, clear, and professional. It's clear they truly care about their customers."<span class="who"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Camila C.</span></p></div>        <div class="q-teaser" style="background:#f0f7fb; border:1px solid #cfe2ee; border-radius:10px; padding:10px 14px; margin:2px 0 12px; text-align:left;">
-          <p style="font-size:.8rem; font-weight:800; color:#0e3a5c; text-transform:uppercase; letter-spacing:.04em; margin:0 0 5px;">On the next screen:</p>
+          <p style="font-size:.8rem; font-weight:800; color:#0e3a5c; text-transform:uppercase; letter-spacing:.04em; margin:0 0 5px;">After three quick questions:</p>
           <p style="font-size:.92rem; color:#2a4a60; margin:3px 0;">&#10003; Your monthly rate range for your age</p>
           <p style="font-size:.92rem; color:#2a4a60; margin:3px 0;">&#10003; No-exam options that accept most health conditions</p>
           <p style="font-size:.92rem; color:#2a4a60; margin:3px 0;">&#10003; Rates that lock in and never increase</p>
@@ -238,7 +238,7 @@
         <div class="q-trustblock" id="qWhatNext">
           <span id="agentPhotoSlot" style="flex:0 0 auto;display:block;width:64px;height:64px;"><img src="assets/michael.jpg?v=2" alt="Michael von Heesen, licensed Florida insurance agent" width="64" height="64" style="width:64px;height:64px;max-width:none;border-radius:50%;object-fit:cover;border:2px solid #cfe2ee;display:block;"></span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-          <p><b>What happens next:</b> one call from <b>Michael von Heesen</b>, a licensed Florida agent (Lic. G345487), from <b>(305) 859-1704</b>. Save the number so you know it's him. No call center, no lead lists, and your information is never sold. Your rate range shows on the next screen either way.</p>
+          <p><b>What happens next:</b> one call from <b>Michael von Heesen</b>, a licensed Florida agent (Lic. G345487), from <b>(305) 859-1704</b>. Save the number so you know it's him. No call center, no lead lists, and your information is never sold. Your rate range shows after three quick questions either way.</p>
         </div>
         <button type="submit" class="btn btn-submit q-submit" id="qSubmit" data-label="Show My Rate Range">Show My Rate Range</button>
         <p class="q-err" id="qerr-send">Sorry, that didn't go through. Please tap the button to try again, or call us right now at <a href="tel:+13058591704" style="color:inherit; font-weight:700;">(305) 859-1704</a>.</p>
@@ -448,6 +448,18 @@
   var submitBtn = document.getElementById("qSubmit");
   function showErr(id, on) { var el = document.getElementById("qerr-" + id); if (el) el.classList.toggle("show", !!on); }
 
+  // Robot 8/13: FE was the last capture surface still missing this. The
+  // prospect taps, nothing appears to happen, and they leave. Bring the first
+  // blocker on screen. Matches medicare-supplement / rx-check / medicare-network.
+  function bwShowFirstError() {
+    try {
+      var first = document.querySelector(".q-err.show");
+      if (!first) return;
+      try { first.scrollIntoView({ behavior: "smooth", block: "center" }); }
+      catch (e) { first.scrollIntoView(); }
+    } catch (e) {}
+  }
+
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     if (form.company && form.company.value) return; // honeypot
@@ -457,7 +469,21 @@
     showErr("name", !name); if (!name) ok = false;
     showErr("phone", phone.length < 10); if (phone.length < 10) ok = false;
     showErr("consent", !form.consent.checked); if (!form.consent.checked) ok = false;
-    if (!ok) return;
+    if (!ok) {
+      // Robot 8/13: a blocked submit used to fire nothing at all, so "tapped
+      // the button and got stopped" was indistinguishable from "never tapped".
+      // FE was the only capture surface left without this; every sibling got it
+      // 8/10. Revert: restore `if (!ok) return;`.
+      try {
+        gtag('event', 'fe_gate_blocked', {
+          missing_name: !name,
+          missing_phone: phone.length < 10,
+          missing_consent: !form.consent.checked
+        });
+      } catch (e) {}
+      bwShowFirstError();
+      return;
+    }
 
     var qp = new URLSearchParams(window.location.search);
     var src = (qp.get("src") || "").trim();
