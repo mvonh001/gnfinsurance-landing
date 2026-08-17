@@ -62,9 +62,15 @@
   </url>
   <url>
     <loc>https://brightwaterinsurancegroup.com/blog/index.html</loc>
-    <lastmod>2026-08-10</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brightwaterinsurancegroup.com/blog/the-part-b-late-enrollment-penalty-explained.html</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://brightwaterinsurancegroup.com/blog/turning-65-in-miami-dade-local-resources.html</loc>

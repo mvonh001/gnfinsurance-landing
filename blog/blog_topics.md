@@ -18,7 +18,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 
 ## EVERGREEN — general
 - [x] Medicare & the 20-employee rule: how employer size decides whether you enroll at 65 — PUBLISHED 2026-08-03 · medicare-and-the-20-employee-rule
-- [q] The Part B late-enrollment penalty, explained as percentages (and how to never owe it) — QUEUED 2026-07-21 · the-part-b-late-enrollment-penalty-explained
+- [x] The Part B late-enrollment penalty, explained as percentages (and how to never owe it) — PUBLISHED 2026-08-17 · the-part-b-late-enrollment-penalty-explained
 - [ ] The Part D late-enrollment penalty and the "creditable coverage" letter you shouldn't throw away
 - [ ] COBRA and Medicare: the trap almost nobody warns you about
 - [ ] HSAs and Medicare: why the six-month lookback matters if you're still contributing
@@ -52,6 +52,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - NEWS SWEEP 2026-08 QUEUED · news-roundup-2026-08 (queued 2026-08-01)
 
 ## PUBLISHED LOG (auto-appended by the job: date · slug · topic)
+- 2026-08-17 · the-part-b-late-enrollment-penalty-explained · Part B late-enrollment penalty as percentages (queue-first)
 - 2026-08-10 · turning-65-in-miami-dade-local-resources · Miami-Dade local resources SHINE/Medicare.gov/agent (queue-first)
 - 2026-08-03 · medicare-and-the-20-employee-rule · 20-employee rule / employer size (queue-first)
 - 2026-07-27 · hurricanes-and-your-medicare-disaster-sep · disaster SEP (queue-first, rebrand pipeline fix)
