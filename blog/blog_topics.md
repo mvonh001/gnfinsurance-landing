@@ -17,6 +17,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [ ] New-year: "New year, new plan: making sure your doctors and medications carried over" (window: Jan 1–31)
 
 ## EVERGREEN — general
+- [x] Turning 65 in Florida: the plain-English checklist (statewide) — PUBLISHED 2026-08-18 (manual, operator request) · turning-65-in-florida-plain-english-checklist
 - [x] Medicare & the 20-employee rule: how employer size decides whether you enroll at 65 — PUBLISHED 2026-08-03 · medicare-and-the-20-employee-rule
 - [x] The Part B late-enrollment penalty, explained as percentages (and how to never owe it) — PUBLISHED 2026-08-17 · the-part-b-late-enrollment-penalty-explained
 - [ ] The Part D late-enrollment penalty and the "creditable coverage" letter you shouldn't throw away
