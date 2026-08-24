@@ -50,9 +50,10 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 
 ## HARVESTED (from ads search-terms — auto-appended once campaigns run)
 (empty — populates after launch)
-- NEWS SWEEP 2026-08 QUEUED · news-roundup-2026-08 (queued 2026-08-01)
+- [x] NEWS SWEEP 2026-08 · news-roundup-2026-08 (queued 2026-08-01) — PUBLISHED 2026-08-24
 
 ## PUBLISHED LOG (auto-appended by the job: date · slug · topic)
+- 2026-08-24 · news-roundup-2026-08 · August 2026 Medicare news roundup (queue-first)
 - 2026-08-17 · the-part-b-late-enrollment-penalty-explained · Part B late-enrollment penalty as percentages (queue-first)
 - 2026-08-10 · turning-65-in-miami-dade-local-resources · Miami-Dade local resources SHINE/Medicare.gov/agent (queue-first)
 - 2026-08-03 · medicare-and-the-20-employee-rule · 20-employee rule / employer size (queue-first)
