@@ -9,7 +9,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 5. Refresh rule: evergreen posts get an annual UPDATE pass (same URL, freshened content + date) — that is the only sanctioned "recycling."
 
 ## SEASONAL (window-locked)
-- [ ] AEP-prep: "The Annual Enrollment Period is coming — what Oct 15 to Dec 7 actually lets you do" (window: Sept 1–Oct 14)
+- [x] AEP-prep: "The Annual Enrollment Period is coming — what Oct 15 to Dec 7 actually lets you do" (window: Sept 1–Oct 14) — PUBLISHED 2026-08-31 · annual-enrollment-period-what-it-actually-lets-you-do
 - [ ] AEP-live: "AEP is open: a calm checklist for reviewing your plan before Dec 7" (window: Oct 15–Nov 25)
 - [ ] OEP: "Enrolled in a Medicare Advantage plan and having second thoughts? The Jan 1–Mar 31 window explained" (window: Dec 26–Mar 1)
 - [x] Hurricane-SEP: "Hurricanes and your Medicare: the disaster Special Enrollment Period Florida seniors should know" (window: Jun 1–Sep 30) — PUBLISHED 2026-07-27 · hurricanes-and-your-medicare-disaster-sep
@@ -53,6 +53,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [x] NEWS SWEEP 2026-08 · news-roundup-2026-08 (queued 2026-08-01) — PUBLISHED 2026-08-24
 
 ## PUBLISHED LOG (auto-appended by the job: date · slug · topic)
+- 2026-08-31 · annual-enrollment-period-what-it-actually-lets-you-do · AEP-prep seasonal (window Sept 1–Oct 14)
 - 2026-08-24 · news-roundup-2026-08 · August 2026 Medicare news roundup (queue-first)
 - 2026-08-17 · the-part-b-late-enrollment-penalty-explained · Part B late-enrollment penalty as percentages (queue-first)
 - 2026-08-10 · turning-65-in-miami-dade-local-resources · Miami-Dade local resources SHINE/Medicare.gov/agent (queue-first)

@@ -62,9 +62,15 @@
   </url>
   <url>
     <loc>https://brightwaterinsurancegroup.com/blog/index.html</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brightwaterinsurancegroup.com/blog/annual-enrollment-period-what-it-actually-lets-you-do.html</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://brightwaterinsurancegroup.com/blog/news-roundup-2026-08.html</loc>
