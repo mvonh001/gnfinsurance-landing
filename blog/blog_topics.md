@@ -51,8 +51,10 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 ## HARVESTED (from ads search-terms — auto-appended once campaigns run)
 (empty — populates after launch)
 - [x] NEWS SWEEP 2026-08 · news-roundup-2026-08 (queued 2026-08-01) — PUBLISHED 2026-08-24
+- [x] NEWS SWEEP 2026-09 · news-roundup-2026-09 (queued 2026-09-01) — PUBLISHED 2026-09-07
 
 ## PUBLISHED LOG (auto-appended by the job: date · slug · topic)
+- 2026-09-07 · news-roundup-2026-09 · September 2026 Medicare news roundup (queue-first)
 - 2026-08-31 · annual-enrollment-period-what-it-actually-lets-you-do · AEP-prep seasonal (window Sept 1–Oct 14)
 - 2026-08-24 · news-roundup-2026-08 · August 2026 Medicare news roundup (queue-first)
 - 2026-08-17 · the-part-b-late-enrollment-penalty-explained · Part B late-enrollment penalty as percentages (queue-first)
