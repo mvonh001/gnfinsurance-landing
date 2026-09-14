@@ -13,7 +13,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [ ] AEP-live: "AEP is open: a calm checklist for reviewing your plan before Dec 7" (window: Oct 15–Nov 25)
 - [ ] OEP: "Enrolled in a Medicare Advantage plan and having second thoughts? The Jan 1–Mar 31 window explained" (window: Dec 26–Mar 1)
 - [x] Hurricane-SEP: "Hurricanes and your Medicare: the disaster Special Enrollment Period Florida seniors should know" (window: Jun 1–Sep 30) — PUBLISHED 2026-07-27 · hurricanes-and-your-medicare-disaster-sep
-- [ ] Snowbird-fall: "Snowbirds and Medicare: what splitting the year between states means for your coverage" (window: Sept–Nov)
+- [x] Snowbird-fall: "Snowbirds and Medicare: what splitting the year between states means for your coverage" (window: Sept–Nov) — PUBLISHED 2026-09-14 · snowbirds-and-medicare-splitting-the-year-between-states
 - [ ] New-year: "New year, new plan: making sure your doctors and medications carried over" (window: Jan 1–31)
 
 ## EVERGREEN — general
@@ -54,6 +54,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [x] NEWS SWEEP 2026-09 · news-roundup-2026-09 (queued 2026-09-01) — PUBLISHED 2026-09-07
 
 ## PUBLISHED LOG (auto-appended by the job: date · slug · topic)
+- 2026-09-14 · snowbirds-and-medicare-splitting-the-year-between-states · Snowbird-fall seasonal (window Sept–Nov), generated fresh (queue empty)
 - 2026-09-07 · news-roundup-2026-09 · September 2026 Medicare news roundup (queue-first)
 - 2026-08-31 · annual-enrollment-period-what-it-actually-lets-you-do · AEP-prep seasonal (window Sept 1–Oct 14)
 - 2026-08-24 · news-roundup-2026-08 · August 2026 Medicare news roundup (queue-first)
