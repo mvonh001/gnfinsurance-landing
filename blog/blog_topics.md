@@ -43,7 +43,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 
 ## EVERGREEN — local / Miami flavor
 - [x] Turning 65 in Miami-Dade: the local resources nobody tells you about (SHIP/SHINE, Medicare.gov, and a local agent) — PUBLISHED 2026-08-10 · turning-65-in-miami-dade-local-resources
-- [ ] Helping your Spanish-speaking parents navigate Medicare: a bilingual family guide (English post)
+- [x] Helping your Spanish-speaking parents navigate Medicare: a bilingual family guide (English post) — PUBLISHED 2026-09-21 · helping-your-spanish-speaking-parents-navigate-medicare
 - [ ] Why Miami seniors should review provider networks yearly (hospital systems shift — no names)
 - [ ] Retiring to Florida: moving your Medicare when you become a Florida resident
 - [ ] Miami-Dade caregivers: helping a parent through their first enrollment
@@ -54,6 +54,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [x] NEWS SWEEP 2026-09 · news-roundup-2026-09 (queued 2026-09-01) — PUBLISHED 2026-09-07
 
 ## PUBLISHED LOG (auto-appended by the job: date · slug · topic)
+- 2026-09-21 · helping-your-spanish-speaking-parents-navigate-medicare · Spanish-speaking parents bilingual family guide (evergreen local, generated fresh, queue empty)
 - 2026-09-14 · snowbirds-and-medicare-splitting-the-year-between-states · Snowbird-fall seasonal (window Sept–Nov), generated fresh (queue empty)
 - 2026-09-07 · news-roundup-2026-09 · September 2026 Medicare news roundup (queue-first)
 - 2026-08-31 · annual-enrollment-period-what-it-actually-lets-you-do · AEP-prep seasonal (window Sept 1–Oct 14)
