@@ -10,7 +10,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 
 ## SEASONAL (window-locked)
 - [x] AEP-prep: "The Annual Enrollment Period is coming — what Oct 15 to Dec 7 actually lets you do" (window: Sept 1–Oct 14) — PUBLISHED 2026-08-31 · annual-enrollment-period-what-it-actually-lets-you-do
-- [ ] AEP-live: "AEP is open: a calm checklist for reviewing your plan before Dec 7" (window: Oct 15–Nov 25)
+- [x] AEP-live: "AEP is open: a calm checklist for reviewing your plan before Dec 7" (window: Oct 15–Nov 25) — PUBLISHED 2026-09-28 · aep-a-calm-checklist-for-reviewing-your-plan-before-dec-7
 - [ ] OEP: "Enrolled in a Medicare Advantage plan and having second thoughts? The Jan 1–Mar 31 window explained" (window: Dec 26–Mar 1)
 - [x] Hurricane-SEP: "Hurricanes and your Medicare: the disaster Special Enrollment Period Florida seniors should know" (window: Jun 1–Sep 30) — PUBLISHED 2026-07-27 · hurricanes-and-your-medicare-disaster-sep
 - [x] Snowbird-fall: "Snowbirds and Medicare: what splitting the year between states means for your coverage" (window: Sept–Nov) — PUBLISHED 2026-09-14 · snowbirds-and-medicare-splitting-the-year-between-states
@@ -54,6 +54,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [x] NEWS SWEEP 2026-09 · news-roundup-2026-09 (queued 2026-09-01) — PUBLISHED 2026-09-07
 
 ## PUBLISHED LOG (auto-appended by the job: date · slug · topic)
+- 2026-09-28 · aep-a-calm-checklist-for-reviewing-your-plan-before-dec-7 · AEP-live seasonal (window Oct 15, ≤3 wks out; titled "AEP opens Oct 15" since not yet open), generated fresh (queue empty)
 - 2026-09-21 · helping-your-spanish-speaking-parents-navigate-medicare · Spanish-speaking parents bilingual family guide (evergreen local, generated fresh, queue empty)
 - 2026-09-14 · snowbirds-and-medicare-splitting-the-year-between-states · Snowbird-fall seasonal (window Sept–Nov), generated fresh (queue empty)
 - 2026-09-07 · news-roundup-2026-09 · September 2026 Medicare news roundup (queue-first)
