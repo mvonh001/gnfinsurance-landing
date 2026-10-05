@@ -52,6 +52,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 (empty — populates after launch)
 - [x] NEWS SWEEP 2026-08 · news-roundup-2026-08 (queued 2026-08-01) — PUBLISHED 2026-08-24
 - [x] NEWS SWEEP 2026-09 · news-roundup-2026-09 (queued 2026-09-01) — PUBLISHED 2026-09-07
+- [x] NEWS SWEEP 2026-10 · news-roundup-2026-10 (queued 2026-10-01) — PUBLISHED 2026-10-05
 
 ## PUBLISHED LOG (auto-appended by the job: date · slug · topic)
 - 2026-09-28 · aep-a-calm-checklist-for-reviewing-your-plan-before-dec-7 · AEP-live seasonal (window Oct 15, ≤3 wks out; titled "AEP opens Oct 15" since not yet open), generated fresh (queue empty)
@@ -70,3 +71,4 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - 2026-07-21 · doctors-and-medications-first-medicare-decision · doctors/meds first
 - 2026-07-21 · working-past-65-medicare-enrollment · working past 65
 - 2026-07-21 · how-to-prepare-for-a-medicare-plan-review-checklist · review prep checklist
+- 2026-10-05 · news-roundup-2026-10 · NEWS SWEEP 2026-10 (published from queue)
