@@ -653,7 +653,6 @@
       s.classList.toggle("active", parseInt(s.getAttribute("data-step"), 10) === n);
     });
     if (n <= TOTAL) {
-      bar.style.width = (n / TOTAL * 100) + "%";
       // V9k: display JOURNEY position, not internal screen id - the gate is
       // screen 7 but journey step 4 (found in the 8/6 vestige sweep: users
       // saw 1,2,3 then "Step 7 of 7" then "Step 4 of 7").
@@ -665,8 +664,10 @@
         // walk this band never takes. Its real journey is 3 screens.
         // Revert: delete this branch, keep the else line.
         stepNum.textContent = "Step " + (n === 7 ? 3 : n) + " of 3";
+        bar.style.width = ((n === 7 ? 3 : n) / 3 * 100) + "%";
       } else {
         stepNum.textContent = "Step " + (DISP[n] || n) + " of " + TOTAL;
+        bar.style.width = ((DISP[n] || n) / TOTAL * 100) + "%";
       }
       stepNum.style.display = "";
     } else {
