@@ -20,7 +20,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [x] Turning 65 in Florida: the plain-English checklist (statewide) — PUBLISHED 2026-08-18 (manual, operator request) · turning-65-in-florida-plain-english-checklist
 - [x] Medicare & the 20-employee rule: how employer size decides whether you enroll at 65 — PUBLISHED 2026-08-03 · medicare-and-the-20-employee-rule
 - [x] The Part B late-enrollment penalty, explained as percentages (and how to never owe it) — PUBLISHED 2026-08-17 · the-part-b-late-enrollment-penalty-explained
-- [ ] The Part D late-enrollment penalty and the "creditable coverage" letter you shouldn't throw away
+- [x ] The Part D late-enrollment penalty and the "creditable coverage" letter you shouldn't throw away — PUBLISHED 2026-10-12 · the-part-d-late-enrollment-penalty-and-the-creditable-coverage-letter
 - [ ] COBRA and Medicare: the trap almost nobody warns you about
 - [ ] HSAs and Medicare: why the six-month lookback matters if you're still contributing
 - [ ] What Medigap letters (Plan G, Plan N) actually mean — the alphabet demystified
@@ -72,3 +72,4 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - 2026-07-21 · working-past-65-medicare-enrollment · working past 65
 - 2026-07-21 · how-to-prepare-for-a-medicare-plan-review-checklist · review prep checklist
 - 2026-10-05 · news-roundup-2026-10 · NEWS SWEEP 2026-10 (published from queue)
+- 2026-10-12 · the-part-d-late-enrollment-penalty-and-the-creditable-coverage-letter · Part D LEP + creditable coverage letter (evergreen general, alternating after local; generated fresh, queue empty)
