@@ -45,7 +45,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [x] Turning 65 in Miami-Dade: the local resources nobody tells you about (SHIP/SHINE, Medicare.gov, and a local agent) — PUBLISHED 2026-08-10 · turning-65-in-miami-dade-local-resources
 - [x] Helping your Spanish-speaking parents navigate Medicare: a bilingual family guide (English post) — PUBLISHED 2026-09-21 · helping-your-spanish-speaking-parents-navigate-medicare
 - [ ] Why Miami seniors should review provider networks yearly (hospital systems shift — no names)
-- [ ] Retiring to Florida: moving your Medicare when you become a Florida resident
+- [x] Retiring to Florida: moving your Medicare when you become a Florida resident — PUBLISHED 2026-10-26 · retiring-to-florida-moving-your-medicare-when-you-become-a-florida-resident
 - [ ] Miami-Dade caregivers: helping a parent through their first enrollment
 
 ## HARVESTED (from ads search-terms — auto-appended once campaigns run)
@@ -73,3 +73,4 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - 2026-07-21 · how-to-prepare-for-a-medicare-plan-review-checklist · review prep checklist
 - 2026-10-05 · news-roundup-2026-10 · NEWS SWEEP 2026-10 (published from queue)
 - 2026-10-12 · the-part-d-late-enrollment-penalty-and-the-creditable-coverage-letter · Part D LEP + creditable coverage letter (evergreen general, alternating after local; generated fresh, queue empty)
+- 2026-10-26 · retiring-to-florida-moving-your-medicare-when-you-become-a-florida-resident · Retiring to Florida / permanent move (evergreen local; queue empty, generated fresh; skipped provider-networks topic — covered by server-only live post will-your-doctor-still-be-in-network-in-january, operator decision pending)
