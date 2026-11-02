@@ -53,6 +53,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [x] NEWS SWEEP 2026-08 · news-roundup-2026-08 (queued 2026-08-01) — PUBLISHED 2026-08-24
 - [x] NEWS SWEEP 2026-09 · news-roundup-2026-09 (queued 2026-09-01) — PUBLISHED 2026-09-07
 - [x] NEWS SWEEP 2026-10 · news-roundup-2026-10 (queued 2026-10-01) — PUBLISHED 2026-10-05
+- [x] NEWS SWEEP 2026-11 · news-roundup-2026-11 (queued 2026-11-01) — PUBLISHED 2026-11-02
 
 ## PUBLISHED LOG (auto-appended by the job: date · slug · topic)
 - 2026-09-28 · aep-a-calm-checklist-for-reviewing-your-plan-before-dec-7 · AEP-live seasonal (window Oct 15, ≤3 wks out; titled "AEP opens Oct 15" since not yet open), generated fresh (queue empty)
@@ -74,3 +75,4 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - 2026-10-05 · news-roundup-2026-10 · NEWS SWEEP 2026-10 (published from queue)
 - 2026-10-12 · the-part-d-late-enrollment-penalty-and-the-creditable-coverage-letter · Part D LEP + creditable coverage letter (evergreen general, alternating after local; generated fresh, queue empty)
 - 2026-10-26 · retiring-to-florida-moving-your-medicare-when-you-become-a-florida-resident · Retiring to Florida / permanent move (evergreen local; queue empty, generated fresh; skipped provider-networks topic — covered by server-only live post will-your-doctor-still-be-in-network-in-january, operator decision pending)
+- 2026-11-02 · news-roundup-2026-11 · NEWS SWEEP 2026-11 (published from queue; index/sitemap rebuilt from live to keep server-only post switching-medicare-plans-what-actually-happens)
