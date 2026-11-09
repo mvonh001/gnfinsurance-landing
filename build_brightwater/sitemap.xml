@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>https://brightwaterinsurancegroup.com/blog/index.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -279,6 +279,18 @@
   <url>
     <loc>https://brightwaterinsurancegroup.com/blog/news-roundup-2026-11.html</loc>
     <lastmod>2026-11-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://brightwaterinsurancegroup.com/blog/the-cost-of-doing-nothing-this-enrollment-season.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://brightwaterinsurancegroup.com/blog/cobra-and-medicare-the-trap-almost-nobody-warns-you-about.html</loc>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>

@@ -21,7 +21,7 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - [x] Medicare & the 20-employee rule: how employer size decides whether you enroll at 65 — PUBLISHED 2026-08-03 · medicare-and-the-20-employee-rule
 - [x] The Part B late-enrollment penalty, explained as percentages (and how to never owe it) — PUBLISHED 2026-08-17 · the-part-b-late-enrollment-penalty-explained
 - [x ] The Part D late-enrollment penalty and the "creditable coverage" letter you shouldn't throw away — PUBLISHED 2026-10-12 · the-part-d-late-enrollment-penalty-and-the-creditable-coverage-letter
-- [ ] COBRA and Medicare: the trap almost nobody warns you about
+- [x] COBRA and Medicare: the trap almost nobody warns you about — PUBLISHED 2026-11-09 · cobra-and-medicare-the-trap-almost-nobody-warns-you-about
 - [ ] HSAs and Medicare: why the six-month lookback matters if you're still contributing
 - [ ] What Medigap letters (Plan G, Plan N) actually mean — the alphabet demystified
 - [ ] Does Medicare cover dental, vision, and hearing? The honest answer
@@ -76,3 +76,4 @@ Machine-consumed by the weekly auto-post job. Human-edited anytime.
 - 2026-10-12 · the-part-d-late-enrollment-penalty-and-the-creditable-coverage-letter · Part D LEP + creditable coverage letter (evergreen general, alternating after local; generated fresh, queue empty)
 - 2026-10-26 · retiring-to-florida-moving-your-medicare-when-you-become-a-florida-resident · Retiring to Florida / permanent move (evergreen local; queue empty, generated fresh; skipped provider-networks topic — covered by server-only live post will-your-doctor-still-be-in-network-in-january, operator decision pending)
 - 2026-11-02 · news-roundup-2026-11 · NEWS SWEEP 2026-11 (published from queue; index/sitemap rebuilt from live to keep server-only post switching-medicare-plans-what-actually-happens)
+- 2026-11-09 · cobra-and-medicare-the-trap-almost-nobody-warns-you-about · COBRA and Medicare (evergreen general, alternating after local; queue empty, generated fresh; index/sitemap built from live to keep server-only post the-cost-of-doing-nothing-this-enrollment-season)
